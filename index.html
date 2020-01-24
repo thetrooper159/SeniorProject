@@ -2,55 +2,19 @@
 <html>
  <head>
    <meta charset="UTF-8">
-   <title>Use Case</title>
+   <title>modulethree</title>
+   <link rel="stylesheet" href="index.css">
  </head>
+ <style>
+
+   </style>
  <body>
-
-   <canvas id="boxOne" width="300" height="300"
-   style="border:1px solid #000000;">
-
-   </canvas>
-   <canvas id="boxTwo" width="300" height="300"
-   style="border:1px solid #000000;">
-
-   </canvas>
-
-   <p id="question"></p>
-<p> What data is sensitive? </p>
-<p>Any information that is relatable to an identified or natural person.  This includes credit card information, home address and phone numbers.</p>
-<p>How will you protect it?</p>
-<p>By making sure that the sourcecode is only visible to the web developers.  Doing this would involve having administrative priveledges.</p>
-<p>What specific technologies will you use for protection?</p>
-<p>I will use HTTPS.  This will secure communication over a computer network.</p>
-<script>
-var text = '{"system":[' +
-'{"firstQuestion":"How do you make sure the system is secure and data safe?","oneAnswer":"It is crucial that no data gets deleted.  Having the user log in with their credentials so that only the user has acces to them.  Their credentials are stored in a database that recognizes their activity when they log in." },' +
-'{"secondQuestion":"What data is sensitive?","twoAnswer":"Any information that is relatable to an identified or natural person." },' +
-'{"thirdQuestion":"How will you protect it?","threeAnswer":"By making sure that the sourcecode is only visible to the web developers.  Doing this would involve having administrative priveledges." }]}'
-
-
-obj = JSON.parse(text);
-document.getElementById("question").innerHTML =
-obj.system[0].firstQuestion + " " + obj.system[0].oneAnswer;
-obj.system[1].secondQuestion + " " + obj.system[1].twoAnswer;
-
-var c = document.getElementById("boxOne");
-var ctx = c.getContext("2d");
-ctx.font = "20px Arial";
-ctx.fillText("Use Case", 30, 30);
-ctx.fillText("customer", 30, 60);
-
-var c = document.getElementById("boxTwo");
-var ctx = c.getContext("2d");
-ctx.font = "20px Arial";
-ctx.fillText("Account", 30, 30);
-ctx.fillText("Create Orders", 30, 60);
-ctx.fillText("Individual Check In", 30, 90);
-ctx.fillText("Group Check In", 30, 120);
-ctx.fillText("View Items", 30, 150);
-ctx.fillText("Feedback", 30, 180);
-
-</script>
+<div><b>Feedback<b></div>
+<legend><b><br><br><br>How was your experience?</br></b></legend>
+        <p>
+          <textarea>Enter text here</textarea>
+        </p>
+<input type="submit" name="submitbutton" onclick="alert('Thank you! Your response has been submitted')"value="submit">
 
 
  </body>
