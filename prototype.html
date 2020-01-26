@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Family House</title>
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="prototypestyle.css">
 </head>
 <header>
 	<nav>
@@ -31,15 +31,22 @@
 			</section>
 			<section id="linens">
 					<div class="section-inner">
-							<h1>Linen Request</h1>
-							<p><li>Please use the menu below to request more linens</li>
-								<li> (>Linen Dropdown Placeholder<)
+						<h1>Linen Request Form</h1>
+									<p id="linens">Please use the drop down then use the submit button for your request</p>
+									<li> (>DROPDOWNPLACEHOLDER<)</li>
+									<button type="button" onclick="myFunction()">Submit</button>
+									<script>
+									function myFunction() {
+									document.getElementById("linens").innerHTML = "Request Received";
+									}
+									</script>
 								</section>
 							</div>
 			<section id="faq">
 				<div class="section inner">
 					<h1>Frequently Asked Questions</h1>
 					<p><li>(>faq placeholder<)</li></P>
+						<li><a href="https://www.familyhouse.org/">More information on who we are</a></li>
 					</section>
 					</div>
 			<section id="shuttle">
