@@ -58,6 +58,28 @@ app.get('/', function(req, res) {
 	});
  });
 
+<<<<<<< Updated upstream
+=======
+ app.post('/requ', function(req, res) {
+   var name = req.body.name;
+   var email = req.body.email;
+   var message = req.body.message;
+
+   var submit = {
+       name: req.body.name,
+       email: req.body.email,
+       message: req.body.message
+       }
+         var conn = mysql.createConnection(credentials.connection);
+         conn.query('INSERT INTO contact SET ?', submit, function(err, results, rows, fields) {
+           if (err) {
+             res.redirect(303, '/linen?error='+err);
+           }else{
+               res.redirect('/requested');
+             }
+           })
+         });
+>>>>>>> Stashed changes
 
  app.use(function(req, res, next){
     res.status(404);
@@ -72,4 +94,8 @@ app.use(function(err, req, res, next){
 app.listen(app.get('port'), function(){
  console.log( 'Express started on http://localhost:' +
  app.get('port') + '; press Ctrl-C to terminate.' );
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 });
