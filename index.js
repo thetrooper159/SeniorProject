@@ -58,6 +58,7 @@ app.get('/', function(req, res) {
 	});
  });
 
+//working code for previously used form
  app.post('/requ', function(req, res) {
    var name = req.body.name;
    var email = req.body.email;
@@ -91,8 +92,4 @@ app.use(function(err, req, res, next){
 app.listen(app.get('port'), function(){
  console.log( 'Express started on http://localhost:' +
  app.get('port') + '; press Ctrl-C to terminate.' );
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 });
