@@ -58,8 +58,6 @@ app.get('/', function(req, res) {
 	});
  });
 
-<<<<<<< Updated upstream
-=======
  app.post('/requ', function(req, res) {
    var name = req.body.name;
    var email = req.body.email;
@@ -79,7 +77,6 @@ app.get('/', function(req, res) {
              }
            })
          });
->>>>>>> Stashed changes
 
  app.use(function(req, res, next){
     res.status(404);
