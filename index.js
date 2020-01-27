@@ -58,6 +58,26 @@ app.get('/', function(req, res) {
 	});
  });
 
+app.get('/login', function(req, res) {
+res.render('home', {
+ 	});
+});
+
+app.get('/about', function(req, res) {
+	res.render('home', {
+		});
+	 });
+
+app.get('/FAQ', function(req, res) {
+	res.render('home', {
+	 	});
+	 });
+
+app.get('/Linen', function(req, res) {
+	 res.render('home', {
+	 		});
+	 	 });
+
 //working code for previously used form
  app.post('/requ', function(req, res) {
    var name = req.body.name;
@@ -72,9 +92,9 @@ app.get('/', function(req, res) {
          var conn = mysql.createConnection(credentials.connection);
          conn.query('INSERT INTO contact SET ?', submit, function(err, results, rows, fields) {
            if (err) {
-             res.redirect(303, '/linen?error='+err);
+             res.redirect(303, '/Linen?error='+err);
            }else{
-               res.redirect('/requested');
+               res.redirect('/Requested');
              }
            })
          });
