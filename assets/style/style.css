@@ -8,4 +8,41 @@ Please Comment for organization purposes
 
 
 /* Nav Bar Styles */
+.navbar.navbar-expand-lg.navbar-dark.main {
+	background-color: transparent;
+}
 
+body {
+	background-image: url('/images/pittsburgh.jpg');
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+ 	-o-background-size: cover;
+ 	background-size: cover;
+}
+
+
+.col-xs-12.home-page-welcome {
+	text-align: center;
+	color: white;
+	margin-top: 10px;
+}
+
+.navbar-image{
+	height: 100px; 
+	width: 200px;
+}
+
+/* This is a media query that will change the style for anything from ipad to lower screen sizes */
+@media screen and (max-width: 768px) {
+	.home-header-text{
+		font-size: 20px;
+		margin-top: 15px;
+	}
+	.navbar-image{
+		height: 50px; 
+		width: 100px;
+	}
+
+		
+
+}

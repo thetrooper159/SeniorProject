@@ -25,9 +25,11 @@ var validator = require('validator');
 var GLOBALS = require('./global_settings.js');
 
 
-
+/* Initializing App */
 var app = express();
 
+
+/* Adding locations for easier use within pages  */
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/framework'));
 
