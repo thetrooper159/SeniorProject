@@ -64,17 +64,22 @@ res.render('home', {
 });
 
 app.get('/about', function(req, res) {
-	res.render('home', {
+	res.render('about', {
+		});
+	 });
+
+app.get('/alert', function(req, res) {
+	res.render('alert', {
 		});
 	 });
 
 app.get('/FAQ', function(req, res) {
-	res.render('home', {
+	res.render('FAQ', {
 	 	});
 	 });
 
 app.get('/Linen', function(req, res) {
-	 res.render('home', {
+	 res.render('Linen', {
 	 		});
 	 	 });
 
