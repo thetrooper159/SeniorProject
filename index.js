@@ -1,6 +1,6 @@
 /*****************
 
-Controller For Family House 
+Controller For Family House
 
 *****************/
 
@@ -72,37 +72,36 @@ app.set('port', process.env.PORT || 3000);
 
 /**********************
 
-Start of Routing Pages 
+Start of Routing Pages
 
 ***********************/
 
 /* Home Page */
 app.get('/', function(req, res) {
  res.render('home', {
-	
+
 	 });
  });
- 
+
  /* Push Notifications Page */
  app.get('/push', function(req, res) {
  	res.render('push', {
-	
+
 	 });
  });
- 
+
  /* Linen Request */
- 
+
  app.get('/linen', function(req, res) {
  res.render('linen', {
 	
-	 
 	});
  });
- 
- 
- 
+
+
+
  //*******KEEP ALL ROUTES ABOVE THIS ******************//
- 
+
  /* 404 Error Page */
  app.use(function(req, res, next){
     res.status(404);
@@ -119,11 +118,11 @@ app.use(function(err, req, res, next){
 
 /**********************
 
-Start of Routing Pages 
+Start of Routing Pages
 
 ***********************/
 
-/* Start Server */ 
+/* Start Server */
 app.listen(app.get('port'), function(){
  console.log( 'Express started on http://localhost:' +
  app.get('port') + '; press Ctrl-C to terminate.' );
