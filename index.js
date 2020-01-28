@@ -79,6 +79,7 @@ Start of Routing Pages
 /* Home Page */
 app.get('/', function(req, res) {
   res.render('home', {
+    name: "Mark"
   });
 });
 
