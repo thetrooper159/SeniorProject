@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="UTF-8">
+   <title>Linens</title>
+   <link rel="stylesheet" href="index.css">
+ </head>
+ <script>
+   function myFunction() {
+  var txt;
+  var person = prompt("How many towels?", "");
+  if (person == null || person == "") {
+    txt = "Your order was cancelled";
+  } else {
+    txt = "" + person + "";
+  }
+  document.getElementById("display").innerHTML = txt;
+}
+</script>
+ <body>
+<div>
+<h1>Linens</h1>
+
+</div>
+<br><br><br><p>Number of towels</p>
+<p id="display"></p>
+<br><br><button onclick="myFunction()">Enter</button>
+
+</body>
+</html>
