@@ -10,19 +10,27 @@ var express = require('express');
 var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
 const fs = require('fs');
-var mysql = require('mysql');
+//var mysql = require('mysql');
+var mysql = require('mysql2');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 var validator = require('validator');
 
 
+/*
+	BMR: JUST A NOTE TO ALL.... We will not be using npm package sql for our queries... instead we will be using mysql2
+	This is built on top of mysql and makes quering data a lot simpler.
+	For more information visit: https://www.npmjs.com/package/mysql2
+*/
 
 
 
 
 /*Required Modules */
 var GLOBALS = require('./global_settings.js');
+var sql = require('./settings.js');
+const GET_Faq = require('./framework/get/get_faq.js');
 
 
 /* Initializing App */
@@ -80,7 +88,6 @@ Start of Routing Pages
 /* Home Page */
 app.get('/', function(req, res) {
   res.render('home', {
-    name: "Mark"
   });
 });
 
@@ -95,6 +102,24 @@ app.get('/linen', function(req, res) {
   res.render('linen', {
   });
 });
+
+/*  
+This is going to be a good example of callbacks, and sql for pulling in data. Go to /framework/get/get_faq.js to view the sql queries and get additional information.
+*/
+app.get('/faq', function(req, res) {
+  res.render('faq', {
+		headers           :    GET_Faq.headers,
+		general           :    GET_Faq.general,
+		allhouses         :    GET_Faq.all_houses,
+		families          :    GET_Faq.families,
+		transportation    :    GET_Faq.transportation,
+		neville           :    GET_Faq.neville,
+		shadyside         :    GET_Faq.shadyside,
+		university        :    GET_Faq.university,
+	
+  });
+});	
+
 
 
 
