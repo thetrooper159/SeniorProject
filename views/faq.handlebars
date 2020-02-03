@@ -1,15 +1,22 @@
 <br>
 <h1 style="text-align: center">F.A.Q.</h1>
-	{{#each headers}}
-		{{ this.title }}
-	{{/each}}
+{{#each headers}}
+	{{ this.title }}
+{{/each}}
 <!--asdsdd-->
 <form action="/action_page.php" target="_blank">
-  Question:<br>
-  <input type="text" name="Question">
-  <br>
-  Answer:<br>
-  <input type="text" name="Answer">
-  <br><br>
-  <input type="submit" value="Submit">
+	Question:<br>
+	<input type="text" name="Question">
+	<br>
+	Answer:<br>
+	<input type="text" name="Answer">
+	<br><br>
+	<select>
+		<option value="volvo">Volvo</option>
+		<option value="saab">Saab</option>
+		<option value="opel">Opel</option>
+		<option value="audi">Audi</option>
+	</select>
+	<br><br>
+	<input type="submit" value="Submit">
 </form>
