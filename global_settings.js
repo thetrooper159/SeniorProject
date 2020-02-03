@@ -18,5 +18,5 @@ exports.nav_items = function(){
   
   ]
  return nav;
-}
+}  
 
