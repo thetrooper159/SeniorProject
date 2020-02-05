@@ -2,9 +2,9 @@
 
 For Getting Information for the faq page
 
-This is a great example module on sql queries for data. 
+This is a great example module on sql queries for data.
 
-The tables used are faq and faq_sections. 
+The tables used are faq and faq_sections.
 faq_sections have an Id and title
 faq has Id, section_Id, question, answer, and Order
 
@@ -30,8 +30,8 @@ const connection = mysql.createConnection(sql);
 
 
 
-/* 
-	Function For Getting all the Headers We will be using callback to get our data to our variable 
+/*
+	Function For Getting all the Headers We will be using callback to get our data to our variable
 	I will only be commenting heavily on this function on this page, all the others will be minimal comments
 */
 function GetHeaders(callback){
@@ -39,7 +39,7 @@ function GetHeaders(callback){
 	connection.query(
 		//Our Query This is very Simple Since all we need is all the headers
 		'SELECT title FROM faq_sections',
-		/* 
+		/*
 			After our query we run this function. err is if the query spits an error... eventually we should check for this. Results is the query results aka what you will want to return! fields is a bunch of other things that you will never need to worry about
 			Note: These field names can be called anything, noting this just for understanding purposes :0
 		*/
@@ -53,12 +53,12 @@ function GetHeaders(callback){
 
 			}
 		}
-	
+
 	);
 }
 
 /* Now we call our function so we can put the data from our callback inside of an export... Doing it this way keeps our index.js clean */
-GetHeaders(function(status, results){ 
+GetHeaders(function(status, results){
 	exports.headers = results;
 });
 
@@ -214,4 +214,3 @@ function GetUniversityPlace(callback){
 GetUniversityPlace(function(status, results){
 	exports.university = results;
 });
-
