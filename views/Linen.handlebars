@@ -1,1 +1,49 @@
-Linen
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="UTF-8">
+   <title>Linens</title>
+ </head>
+ <script>
+ function myFunction() {
+var txt;
+var person = prompt("How many people are staying?", "");
+if (person == null || person == "") {
+  txt = "Your order was cancelled";
+} else {
+  txt = "" + person + "";
+}
+document.getElementById("display").innerHTML = txt;
+
+}
+function numberTowels() {
+var txt;
+var person = prompt("How many towels?", "");
+if (person == null || person == "") {
+ txt = "Your order was cancelled";
+} else {
+ txt = "" + person + "";
+}
+document.getElementById("towels").innerHTML = txt;
+}
+ </script>
+ <body>
+<center><h1>Linens</h1></center>
+
+<table style="width:100%">
+  <tr>
+    <br><br><th>Number of people per room <p id="display"></p></th>
+  </tr>
+  <tr>
+    <th><center><br><br><button onclick="myFunction()">Enter</button></center></th>
+    <!--<th><p id="display"></p></th>-->
+  </tr>
+  <tr>
+    <th><br><br>Number of towels <p id="towels"></p></th>
+    
+  </tr>
+  <th><br><br><button onclick="numberTowels()">Enter</button></th>
+  <!--<center><p id="display"></p><center>-->
+
+ </body>
+</html>
