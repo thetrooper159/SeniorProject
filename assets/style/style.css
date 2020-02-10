@@ -13,7 +13,8 @@ Please Comment for organization purposes
 }
 
 body {
-	background-image: url('/images/pittsburgh.jpg');
+	background-color: #E2D478;
+
 	-webkit-background-size: cover;
   	-moz-background-size: cover;
  	-o-background-size: cover;
@@ -28,8 +29,8 @@ body {
 }
 
 .navbar-image{
-	height: 100px;
-	width: 200px;
+	height: 50px;
+	width: 100px;
 }
 
 /* This is a media query that will change the style for anything from ipad to lower screen sizes */
@@ -45,4 +46,36 @@ body {
 
 
 
+}
+
+
+
+
+/* FAQ PAGE STYLES */
+
+.faq-page-header-text{
+    color: #565A5C;
+    text-align: center;
+
+}
+
+.faq-page-form{
+    color: #565A5C;
+}
+
+.faq-jumbo-button{
+	background-color: #E2D478;
+	color: #565A5C;
+
+}
+
+.faq-jumbo-button:hover{
+	background-color: #565A5C;
+	color: #E2D478;
+
+}
+
+.jumbo-faq .jumbotron {
+	background-color: #565A5C;
+	color: #E2D478;
 }
