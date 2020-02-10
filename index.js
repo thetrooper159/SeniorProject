@@ -112,12 +112,11 @@ app.get('/faq', function(req, res) {
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
-				families          :    data.families,
+				families          :    data.forfamilies,
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				university        :    data.university
-
+				university        :    data.universityplace
   			});
 		}
 

@@ -19,7 +19,7 @@ exports.getAll = function(data){
 						}else{
 							connection.query(
 							'SELECT * FROM faq WHERE section_Id=2',
-								function(err, families, fields) {
+								function(err, forfamilies, fields) {
 									if(err){
 										data({error: err});
 									}else{
@@ -50,11 +50,11 @@ exports.getAll = function(data){
 																					}else{
 																						connection.query(
 																							'SELECT * FROM faq WHERE section_Id=7',
-																							function(err, university, fields) {
+																							function(err, universityplace, fields) {
 																								if(err){
 																									data({error: err});
 																								}else{
-																									data({ 'headers' : headers, 'general' : general, 'families' : families, 'allhouses' :  allhouses, 'transportation' : transportation, 'neville' : neville, 'shadyside' : shadyside, 'university': university});
+																									data({ 'headers' : headers, 'general' : general, 'families' : forfamilies, 'allhouses' :  allhouses, 'transportation' : transportation, 'neville' : neville, 'shadyside' : shadyside, 'university': universityplace});
 																								}
 																							}
 																						);
