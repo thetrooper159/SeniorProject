@@ -1,6 +1,6 @@
 /*****************
 
-Controller For Family House 
+Controller For Family House
 
 *****************/
 
@@ -81,7 +81,7 @@ app.set('port', process.env.PORT || 3000);
 
 /**********************
 
-Start of Routing Pages 
+Start of Routing Pages
 
 ***********************/
 
@@ -117,14 +117,12 @@ app.get('/faq', function(req, res) {
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
 				university        :    data.university
-	
-  			});	
+
+  			});
 		}
-	
+
 	});
-});	
-
-
+});
 
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
@@ -145,11 +143,11 @@ app.use(function(err, req, res, next){
 
 /**********************
 
-Stop of Routing Pages 
+Stop of Routing Pages
 
 ***********************/
 
-/* Start Server */ 
+/* Start Server */
 app.listen(app.get('port'), function(){
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
