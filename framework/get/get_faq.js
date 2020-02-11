@@ -86,23 +86,7 @@ exports.getAll = function(data){
 		}
 	);
 };
-	/*
-	
 
-
-
-	connection.query(
-		'SELECT * FROM faq WHERE section_Id=7',
-		function(err, results, fields) {
-			if(err){
-				data({error: err});
-			}else{
-				data({university : results});
-			}
-		}
-	);
-	
-	 */
 
 
 

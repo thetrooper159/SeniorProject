@@ -105,9 +105,7 @@ app.get('/linen', function(req, res) {
 
 app.get('/faq', function(req, res) {
 	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
+	console.log(data.headers);
 			res.render('faq', {
 				headers           :    data.headers,
 				general           :    data.general,
@@ -118,11 +116,14 @@ app.get('/faq', function(req, res) {
 				shadyside         :    data.shadyside,
 				university        :    data.university
 	
-  			});	
-		}
-	
+  			});
 	});
 });	
+
+
+app.get('/getfaq/api/v1', function(req, res){
+	GET_Faq.api();
+});
 
 
 
