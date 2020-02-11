@@ -1,63 +1,20 @@
-<!DOCTYPE html>
-<html>
- <head>
-   <meta charset="UTF-8">
-   <title>Linens</title>
- </head>
+
+<div>
+	<h1>Linens</h1>
+</div>
+<p>Number of people per room</p>
+<p id="display"></p>
+<br><br><button onclick="myFunction()">Enter</button>
+
  <script>
- function myFunction() {
-var txt;
-var person = prompt("How many people are staying?", "");
-if (person == null || person == "") {
-  txt = "Your order was cancelled";
-} else {
-  txt = "" + person + "";
+   function myFunction() {
+  var txt;
+  var person = prompt("How many people are staying?", "");
+  if (person == null || person == "") {
+    txt = "Your order was cancelled";
+  } else {
+    txt = "" + person + "";
+  }
+  document.getElementById("display").innerHTML = txt;
 }
-document.getElementById("display").innerHTML = txt;
-
-}
-function numberTowels() {
-var txt;
-var person = prompt("How many towels?", "");
-if (person == null || person == "") {
- txt = "Your order was cancelled";
-} else {
- txt = "" + person + "";
-}
-document.getElementById("towels").innerHTML = txt;
-}
-
-function submitApp() {
-var txt;
-var person = prompt("Your request has been submitted", "");
-if (person == null || person == "") {
- txt = "Your order was cancelled";
-} else {
- txt = "" + person + "";
-}
-document.getElementById("submit").innerHTML = txt;
-}
- </script>
- <body>
-<center><h1>Linens</h1></center>
-
-<table style="width:100%">
-  <tr>
-    <br><br><th><center>Number of people per room <p id="display"</center></p></th>
-  </tr>
-  <tr>
-    <th><center><br><br><button onclick="myFunction()">Enter</button></center></th>
-    <!--<th><p id="display"></p></th>-->
-  </tr>
-  <tr>
-    <th><br><br><center>Number of towels <p id="towels"</center></p></th>
-
-  </tr>
-  <th><br><br><center><button onclick="numberTowels()">Enter</center></button></th>
-  <tr>
-	<th><br><br><br><center><button onclick="submitApp()">Submit</center></button></th>
-</tr>
-  <!--<center><p id="display"></p><center>-->
-
- </body>
-</html>
+</script>

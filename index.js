@@ -1,6 +1,6 @@
 /*****************
 
-Controller For Family House 
+Controller For Family House
 
 *****************/
 
@@ -30,7 +30,7 @@ var validator = require('validator');
 /*Required Modules */
 var GLOBALS = require('./global_settings.js');
 var sql = require('./settings.js');
-const GET_Faq = require('./framework/get/get_faq.js');
+var GET_Faq = require('./framework/get/get_faq.js');
 
 
 /* Initializing App */
@@ -81,7 +81,7 @@ app.set('port', process.env.PORT || 3000);
 
 /**********************
 
-Start of Routing Pages 
+Start of Routing Pages
 
 ***********************/
 
@@ -103,24 +103,25 @@ app.get('/linen', function(req, res) {
   });
 });
 
-/*  
-This is going to be a good example of callbacks, and sql for pulling in data. Go to /framework/get/get_faq.js to view the sql queries and get additional information.
-*/
 app.get('/faq', function(req, res) {
-  res.render('faq', {
-		headers           :    GET_Faq.headers,
-		general           :    GET_Faq.general,
-		allhouses         :    GET_Faq.all_houses,
-		families          :    GET_Faq.families,
-		transportation    :    GET_Faq.transportation,
-		neville           :    GET_Faq.neville,
-		shadyside         :    GET_Faq.shadyside,
-		university        :    GET_Faq.university,
-	
-  });
-});	
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				families          :    data.forfamilies,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				university        :    data.universityplace
+  			});
+		}
 
-
+	});
+});
 
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
@@ -141,11 +142,11 @@ app.use(function(err, req, res, next){
 
 /**********************
 
-Start of Routing Pages 
+Stop of Routing Pages
 
 ***********************/
 
-/* Start Server */ 
+/* Start Server */
 app.listen(app.get('port'), function(){
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
