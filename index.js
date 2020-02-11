@@ -112,19 +112,16 @@ app.get('/faq', function(req, res) {
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
-				families          :    data.forfamilies,
+				forfamilies       :    data.families,
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				university        :    data.universityplace
-
+				universityplace   :    data.universityplace
   			});
 		}
 
 	});
 });
-
-
 
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
