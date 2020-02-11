@@ -1,3 +1,12 @@
+<style>
+table, th, td {
+  border: 2px solid black;
+  background-color: white;
+  padding: 20px;
+
+}
+</style>
+
 <div class="faq-page-header-text">
     <h1 style="text-align: center;">F.A.Q.</h1><br />
     <p>Click on a section to Edit Its content</p>
@@ -35,8 +44,20 @@
 			</button>
 		  </div>
 		  <div class="modal-body">
-				{{#general}}
-				{{/general}}
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each general}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+				{{/each}}
+       </tbody>
+       </table>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -58,8 +79,20 @@
         </button>
       </div>
       <div class="modal-body">
-       {{#forfamilies}}
-       {{/forfamilies}}
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each forfamilies}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+				{{/each}}
+       </tbody>
+       </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -69,7 +102,7 @@
   </div>
 </div>
 <!-- All Houses -->
-<div class="modal fade" id="forfamilies" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="allhouses" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,8 +112,20 @@
         </button>
       </div>
       <div class="modal-body">
-       {{#allhouses}}
-       {{/allhouses}}
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each allhouses}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -100,8 +145,20 @@
         </button>
       </div>
       <div class="modal-body">
-       {{#transportation}}
-       {{/transportation}}
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each transportation}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -121,8 +178,20 @@
         </button>
       </div>
       <div class="modal-body">
-       {{#neville}}
-       {{/neville}}
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each neville}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -142,8 +211,20 @@
         </button>
       </div>
       <div class="modal-body">
-       {{#shadyside}}
-       {{/shadyside}}
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each shadyside}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -163,8 +244,20 @@
         </button>
       </div>
       <div class="modal-body">
-       {{#universityplace}}
-       {{/universityplace}}
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each universityplace}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
