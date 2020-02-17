@@ -1,10 +1,11 @@
-
-<div>
-	<h1>Linens</h1>
+<!--<center><h1>Linens</h1></center>
 </div>
-<p>Number of people per room</p>
-<p id="display"></p>
-<br><br><button onclick="myFunction()">Enter</button>
+<center><p>Number of people per room</p></center>
+<center><p id="display"></p></center>
+<center><br><br><button onclick="myFunction()">Enter</button></center>
+<center><br><br><p>Number of towels<p><center>
+<center><p id="towels"></p></center>
+<center><br><br><button onclick="linenTowels()">Enter</button></center>
 
  <script>
    function myFunction() {
@@ -16,5 +17,51 @@
     txt = "" + person + "";
   }
   document.getElementById("display").innerHTML = txt;
+}
+function linenTowels() {
+var txt;
+var person = prompt("Number of towels?", "");
+if (person == null || person == "") {
+ txt = "Your order was cancelled";
+} else {
+ txt = "" + person + "";
+}
+document.getElementById("towels").innerHTML = txt;
+}
+-->
+
+<center>Number of people per room: <input id="nameId" type="text" value=""><br><br></center>
+<!--<center><input id="buttonId" type="submit"><br><br></center>-->
+
+<!--<center><br><br><button onclick="myFunction()">Enter</button></center>-->
+<div id="containerId"><div>
+
+<br><center>How many towels: <input id="nameId" type="text" value=""><br><br></center>
+<!--<center><input id="buttonId" type="submit"><br><br></center>-->
+<div id="containerId"><div>
+
+
+<center><label for="event">Sheets</label><br></center>
+<center><input type="checkbox" name="event" value="event"></center><center><p>King</p></center>
+<br><center><input type="checkbox" name="event" value="event"></center><center><p>Queen</p></center>
+
+
+<center><br><input type="submit"><center>
+
+
+<script>
+
+var myName;
+var myTemplate = $('#myTempId').html();
+var compiled = Handlebars.compile(myTemplate);
+
+
+$('#buttonId').click(function(){
+  myName = $('#nameId').val();
+  $('#containerId').html(compiled({name:myName}));
+});
+
+app.get('/linen', function(req, res) {
+  res.render('linen');
 }
 </script>
