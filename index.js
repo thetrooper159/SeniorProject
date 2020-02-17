@@ -99,7 +99,6 @@ app.get('/push', function(req, res) {
 
 /* Linen Request  */
 app.get('/linen', function(req, res) {
-  res.render('linen', {
     const connection = mysql.createConnection(sql);
   connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
    function(err, results, rows, fields){
