@@ -17,8 +17,7 @@ function insertNotification(notification, callback) {
 }
 
 insertNotification({
-  guest: "Some guest"
-  house: "Enter house"
+  title: "guest",
 }, function() {
   console.log("done!");
 });
