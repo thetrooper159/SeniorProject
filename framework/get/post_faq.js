@@ -3,8 +3,26 @@ var sql = require('../../settings.js');
 
 const connection = mysql.createConnection(sql);
 
+var id = req.body.Id;
+var ques = req.body.ques;
+var ans = req.body.ans;
 
-exports.getAll = function(data){
+var submit = {
+		name: req.body.name,
+		email: req.body.email,
+		message: req.body.message
+		}
+			var conn = mysql.createConnection(credentials.connection);
+			conn.query('INSERT INTO contact SET ?', submit, function(err, results, rows, fields) {
+				if (err) {
+					res.redirect(303, '/contact?error='+err);
+				}else{
+						res.redirect('/contacted');
+					}
+				})
+			});
+
+exports.postAll = function(data){
 	connection.query(
 		'SELECT * FROM faq_sections',
 		function(err, headers, fields) {

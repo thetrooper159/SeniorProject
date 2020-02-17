@@ -97,9 +97,13 @@ app.get('/push', function(req, res) {
   });
 });
 
-/* Linen Request */
+/* Linen Request  */
 app.get('/linen', function(req, res) {
-  res.render('linen', {
+    const connection = mysql.createConnection(sql);
+  connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+   function(err, results, rows, fields){
+    console.log(results);
+    res.render('linen', {rows: results});
   });
 });
 
@@ -112,14 +116,13 @@ app.get('/faq', function(req, res) {
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
-				families          :    data.forfamilies,
+				forfamilies       :    data.families,
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				university        :    data.universityplace
+				universityplace   :    data.universityplace
   			});
 		}
-
 	});
 });
 
