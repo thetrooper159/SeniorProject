@@ -7,7 +7,7 @@ Controller For Family House
 
 //Required packages for project
 var express = require('express');
-var exphbs  = require('express-handlebars');
+var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 const fs = require('fs');
 //var mysql = require('mysql');
@@ -55,7 +55,9 @@ app.use(session({
 
 
 /* Setting Up bodparser inside of app */
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 app.use(express.urlencoded());
 
@@ -87,68 +89,65 @@ Start of Routing Pages
 
 /* Home Page */
 app.get('/', function(req, res) {
-  res.render('home', {
-  });
+  res.render('home', {});
 });
 
 /* Push Notifications Page */
 app.get('/push', function(req, res) {
-  res.render('push', {
-  });
+  res.render('push', {});
 });
 
 app.get('/push', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
-			res.render('faq', {
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
-		}
+  GET_PUSH.getAll(function(data) {
+    if (data.error) {
+      res.redirect('/500');
+    } else {
+      res.render('push', {
+        neville: data.neville,
+        shadyside: data.shadyside,
+        universityplace: data.universityplace,
+      });
+    }
 
-	});
+  });
 });
 
 /* Linen Request */
 app.get('/linen', function(req, res) {
-  res.render('linen', {
-  });
+  res.render('linen', {});
 });
 
 app.get('/faq', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
-			res.render('faq', {
-				headers           :    data.headers,
-				general           :    data.general,
-				allhouses         :    data.allhouses,
-				forfamilies       :    data.families,
-				transportation    :    data.transportation,
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
-		}
+  GET_Faq.getAll(function(data) {
+    if (data.error) {
+      res.redirect('/500');
+    } else {
+      res.render('faq', {
+        headers: data.headers,
+        general: data.general,
+        allhouses: data.allhouses,
+        forfamilies: data.families,
+        transportation: data.transportation,
+        neville: data.neville,
+        shadyside: data.shadyside,
+        universityplace: data.universityplace
+      });
+    }
 
-	});
+  });
 });
 
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
 
 /* 404 Error Page */
-app.use(function(req, res, next){
+app.use(function(req, res, next) {
   res.status(404);
   res.render('404');
 });
 
 /* 500 Error Page */
-app.use(function(err, req, res, next){
+app.use(function(err, req, res, next) {
   console.log(err.stack);
   res.status(500);
   res.render('500');
@@ -162,6 +161,6 @@ Stop of Routing Pages
 ***********************/
 
 /* Start Server */
-app.listen(app.get('port'), function(){
+app.listen(app.get('port'), function() {
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
