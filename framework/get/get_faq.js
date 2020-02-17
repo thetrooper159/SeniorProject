@@ -54,7 +54,7 @@ exports.getAll = function(data){
 																								if(err){
 																									data({error: err});
 																								}else{
-																									data({ 'headers' : headers, 'general' : general, 'families' : forfamilies, 'allhouses' :  allhouses, 'transportation' : transportation, 'neville' : neville, 'shadyside' : shadyside, 'university': universityplace});
+																									data({ 'headers' : headers, 'general' : general, 'families' : forfamilies, 'allhouses' :  allhouses, 'transportation' : transportation, 'neville' : neville, 'shadyside' : shadyside, 'universityplace': universityplace});
 																								}
 																							}
 																						);
