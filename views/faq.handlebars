@@ -49,15 +49,14 @@ textarea {
         <table>
         <tbody>
           <tr>
-            <th>ID</th>
             <th>Question</th>
             <th>Answer</th>
           </tr>
         {{#each general}}
         <tr>
-          <td>{{Id}}</td>
           <td>{{question}}</td>
           <td>{{answer}}</td>
+          <td><a class="btn btn-primary btn-lg faq-jumbo-button" href="#" role="button"  data-toggle="modal" data-target="#{{ code }}">Edit</a></td>
         </tr>
 				{{/each}}
        </tbody>
@@ -90,8 +89,8 @@ textarea {
           </tr>
         {{#each forfamilies}}
         <tr>
-          <td><input type="text" id="forques" name="forques" value="{{question}}"></td>
-          <td><input type="text" id="forans" name="forans" value="{{answer}}"></td>
+          <td><input type="text" id="forques_{{Id}}" name="forques" value="{{question}}"></td>
+          <td><input type="text" id="forans_{{Id}}" name="forans" value="{{answer}}"></td>
         </tr>
 				{{/each}}
        </tbody>

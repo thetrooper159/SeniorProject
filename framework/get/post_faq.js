@@ -8,19 +8,10 @@ var ques = req.body.ques;
 var ans = req.body.ans;
 
 var submit = {
-		name: req.body.name,
-		email: req.body.email,
-		message: req.body.message
+		Id: req.body.Id,
+		ques: req.body.ques,
+		ans: req.body.ans
 		}
-			var conn = mysql.createConnection(credentials.connection);
-			conn.query('INSERT INTO contact SET ?', submit, function(err, results, rows, fields) {
-				if (err) {
-					res.redirect(303, '/contact?error='+err);
-				}else{
-						res.redirect('/contacted');
-					}
-				})
-			});
 
 exports.postAll = function(data){
 	connection.query(
@@ -30,7 +21,7 @@ exports.postAll = function(data){
 				data({error: err});
 			}else{
 				connection.query(
-					'SELECT * FROM faq WHERE section_Id=1',
+					'UPDATE * FROM faq WHERE section_Id=1', submit,
 					function(err, general, fields) {
 						if(err){
 							data({error: err});
