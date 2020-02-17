@@ -97,6 +97,21 @@ app.get('/push', function(req, res) {
   });
 });
 
+app.get('/push', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq', {
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+
+	});
+});
+
 /* Linen Request */
 app.get('/linen', function(req, res) {
   res.render('linen', {
