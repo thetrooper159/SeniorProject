@@ -1,6 +1,6 @@
 /*****************
 
-Controller For Family House 
+Controller For Family House
 
 *****************/
 
@@ -10,19 +10,27 @@ var express = require('express');
 var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
 const fs = require('fs');
-var mysql = require('mysql');
+//var mysql = require('mysql');
+var mysql = require('mysql2');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 var validator = require('validator');
 
 
+/*
+	BMR: JUST A NOTE TO ALL.... We will not be using npm package sql for our queries... instead we will be using mysql2
+	This is built on top of mysql and makes quering data a lot simpler.
+	For more information visit: https://www.npmjs.com/package/mysql2
+*/
 
 
 
 
 /*Required Modules */
 var GLOBALS = require('./global_settings.js');
+var sql = require('./settings.js');
+var GET_Faq = require('./framework/get/get_faq.js');
 
 
 /* Initializing App */
@@ -73,14 +81,13 @@ app.set('port', process.env.PORT || 3000);
 
 /**********************
 
-Start of Routing Pages 
+Start of Routing Pages
 
 ***********************/
 
 /* Home Page */
 app.get('/', function(req, res) {
   res.render('home', {
-    name: "Mark"
   });
 });
 
@@ -96,6 +103,25 @@ app.get('/linen', function(req, res) {
   });
 });
 
+app.get('/faq', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				forfamilies       :    data.families,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+
+	});
+});
 
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
@@ -116,11 +142,11 @@ app.use(function(err, req, res, next){
 
 /**********************
 
-Start of Routing Pages 
+Stop of Routing Pages
 
 ***********************/
 
-/* Start Server */ 
+/* Start Server */
 app.listen(app.get('port'), function(){
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });

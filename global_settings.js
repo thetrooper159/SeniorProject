@@ -12,11 +12,10 @@ exports.nav_items = function(){
 	{name: "Home", link: "/"},
 	{name: "Send Push Notifications", link: "/push"},
 	{name: "Linen Requests", link: "/linen"},
-	{name: "faq", link: "/faq"},
-	
-	
-  
+	{name: "F.A.Q.", link: "/faq"},
+
+
+
   ]
  return nav;
 }
-

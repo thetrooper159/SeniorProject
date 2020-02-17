@@ -1,2 +1,274 @@
-<br>
-<h1 style="text-align: center">F.A.Q.</h1>
+<style>
+table, th, td {
+  border: 2px solid black;
+  background-color: white;
+  padding: 20px;
+
+}
+</style>
+
+<div class="faq-page-header-text">
+    <h1 style="text-align: center;">F.A.Q.</h1><br />
+    <p>Click on a section to Edit Its content</p>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#one">
+  Launch demo modal
+</button>
+<!-- Jumbotrons for sections -->
+<div class="container">
+	<div class="row jumbo-faq" style="text-align: center">
+		{{#headers}}
+			<div class="jumbotron" style="width: 100%">
+				  <h1 class="display-4">{{ title }} - {{ Id }}</h1>
+				  <hr class="my-4">
+				  <p>Click the button below to edit {{ title }} section ||||| {{ code }}</p>
+				  <p class="lead">
+					<a class="btn btn-primary btn-lg faq-jumbo-button" href="#" role="button"  data-toggle="modal" data-target="#{{ code }}">Edit</a>
+				  </p>
+			</div>
+		{{/headers}}
+	</div>
+</div>
+
+<!-- Start Modals -->
+
+<!-- General -->
+<div class="modal fade" id="general" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+	<form action="/post/post_faq.js" type="POST" id="edit-general">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLongTitle">Edit General</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each general}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+				{{/each}}
+       </tbody>
+       </table>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<input type=""
+			<button type="submit" value="submit" class="btn btn-primary">Save changes</button>
+		  </div>
+		</div>
+	</form>
+  </div>
+</div>
+<!-- For Families -->
+<div class="modal fade" id="forfamilies" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">For Families</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each forfamilies}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+				{{/each}}
+       </tbody>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- All Houses -->
+<div class="modal fade" id="allhouses" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">All Houses</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each allhouses}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Transportation -->
+<div class="modal fade" id="transportation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Transportation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each transportation}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Neville -->
+<div class="modal fade" id="neville" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Neville</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each neville}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Shadyside -->
+<div class="modal fade" id="shadyside" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Shadyside</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each shadyside}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- University Place -->
+<div class="modal fade" id="universityplace" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">University Place</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+        <tbody>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+          </tr>
+        {{#each universityplace}}
+        <tr>
+          <td>{{question}}</td>
+          <td>{{answer}}</td>
+        </tr>
+        {{/each}}
+       </tbody>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+
+	});
+</script>
