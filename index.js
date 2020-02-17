@@ -1,6 +1,6 @@
 /*****************
 
-Controller For Family House 
+Controller For Family House
 
 *****************/
 
@@ -81,7 +81,7 @@ app.set('port', process.env.PORT || 3000);
 
 /**********************
 
-Start of Routing Pages 
+Start of Routing Pages
 
 ***********************/
 
@@ -97,9 +97,13 @@ app.get('/push', function(req, res) {
   });
 });
 
-/* Linen Request */
+/* Linen Request  */
 app.get('/linen', function(req, res) {
-  res.render('linen', {
+    const connection = mysql.createConnection(sql);
+  connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+   function(err, results, rows, fields){
+    console.log(results);
+    res.render('linen', {rows: results});
   });
 });
 
@@ -112,19 +116,15 @@ app.get('/faq', function(req, res) {
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
-				families          :    data.families,
+				forfamilies       :    data.families,
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				university        :    data.university
-	
-  			});	
+				universityplace   :    data.universityplace
+  			});
 		}
-	
 	});
-});	
-
-
+});
 
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
@@ -145,11 +145,11 @@ app.use(function(err, req, res, next){
 
 /**********************
 
-Stop of Routing Pages 
+Stop of Routing Pages
 
 ***********************/
 
-/* Start Server */ 
+/* Start Server */
 app.listen(app.get('port'), function(){
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
