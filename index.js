@@ -1,3 +1,4 @@
+
 /*****************
 
 Controller For Family House
@@ -40,6 +41,10 @@ var app = express();
 /* Adding locations for easier use within pages  */
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/framework'));
+
+//static pages added by Lance
+ app.use(express.static(__dirname + "/public"));
+app.use(require("body-parser").urlencoded({ extended: true }));
 
 /* Initializing Cookie Parser */
 app.use(cookieParser());
@@ -121,6 +126,27 @@ app.get('/faq', function(req, res) {
 		}
 
 	});
+  connection.query(
+    'SELECT * FROM faq WHERE section_Id=1',
+    'SELECT * FROM faq WHERE section_Id=2',
+    'SELECT * FROM faq WHERE section_Id=3',
+    'SELECT * FROM faq WHERE section_Id=4',
+    'SELECT * FROM faq WHERE section_Id=5',
+    'SELECT * FROM faq WHERE section_Id=6',
+    'SELECT * FROM faq WHERE section_Id=7',
+  );
+  if(err) return res.status(500).send('Error occurred: database error.');
+  return;
+});
+
+app.post('/faq', function(req, res){
+  connection.query(
+    'INSERT INTO faq_sections'
+  )
+  a.save(function(err, a){
+    if(err) return res.status(500).send('Error occurred: database error.');
+    res.json({ id: a._id });
+  });
 });
 
 
