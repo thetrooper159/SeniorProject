@@ -102,9 +102,13 @@ app.get('/push', function(req, res) {
   });
 });
 
-/* Linen Request */
+/* Linen Request  */
 app.get('/linen', function(req, res) {
-  res.render('linen', {
+    const connection = mysql.createConnection(sql);
+  connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+   function(err, results, rows, fields){
+    console.log(results);
+    res.render('linen', {rows: results});
   });
 });
 
@@ -117,14 +121,13 @@ app.get('/faq', function(req, res) {
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
-				families          :    data.forfamilies,
+				forfamilies       :    data.families,
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				university        :    data.universityplace
+				universityplace   :    data.universityplace
   			});
 		}
-
 	});
   connection.query(
     'SELECT * FROM faq WHERE section_Id=1',
@@ -149,6 +152,52 @@ app.post('/faq', function(req, res){
   });
 });
 
+app.get('/api/v1/faq', function(req, res) {
+  var mysql = require('mysql2');
+  var sql = require('./settings.js');
+  const connection = mysql.createConnection(sql);
+  connection.query('SELECT * FROM faq, faq_sections WHERE faq.section_Id = faq_sections.Id',
+    function(err, data, fields) {
+      if (err) {
+        console.log(err);
+        res.status(500);
+        res.render('500');
+      }
+      else {
+        for (var i = 0; i < data.length; i++) {
+          console.log(data[i]);
+        }
+        //console.log(data);
+        res.send([{
+          name: "General",
+          items: [{
+            id: 13,
+            question: "Question ...",
+            answer: "Answer ...",
+          }, {
+            id: 14,
+            question: "Question ...",
+            answer: "Answer ...",
+          }]
+        }, {
+          name: "For Families",
+          items: [{
+            id: 15,
+            question: "Question ...",
+            answer: "Answer ...",
+          }, {
+            id: 16,
+            question: "Question ...",
+            answer: "Answer ...",
+          }]
+        }]);
+      }
+    });
+});
+
+app.post('/api/v1/linens_request', function(req, res) {
+  // add record to database with linens request
+});
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
 
