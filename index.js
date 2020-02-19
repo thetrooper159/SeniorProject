@@ -42,9 +42,6 @@ var app = express();
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/framework'));
 
-//static pages added by Lance
- app.use(express.static(__dirname + "/public"));
-app.use(require("body-parser").urlencoded({ extended: true }));
 
 /* Initializing Cookie Parser */
 app.use(cookieParser());
@@ -164,10 +161,45 @@ app.get('/api/v1/faq', function(req, res) {
         res.render('500');
       }
       else {
+        var result = [];
+        var sections = {
+          //"1": [row1, row2],
+          //"2": [row5, row6]
+        };
         for (var i = 0; i < data.length; i++) {
-          console.log(data[i]);
+          //console.log(data[i]);
+          //if (data[i].section_Id === "1") {
+            //console.log("is this working?");
+            //console.log("section_id is " + data[i].section_Id);
+            //console.log("Question is " + data[i].question);
+            //console.log("answer is " + data[i].answer);
+            //console.log("Order is " + data[i].Order);
+            //console.log("Id is " + data[i].Id);
+            //console.log("title is " + data[i].title);
+            //console.log("code is " + data[i].code);
+            //this is creating a new number every time there is not a number for section_Id
+            if (!sections[data[i].section_Id]) {
+              sections[data[i].section_Id] = {
+                name: data[i].title,
+                items: []
+              }
+            };
+            sections[data[i].section_Id].items.push({
+              id: data[i].Id,
+              question: data[i].question,
+              answer: data[i].answer,
+              //order:  data[i].Order,
+              //code: data[i].code,
+            });
+          //}
         }
+        console.log(sections);
+        for (var key in sections) {
+          result.push(sections[key]);
+        }
+        res.send(result);
         //console.log(data);
+        /*
         res.send([{
           name: "General",
           items: [{
@@ -191,6 +223,7 @@ app.get('/api/v1/faq', function(req, res) {
             answer: "Answer ...",
           }]
         }]);
+        */
       }
     });
 });
