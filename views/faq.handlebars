@@ -3,8 +3,10 @@ table, th, td {
   border: 2px solid black;
   background-color: white;
   padding: 20px;
-
 }
+textarea {
+		min-width: 100%;
+	}
 </style>
 
 <div class="faq-page-header-text">
@@ -47,11 +49,13 @@ table, th, td {
         <table>
         <tbody>
           <tr>
+            <th>ID</th>
             <th>Question</th>
             <th>Answer</th>
           </tr>
         {{#each general}}
         <tr>
+          <td>{{Id}}</td>
           <td>{{question}}</td>
           <td>{{answer}}</td>
         </tr>
@@ -61,8 +65,7 @@ table, th, td {
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<input type="">
-			<button type="submit" value="submit" class="btn btn-primary">Save changes</button>
+      <button type="button" class="btn btn-primary">Save changes</button>
 		  </div>
 		</div>
 	</form>
@@ -87,8 +90,8 @@ table, th, td {
           </tr>
         {{#each forfamilies}}
         <tr>
-          <td>{{question}}</td>
-          <td>{{answer}}</td>
+          <td><input type="text" id="forques" name="forques" value="{{question}}"></td>
+          <td><input type="text" id="forans" name="forans" value="{{answer}}"></td>
         </tr>
 				{{/each}}
        </tbody>

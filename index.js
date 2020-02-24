@@ -1,7 +1,5 @@
 /*****************
-
 Controller For Family House
-
 *****************/
 
 
@@ -80,10 +78,9 @@ app.set('port', process.env.PORT || 3000);
 
 
 /**********************
-
 Start of Routing Pages
-
 ***********************/
+
 
 /* Home Page */
 app.get('/', function(req, res) {
@@ -101,7 +98,7 @@ app.get('/push', function(req, res) {
 app.get('/linen', function(req, res) {
 
     const connection = mysql.createConnection(sql);
-  connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+  connection.query('SELECT familyhouse.linen.house,familyhouse.linen.sheets, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag, familyhouse.linen.date, familyhouse.linen.isServed  FROM familyhouse.linen;',
    function(err, results, rows, fields){
     console.log(results);
     res.render('linen', {rows: results});
@@ -147,9 +144,7 @@ app.use(function(err, req, res, next){
 
 
 /**********************
-
 Stop of Routing Pages
-
 ***********************/
 
 /* Start Server */
