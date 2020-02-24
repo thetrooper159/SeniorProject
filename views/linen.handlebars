@@ -1,46 +1,19 @@
+<div>
+	<h1>Linens</h1>
+</div>
+<p>Number of people per room</p>
+<p id="display"></p>
+<br><br><button onclick="myFunction()">Enter</button>
 
-
-<style>
-table, th, td {
-  border: 2px solid black;
-  background-color: white;
-  padding: 20px;
+ <script>
+   function myFunction() {
+  var txt;
+  var person = prompt("How many people are staying?", "");
+  if (person == null || person == "") {
+    txt = "Your order was cancelled";
+  } else {
+    txt = "" + person + "";
+  }
+  document.getElementById("display").innerHTML = txt;
 }
-</style>
-  <br>
-  <h1>Linens Requests</h1>
-  <br>
-  <table>
-  <tbody>
-    <tr>
-
-		  <th>House Name</th>
-      <th>QTY of Sheets</th>
-      <th>Room Number</th>
-      <th>QTY of Towels</th>
-      <th>QTY of Washcloths
-			<th>QTY of Bathmats</th>
-			<th>QTY of Bluebags</th>
-    	<th>Request Date</th>
-      <th>Served?</th>
-
-
-    </tr>
-    {{#each rows}}
-      <tr>
-        <td>{{house}}</td>
-        <td>{{sheets}}</td>
-      	<td>{{room}}</td>
-				<td>{{towels}}</td>
-				<td>{{washcloths}}</td>
-				<td>{{bathmats}}</td>
-				<td>{{bluebag}}</td>
-        <td>{{date}}</td>
-        <td>{{isServed}}</td>
-
-
-			</tr>
-    {{/each}}
-  </tbody>
-  </table>
-  <br>
+</script>
