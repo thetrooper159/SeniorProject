@@ -9,26 +9,30 @@ textarea {
 	}
 </style>
 
-<div class="faq-page-header-text">
-    <h1 style="text-align: center;">F.A.Q.</h1><br />
-    <p>Click on a section to Edit Its content</p>
-</div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#one">
-  Launch demo modal
-</button>
+<div class="home-page">
+     <div class="col-xs-12 home-page-welcome">
+          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250">F.A.Q.</h1><br>
+
 <!-- Jumbotrons for sections -->
 <div class="container">
 	<div class="row jumbo-faq" style="text-align: center">
-		{{#headers}}
-			<div class="jumbotron" style="width: 100%">
-				  <h1 class="display-4">{{ title }} - {{ Id }}</h1>
-				  <hr class="my-4">
-				  <p>Click the button below to edit {{ title }} section ||||| {{ code }}</p>
-				  <p class="lead">
-					<a class="btn btn-primary btn-lg faq-jumbo-button" href="#" role="button"  data-toggle="modal" data-target="#{{ code }}">Edit</a>
-				  </p>
-			</div>
-		{{/headers}}
+    <div class="modal-body">
+      <table>
+      <tbody>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+      {{#each general}}
+      <tr>
+        <td>{{question}}</td>
+        <td>{{answer}}</td>
+        <td><a class="btn btn-primary btn-lg faq-jumbo-button" href="#" role="button"  data-toggle="modal" data-target="#{{ code }}">Edit</a></td>
+      </tr>
+      {{/each}}
+     </tbody>
+     </table>
+    </div>
 	</div>
 </div>
 
@@ -49,15 +53,14 @@ textarea {
         <table>
         <tbody>
           <tr>
-            <th>ID</th>
             <th>Question</th>
             <th>Answer</th>
           </tr>
         {{#each general}}
         <tr>
-          <td>{{Id}}</td>
           <td>{{question}}</td>
           <td>{{answer}}</td>
+          <td><a class="btn btn-primary btn-lg faq-jumbo-button" href="#" role="button"  data-toggle="modal" data-target="#{{ code }}">Edit</a></td>
         </tr>
 				{{/each}}
        </tbody>
@@ -90,8 +93,8 @@ textarea {
           </tr>
         {{#each forfamilies}}
         <tr>
-          <td><input type="text" id="forques" name="forques" value="{{question}}"></td>
-          <td><input type="text" id="forans" name="forans" value="{{answer}}"></td>
+          <td><input type="text" id="ques_{{Id}}" name="ques" value="{{question}}"></td>
+          <td><input type="text" id="ans_{{Id}}" name="ans" value="{{answer}}"></td>
         </tr>
 				{{/each}}
        </tbody>

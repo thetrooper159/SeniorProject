@@ -92,8 +92,8 @@ app.get('/', function(req, res) {
 });
 
 /* Push Notifications Page */
-app.get('/push', function(req, res) {
-  res.render('push', {
+app.get('/notifications', function(req, res) {
+  res.render('notifications', {
   });
 });
 
@@ -126,6 +126,52 @@ app.get('/faq', function(req, res) {
 	});
 });
 
+app.get('/api/v1/faq', function(req, res) {
+  var mysql = require('mysql2');
+  var sql = require('./settings.js');
+  const connection = mysql.createConnection(sql);
+  connection.query('SELECT * FROM faq, faq_sections WHERE faq.section_Id = faq_sections.Id',
+    function(err, data, fields) {
+      if (err) {
+        console.log(err);
+        res.status(500);
+        res.render('500');
+      }
+      else {
+        for (var i = 0; i < data.length; i++) {
+          console.log(data[i]);
+        }
+        //console.log(data);
+        res.send([{
+          name: "General",
+          items: [{
+            id: 13,
+            question: "Question ...",
+            answer: "Answer ...",
+          }, {
+            id: 14,
+            question: "Question ...",
+            answer: "Answer ...",
+          }]
+        }, {
+          name: "For Families",
+          items: [{
+            id: 15,
+            question: "Question ...",
+            answer: "Answer ...",
+          }, {
+            id: 16,
+            question: "Question ...",
+            answer: "Answer ...",
+          }]
+        }]);
+      }
+    });
+});
+
+app.post('/api/v1/linens_request', function(req, res) {
+  // add record to database with linens request
+});
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
 
