@@ -4,8 +4,8 @@ var sql = require('../../settings.js');
 const connection = mysql.createConnection(sql);
 
 function insertNotification(notification, callback) {
-  connection.query('INSERT INTO notifications (guest, house, event, alert, date_time) VALUES (?, ?, ?, ?, ?)',
-    [notification.guest, notification.house,
+  connection.query('INSERT INTO notifications (idnotifications, guest, house, event, alert, date_time) VALUES (?, ?, ?, ?, ?, ?)',
+    [1, notification.guest, notification.house,
       notification.event, notification.alert, notification.date_time],
     function (err, headers, fields) {
       if (err) {
@@ -17,11 +17,11 @@ function insertNotification(notification, callback) {
 }
 
 insertNotification({
-  guest: 'guest',
-  house: 'house',
+  guest: 1,
+  house: 2,
   event: 'event',
   alert: 'alert',
-  date_time: 'date-and-time',
+  date_time: 0,
 }, function () {
   console.log('done!');
 });
