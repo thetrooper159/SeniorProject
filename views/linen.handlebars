@@ -6,6 +6,7 @@ table, th, td {
   background-color: white;
   padding: 20px;
 }
+
 </style>
   <br>
   <h1>Linens Requests</h1>
@@ -15,21 +16,29 @@ table, th, td {
     <tr>
 
 		  <th>House Name</th>
+      <th>QTY of Sheets</th>
       <th>Room Number</th>
       <th>QTY of Towels</th>
+      <th>QTY of Washcloths
 			<th>QTY of Bathmats</th>
 			<th>QTY of Bluebags</th>
-      
+    	<th>Request Date</th>
+      <th>Served?</th>
+
 
     </tr>
     {{#each rows}}
       <tr>
         <td>{{house}}</td>
+        <td>{{sheets}}</td>
       	<td>{{room}}</td>
 				<td>{{towels}}</td>
 				<td>{{washcloths}}</td>
 				<td>{{bathmats}}</td>
 				<td>{{bluebag}}</td>
+        <td>{{date}}</td>
+        <td>{{isServed}}</td>
+
 
 			</tr>
     {{/each}}
