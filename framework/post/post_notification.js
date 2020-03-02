@@ -5,7 +5,7 @@ const connection = mysql.createConnection(sql);
 
 function insertNotification(notification, callback) {
   connection.query('INSERT INTO notifications (idnotifications, guest, house, event, alert, date_time) VALUES (?, ?, ?, ?, ?, ?)',
-    [1, notification.guest, notification.house,
+    [2, notification.guest, notification.house,
       notification.event, notification.alert, notification.date_time],
     function (err, headers, fields) {
       if (err) {
@@ -18,9 +18,9 @@ function insertNotification(notification, callback) {
 
 insertNotification({
   guest: 1,
-  house: 2,
-  event: 'event',
-  alert: 'alert',
+  house: 6,
+  event: 'today',
+  alert: 'tomorrow',
   date_time: 0,
 }, function () {
   console.log('done!');
