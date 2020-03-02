@@ -97,6 +97,11 @@ app.get('/notifications', function(req, res) {
   });
 });
 
+app.post('/notifications', function(req, res) {
+  res.render('notifications', {
+  });
+});
+
 /* Linen Request  */
 app.get('/linen', function(req, res) {
     const connection = mysql.createConnection(sql);
