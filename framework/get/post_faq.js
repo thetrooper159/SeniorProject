@@ -3,6 +3,10 @@ var sql = require('../../settings.js');
 
 const connection = mysql.createConnection(sql);
 
+<<<<<<< HEAD
+
+exports.getAll = function(data){
+=======
 var id = req.body.Id;
 var ques = req.body.ques;
 var ans = req.body.ans;
@@ -14,6 +18,7 @@ var submit = {
 		}
 
 exports.postAll = function(data){
+>>>>>>> origin/master
 	connection.query(
 		'SELECT * FROM faq_sections',
 		function(err, headers, fields) {
