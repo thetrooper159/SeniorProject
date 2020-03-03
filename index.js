@@ -97,9 +97,11 @@ app.get('/notifications', function(req, res) {
   });
 });
 
-app.post('/notifications', function(req, res) {
-  res.render('notifications', {
-  });
+app.post('/sendpushnotification', (req, res) => {
+  const event = req.body.notification_type;
+  const alert = req.body.select_house;
+  console.log(event);
+  res.redirect('/notifications')
 });
 
 /* Linen Request  */
