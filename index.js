@@ -106,11 +106,40 @@ app.post('/sendpushnotification', (req, res) => {
 
 /* Linen Request  */
 app.get('/linen', function(req, res) {
+
     const connection = mysql.createConnection(sql);
+
+  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id')
   connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+
    function(err, results, rows, fields){
     console.log(results);
-    res.render('linen', {rows: results});
+
+    var sortby = req.query.sortby;
+    // sort results based on query parameter
+    if (!sortby) {
+      sortby = "isServed";
+    }
+    results.sort(function(x, y) {
+      if(!req.query.reverse) {
+      if (typeof x[sortby] === "string") {
+        return x[sortby].localeCompare(y[sortby]);
+      }
+      else {
+        return x[sortby] - y[sortby];
+      }
+      }
+      else{
+      if (typeof x[sortby] === "string") {
+        return y[sortby].localeCompare(x[sortby]);
+      }
+      else {
+        return y[sortby] - x[sortby];
+      }
+    }
+    });
+
+    res.render('linen', {rows: results, reverse: !req.query.reverse});
   });
 });
 
