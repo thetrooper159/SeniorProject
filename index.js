@@ -1,5 +1,7 @@
 /*****************
+
 Controller For Family House
+
 *****************/
 
 
@@ -78,9 +80,10 @@ app.set('port', process.env.PORT || 3000);
 
 
 /**********************
-Start of Routing Pages
-***********************/
 
+Start of Routing Pages
+
+***********************/
 
 /* Home Page */
 app.get('/', function(req, res) {
@@ -89,16 +92,26 @@ app.get('/', function(req, res) {
 });
 
 /* Push Notifications Page */
-app.get('/push', function(req, res) {
-  res.render('push', {
+app.get('/notifications', function(req, res) {
+  res.render('notifications', {
   });
+});
+
+app.post('/sendpushnotification', (req, res) => {
+  const event = req.body.notification_type;
+  const alert = req.body.select_house;
+  console.log(event);
+  res.redirect('/notifications')
 });
 
 /* Linen Request  */
 app.get('/linen', function(req, res) {
 
     const connection = mysql.createConnection(sql);
-  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
+
+  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id')
+  connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+
    function(err, results, rows, fields){
     console.log(results);
 
@@ -213,7 +226,9 @@ app.use(function(err, req, res, next){
 
 
 /**********************
+
 Stop of Routing Pages
+
 ***********************/
 
 /* Start Server */
