@@ -1,0 +1,77 @@
+<!--
+
+<div class="home-page">
+     <div class="col-xs-12 home-page-welcome">
+          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250">Send Push Notifications</h1>
+<br>
+
+<div class="container" style="text-align: center">
+ <form action="/sendpushnotification" method="POST">
+   <h3>Notification Type</h3>
+   <input type="radio" name="event" value="event">
+   <label for="event">Event Notification</label><br>
+   <input type="radio" name="alert" value="alert">
+   <label for="alert">Alert Notification</label><br><br>
+   <h3>House</h3>
+   <input type="checkbox" name="neville" value="neville">
+   <label for="neville">Neville</label><br>
+   <input type="checkbox" name="shadyside" value="shadyside">
+   <label for="shadyside">Shadyside</label><br>
+   <input type="checkbox" name="universityplace" value="universityplace">
+   <label for="universityplace">University Place</label><br><br>
+   <h3>Notification Message</h3>
+   <textarea id="message" name="message" style="width: 200px; height: 170px" rows="10" cols="80" placeholder="Write something.."></textarea><br><br>
+   <button type="submit" value="submit">submit</button>
+ </form>
+</div>
+</div>
+-->
+
+<div class="push_notification_text">
+  <div class="container" style="text-align: center;">
+          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250">Send Push Notifications</h1>
+    </div>
+</div>
+<div class="container">
+  <form action="/sendpushnotification" method="POST">
+    <div class="form-row">
+      <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+          <label for="cars">Choose a type:</label>
+          <select name="notification_type" class="form-control">
+            <option value="" disabled selected>Select your option</option>
+            <option value="1">Event</option>
+            <option value="0">Alert</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+          <label for="cars">Choose a type:</label>
+          <select name="select_house" class="form-control">
+            <option value="" disabled selected>Select House</option>
+            <option value="1">Neville</option>
+            <option value="2">Shadyside</option>
+            <option value="3">University Place</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 col-xs-12">
+        <div calss="form-group">
+          <label for="message">Meesage</label>
+          <textarea id="message" name="message" placeholder="Write something.." class="form-control" style="width: 100%; height: 250px"></textarea><br>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 col-xs-12">
+        <div calss="form-group">
+          <button type="submit" value="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
