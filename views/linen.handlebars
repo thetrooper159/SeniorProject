@@ -1,0 +1,42 @@
+<div class="home-page">
+     <div class="col-xs-12 home-page-welcome">
+          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250">Linen Requests</h1>
+
+<style>
+table, th, td {
+  border: 2px solid black;
+  background-color: white;
+  padding: 20px;
+}
+
+</style>
+  <br>
+  <table>
+  <tbody>
+    <tr>
+		  <th><a href="?sortby=house{{#if reverse}}&reverse=true{{/if}}">House Name</a></th>
+      <th><a href="?sortby=sheets{{#if reverse}}&reverse=true{{/if}}">QTY of Sheets</a></th>
+      <th><a href="?sortby=room{{#if reverse}}&reverse=true{{/if}}">Room Number</a></th>
+      <th><a href="?sortby=towels{{#if reverse}}&reverse=true{{/if}}">QTY of Towels</a></th>
+      <th><a href="?sortby=washcloths{{#if reverse}}&reverse=true{{/if}}">QTY of Washcloths</a></th>
+			<th><a href="?sortby=bathmats{{#if reverse}}&reverse=true{{/if}}">QTY of Bathmats</a></th>
+			<th><a href="?sortby=bluebag{{#if reverse}}&reverse=true{{/if}}">QTY of Bluebags</a></th>
+    	<th><a href="?sortby=date{{#if reverse}}&reverse=true{{/if}}">Request Date</a></th>
+      <th><a href="?sortby=isServed{{#if reverse}}&reverse=true{{/if}}">Served?</a></th>
+    </tr>
+    {{#each rows}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{sheets}}</td>
+      	<td>{{room}}</td>
+				<td>{{towels}}</td>
+				<td>{{washcloths}}</td>
+				<td>{{bathmats}}</td>
+				<td>{{bluebag}}</td>
+        <td>{{date}}</td>
+        <td> <input type="checkbox" {{#if isServed}}checked="checked"{{/if}}></td>
+			</tr>
+    {{/each}}
+  </tbody>
+  </table>
+  <br>
