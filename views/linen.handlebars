@@ -15,21 +15,21 @@ table, th, td {
   <tbody>
     <tr>
 
-		  <th>House Name</th>
-      <th>QTY of Sheets</th>
-      <th>Room Number</th>
-      <th>QTY of Towels</th>
-      <th>QTY of Washcloths
-			<th>QTY of Bathmats</th>
-			<th>QTY of Bluebags</th>
-    	<th>Request Date</th>
-      <th>Served?</th>
+		  <th><a href="?sortby=house{{#if reverse}}&reverse=true{{/if}}">House Name</a></th>
+      <th><a href="?sortby=sheets{{#if reverse}}&reverse=true{{/if}}">QTY of Sheets</a></th>
+      <th><a href="?sortby=room{{#if reverse}}&reverse=true{{/if}}">Room Number</a></th>
+      <th><a href="?sortby=towels{{#if reverse}}&reverse=true{{/if}}">QTY of Towels</a></th>
+      <th><a href="?sortby=washcloths{{#if reverse}}&reverse=true{{/if}}">QTY of Washcloths</a></th>
+			<th><a href="?sortby=bathmats{{#if reverse}}&reverse=true{{/if}}">QTY of Bathmats</a></th>
+			<th><a href="?sortby=bluebag{{#if reverse}}&reverse=true{{/if}}">QTY of Bluebags</a></th>
+    	<th><a href="?sortby=date{{#if reverse}}&reverse=true{{/if}}">Request Date</a></th>
+      <th><a href="?sortby=isServed{{#if reverse}}&reverse=true{{/if}}">Served?</a></th>
 
 
     </tr>
     {{#each rows}}
       <tr>
-        <td>{{house}}</td>
+        <td>{{Name}}</td>
         <td>{{sheets}}</td>
       	<td>{{room}}</td>
 				<td>{{towels}}</td>
@@ -37,7 +37,7 @@ table, th, td {
 				<td>{{bathmats}}</td>
 				<td>{{bluebag}}</td>
         <td>{{date}}</td>
-        <td>{{isServed}}</td>
+        <td> <input type="checkbox" {{#if isServed}}checked="checked"{{/if}}></td>
 
 
 			</tr>
