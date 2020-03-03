@@ -10,6 +10,7 @@ var express = require('express');
 var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
 const fs = require('fs');
+const hbs = require('hbs');
 //var mysql = require('mysql');
 var mysql = require('mysql2');
 var session = require('express-session');
@@ -124,6 +125,27 @@ app.get('/faq', function(req, res) {
   			});
 		}
 	});
+});
+
+//routes for faq
+
+//route for update data
+app.post('/update',(req, res) => {
+  const connection = mysql.createConnection(sql);
+  let sql = "UPDATE faq SET question='"+req.body.question+"', answer='"+req.body.answer+"' WHERE Id="+req.body.Id;
+  let query = connection.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('/');
+  });
+});
+
+//route for delete data
+app.post('/delete',(req, res) => {
+  let sql = "DELETE FROM faq WHERE Id="+req.body.Id+"";
+  let query = connection.query(sql, (err, results) => {
+    if(err) throw err;
+      res.redirect('/');
+  });
 });
 
 app.get('/api/v1/faq', function(req, res) {
