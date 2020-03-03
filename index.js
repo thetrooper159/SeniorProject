@@ -166,12 +166,9 @@ app.get('/faq', function(req, res) {
 //routes for faq
 
 //route for update data
-app.post('/update', function(req, res) {
-  const connection = mysql.createConnection(sql);
-  connection.query('UPDATE faq SET question="+req.body.question+", answer="+req.body.answer+" WHERE Id="+req.body.Id"',
-  function(err, results, rows, fields){
-  //let sql = "UPDATE familyhouse.faq SET question='"+req.body.question+"', answer='"+req.body.answer+"' WHERE Id="+req.body.Id;
-  //let query = connection.query(sql, (err, results) => {
+app.post('/update',(req, res) => {
+  let sql = "UPDATE faq SET question='"+req.body.question+"', answer='"+req.body.answer+"' WHERE Id="+req.body.Id;
+  let query = connection.query(sql, (err, results) => {
     if(err) throw err;
     console.log(results);
     res.redirect('/faq');
@@ -180,10 +177,11 @@ app.post('/update', function(req, res) {
 
 //route for delete data
 app.post('/delete',(req, res) => {
-  let sql = "DELETE FROM familyhouse.faq WHERE Id="+req.body.Id+"";
+  let sql = "DELETE FROM faq WHERE Id="+req.body.Id+"";
   let query = connection.query(sql, (err, results) => {
     if(err) throw err;
-      res.redirect('/faq');
+    console.log(results);
+    res.redirect('/faq');
   });
 });
 

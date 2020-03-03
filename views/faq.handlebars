@@ -12,6 +12,7 @@ textarea {
 <div class="home-page">
      <div class="col-xs-12 home-page-welcome">
           <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250">F.A.Q.</h1><br>
+</div>
 
 <!-- Jumbotrons for sections -->
 <h2>General</h2>
@@ -95,6 +96,113 @@ textarea {
 </table>
 </div>
 
+<h2>Transportation</h2>
+<button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New</button>
+<table class="table table-striped" id="mytable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+     {{#each transportation}}
+    <tr>
+      <td>{{Id}}</td>
+      <td>{{question}}</td>
+      <td>{{answer}}</td>
+      <td>
+        <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{Id}}" data-question="{{question}}" data-answer="{{answer}}">Edit</a>
+        <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{Id}}">Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+<h2>Neville</h2>
+<button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New</button>
+<table class="table table-striped" id="mytable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+     {{#each neville}}
+    <tr>
+      <td>{{Id}}</td>
+      <td>{{question}}</td>
+      <td>{{answer}}</td>
+      <td>
+        <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{Id}}" data-question="{{question}}" data-answer="{{answer}}">Edit</a>
+        <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{Id}}">Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+<h2>Shadyside</h2>
+<button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New</button>
+<table class="table table-striped" id="mytable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+     {{#each shadyside}}
+    <tr>
+      <td>{{Id}}</td>
+      <td>{{question}}</td>
+      <td>{{answer}}</td>
+      <td>
+        <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{Id}}" data-question="{{question}}" data-answer="{{answer}}">Edit</a>
+        <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{Id}}">Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+<h2>University Place</h2>
+<button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New</button>
+<table class="table table-striped" id="mytable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+     {{#each universityplace}}
+    <tr>
+      <td>{{Id}}</td>
+      <td>{{question}}</td>
+      <td>{{answer}}</td>
+      <td>
+        <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{Id}}" data-question="{{question}}" data-answer="{{answer}}">Edit</a>
+        <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{Id}}">Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
 <!-- Start Modals -->
 
 <!-- Edit Product Modal-->
