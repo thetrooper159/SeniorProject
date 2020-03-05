@@ -268,6 +268,12 @@ app.post('/api/v1/linens_request', function(req, res) {
   // add record to database with linens request
 });
 
+app.post('/create_notification', function(req, res) {
+  var message = req.body.message;
+  console.log("Message is: " + message);
+  res.redirect("/thank-you");
+});
+
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
 
 /* 404 Error Page */
