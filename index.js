@@ -167,6 +167,9 @@ app.get('/faq', function(req, res) {
 
 //route for update data
 app.post('/update',(req, res) => {
+  var mysql = require('mysql2');
+  var settings = require('./settings.js');
+  const connection = mysql.createConnection(settings);
   let sql = "UPDATE faq SET question='"+req.body.question+"', answer='"+req.body.answer+"' WHERE Id="+req.body.Id;
   let query = connection.query(sql, (err, results) => {
     if(err) throw err;
