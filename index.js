@@ -1,7 +1,5 @@
 /*****************
-
 Controller For Family House
-
 *****************/
 
 
@@ -80,9 +78,7 @@ app.set('port', process.env.PORT || 3000);
 
 
 /**********************
-
 Start of Routing Pages
-
 ***********************/
 
 /* Home Page */
@@ -92,14 +88,54 @@ app.get('/', function(req, res) {
 });
 
 /* Push Notifications Page */
-app.get('/push', function(req, res) {
-  res.render('push', {
+app.get('/notifications', function(req, res) {
+  res.render('notifications', {
   });
 });
 
-/* Linen Request */
+app.post('/sendpushnotification', (req, res) => {
+  const event = req.body.notification_type;
+  const alert = req.body.select_house;
+  console.log(event);
+  res.redirect('/notifications')
+});
+
+/* Linen Request  */
 app.get('/linen', function(req, res) {
-  res.render('linen', {
+
+    const connection = mysql.createConnection(sql);
+
+  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id')
+  connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+
+   function(err, results, rows, fields){
+    console.log(results);
+
+    var sortby = req.query.sortby;
+    // sort results based on query parameter
+    if (!sortby) {
+      sortby = "isServed";
+    }
+    results.sort(function(x, y) {
+      if(!req.query.reverse) {
+      if (typeof x[sortby] === "string") {
+        return x[sortby].localeCompare(y[sortby]);
+      }
+      else {
+        return x[sortby] - y[sortby];
+      }
+      }
+      else{
+      if (typeof x[sortby] === "string") {
+        return y[sortby].localeCompare(x[sortby]);
+      }
+      else {
+        return y[sortby] - x[sortby];
+      }
+    }
+    });
+
+    res.render('linen', {rows: results, reverse: !req.query.reverse});
   });
 });
 
@@ -112,17 +148,62 @@ app.get('/faq', function(req, res) {
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
-				families          :    data.forfamilies,
+				forfamilies       :    data.families,
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				university        :    data.universityplace
+				universityplace   :    data.universityplace
   			});
 		}
-
 	});
 });
 
+app.get('/api/v1/faq', function(req, res) {
+  var mysql = require('mysql2');
+  var sql = require('./settings.js');
+  const connection = mysql.createConnection(sql);
+  connection.query('SELECT * FROM faq, faq_sections WHERE faq.section_Id = faq_sections.Id',
+    function(err, data, fields) {
+      if (err) {
+        console.log(err);
+        res.status(500);
+        res.render('500');
+      }
+      else {
+        for (var i = 0; i < data.length; i++) {
+          console.log(data[i]);
+        }
+        //console.log(data);
+        res.send([{
+          name: "General",
+          items: [{
+            id: 13,
+            question: "Question ...",
+            answer: "Answer ...",
+          }, {
+            id: 14,
+            question: "Question ...",
+            answer: "Answer ...",
+          }]
+        }, {
+          name: "For Families",
+          items: [{
+            id: 15,
+            question: "Question ...",
+            answer: "Answer ...",
+          }, {
+            id: 16,
+            question: "Question ...",
+            answer: "Answer ...",
+          }]
+        }]);
+      }
+    });
+});
+
+app.post('/api/v1/linens_request', function(req, res) {
+  // add record to database with linens request
+});
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
 
@@ -141,9 +222,7 @@ app.use(function(err, req, res, next){
 
 
 /**********************
-
 Stop of Routing Pages
-
 ***********************/
 
 /* Start Server */

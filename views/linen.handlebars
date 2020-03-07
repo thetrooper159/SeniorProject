@@ -1,67 +1,102 @@
-<!--<center><h1>Linens</h1></center>
-</div>
-<center><p>Number of people per room</p></center>
-<center><p id="display"></p></center>
-<center><br><br><button onclick="myFunction()">Enter</button></center>
-<center><br><br><p>Number of towels<p><center>
-<center><p id="towels"></p></center>
-<center><br><br><button onclick="linenTowels()">Enter</button></center>
-
- <script>
-   function myFunction() {
-  var txt;
-  var person = prompt("How many people are staying?", "");
-  if (person == null || person == "") {
-    txt = "Your order was cancelled";
-  } else {
-    txt = "" + person + "";
-  }
-  document.getElementById("display").innerHTML = txt;
+<style>
+table, th, td {
+  border: 2px solid black;
+  background-color: white;
+  padding: 20px;
 }
-function linenTowels() {
-var txt;
-var person = prompt("Number of towels?", "");
-if (person == null || person == "") {
- txt = "Your order was cancelled";
-} else {
- txt = "" + person + "";
-}
-document.getElementById("towels").innerHTML = txt;
-}
--->
+</style>
+  <br>
+  <h1>Linens Requests</h1>
+  <br>
+  <table>
+  <tbody>
+    <tr>
 
-<center>Number of people per room: <input id="nameId" type="text" value=""><br><br></center>
-<!--<center><input id="buttonId" type="submit"><br><br></center>-->
-
-<!--<center><br><br><button onclick="myFunction()">Enter</button></center>-->
-<div id="containerId"><div>
-
-<br><center>How many towels: <input id="nameId" type="text" value=""><br><br></center>
-<!--<center><input id="buttonId" type="submit"><br><br></center>-->
-<div id="containerId"><div>
+		  <th><a href="?sortby=house{{#if reverse}}&reverse=true{{/if}}">House Name</a></th>
+      <th><a href="?sortby=sheets{{#if reverse}}&reverse=true{{/if}}">QTY of Sheets</a></th>
+      <th><a href="?sortby=room{{#if reverse}}&reverse=true{{/if}}">Room Number</a></th>
+      <th><a href="?sortby=towels{{#if reverse}}&reverse=true{{/if}}">QTY of Towels</a></th>
+      <th><a href="?sortby=washcloths{{#if reverse}}&reverse=true{{/if}}">QTY of Washcloths</a></th>
+			<th><a href="?sortby=bathmats{{#if reverse}}&reverse=true{{/if}}">QTY of Bathmats</a></th>
+			<th><a href="?sortby=bluebag{{#if reverse}}&reverse=true{{/if}}">QTY of Bluebags</a></th>
+    	<th><a href="?sortby=date{{#if reverse}}&reverse=true{{/if}}">Request Date</a></th>
+      <th><a href="?sortby=isServed{{#if reverse}}&reverse=true{{/if}}">Served?</a></th>
 
 
-<center><label for="event">Sheets</label><br></center>
-<center><input type="checkbox" name="event" value="event"></center><center><p>King</p></center>
-<br><center><input type="checkbox" name="event" value="event"></center><center><p>Queen</p></center>
+    </tr>
+    {{#each rows}}
+      <tr>
+        <td>{{Name}}</td>
+        <td>{{sheets}}</td>
+      	<td>{{room}}</td>
+				<td>{{towels}}</td>
+				<td>{{washcloths}}</td>
+				<td>{{bathmats}}</td>
+				<td>{{bluebag}}</td>
+        <td>{{date}}</td>
+        <td> <input type="checkbox" {{#if isServed}}checked="checked"{{/if}}></td>
 
 
-<center><br><input type="submit"><center>
+			</tr>
+    {{/each}}
+  </tbody>
+  </table>
 
+
+   <br><br><input type="button" class="button" id="button" value="print" onClick="click()">
+
+
+
+   <div id="firstbox"></div>
+   <div id="secondbox"></div>
+   <div id="thirdbox"></div>
+   <div id="fourthbox"></div>
+   <div id="fifthbox"></div>
+   <div id="sixthbox"></div>
+   <div id="seventhbox"></div>
+   <div id="eightbox"></div>
 
 <script>
+var buttons = document.getElementsByClassName("button");
 
-var myName;
-var myTemplate = $('#myTempId').html();
-var compiled = Handlebars.compile(myTemplate);
-
-
-$('#buttonId').click(function(){
-  myName = $('#nameId').val();
-  $('#containerId').html(compiled({name:myName}));
-});
-
-app.get('/linen', function(req, res) {
-  res.render('linen');
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener('click', click, false);
 }
+
+function printData()
+{
+   var divToPrint=document.getElementById("linens");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}
+
+
+function click() {
+  var firstbox = document.getElementById('firstbox');
+  var buttonclicked = document.getElementById(this.id).linens;
+
+
+
+  firstbox.innerHTML = "Your house name is:"  + buttonclicked;
+  secondbox.innerHTML = "QTY of Sheets:"  + buttonclicked;
+  thirdbox.innerHTML = "Your room number is:"  + buttonclicked;
+  fourthbox.innerHTML = "QTY of Towels:"  + buttonclicked;
+  fifthbox.innerHTML = "QTY of washcloths:"  + buttonclicked;
+  sixthbox.innerHTML = "QTY of bathmats:"  + buttonclicked;
+  seventhbox.innerHTML = "QTY of bluebags:"  + buttonclicked;
+  eightbox.innerHTML = "Your request date is:"  + buttonclicked;
+  this.disabled = true;
+}
+
+connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;');
+
 </script>
+
+
+
+ 
+
+
+  <br>
