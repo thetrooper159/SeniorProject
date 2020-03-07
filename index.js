@@ -1,5 +1,8 @@
+
 /*****************
+
 Controller For Family House
+
 *****************/
 
 
@@ -38,6 +41,7 @@ var app = express();
 /* Adding locations for easier use within pages  */
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/framework'));
+
 
 /* Initializing Cookie Parser */
 app.use(cookieParser());
@@ -78,9 +82,10 @@ app.set('port', process.env.PORT || 3000);
 
 
 /**********************
-Start of Routing Pages
-***********************/
 
+Start of Routing Pages
+
+***********************/
 
 /* Home Page */
 app.get('/', function(req, res) {
@@ -89,18 +94,54 @@ app.get('/', function(req, res) {
 });
 
 /* Push Notifications Page */
-app.get('/push', function(req, res) {
-  res.render('push', {
+app.get('/notifications', function(req, res) {
+  res.render('notifications', {
   });
+});
+
+app.post('/sendpushnotification', (req, res) => {
+  const event = req.body.notification_type;
+  const alert = req.body.select_house;
+  console.log(event);
+  res.redirect('/notifications')
 });
 
 /* Linen Request  */
 app.get('/linen', function(req, res) {
+
     const connection = mysql.createConnection(sql);
-  connection.query('SELECT familyhouse.linen.house,familyhouse.linen.sheets, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag, familyhouse.linen.date, familyhouse.linen.isServed  FROM familyhouse.linen;',
+
+  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id')
+  connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+
    function(err, results, rows, fields){
     console.log(results);
-    res.render('linen', {rows: results});
+
+    var sortby = req.query.sortby;
+    // sort results based on query parameter
+    if (!sortby) {
+      sortby = "isServed";
+    }
+    results.sort(function(x, y) {
+      if(!req.query.reverse) {
+      if (typeof x[sortby] === "string") {
+        return x[sortby].localeCompare(y[sortby]);
+      }
+      else {
+        return x[sortby] - y[sortby];
+      }
+      }
+      else{
+      if (typeof x[sortby] === "string") {
+        return y[sortby].localeCompare(x[sortby]);
+      }
+      else {
+        return y[sortby] - x[sortby];
+      }
+    }
+    });
+
+    res.render('linen', {rows: results, reverse: !req.query.reverse});
   });
 });
 
@@ -121,6 +162,27 @@ app.get('/faq', function(req, res) {
   			});
 		}
 	});
+  connection.query(
+    'SELECT * FROM faq WHERE section_Id=1',
+    'SELECT * FROM faq WHERE section_Id=2',
+    'SELECT * FROM faq WHERE section_Id=3',
+    'SELECT * FROM faq WHERE section_Id=4',
+    'SELECT * FROM faq WHERE section_Id=5',
+    'SELECT * FROM faq WHERE section_Id=6',
+    'SELECT * FROM faq WHERE section_Id=7',
+  );
+  if(err) return res.status(500).send('Error occurred: database error.');
+  return;
+});
+
+app.post('/faq', function(req, res){
+  connection.query(
+    'INSERT INTO faq_sections'
+  )
+  a.save(function(err, a){
+    if(err) return res.status(500).send('Error occurred: database error.');
+    res.json({ id: a._id });
+  });
 });
 
 app.get('/api/v1/faq', function(req, res) {
@@ -135,10 +197,45 @@ app.get('/api/v1/faq', function(req, res) {
         res.render('500');
       }
       else {
+        var result = [];
+        var sections = {
+          //"1": [row1, row2],
+          //"2": [row5, row6]
+        };
         for (var i = 0; i < data.length; i++) {
-          console.log(data[i]);
+          //console.log(data[i]);
+          //if (data[i].section_Id === "1") {
+            //console.log("is this working?");
+            //console.log("section_id is " + data[i].section_Id);
+            //console.log("Question is " + data[i].question);
+            //console.log("answer is " + data[i].answer);
+            //console.log("Order is " + data[i].Order);
+            //console.log("Id is " + data[i].Id);
+            //console.log("title is " + data[i].title);
+            //console.log("code is " + data[i].code);
+            //this is creating a new number every time there is not a number for section_Id
+            if (!sections[data[i].section_Id]) {
+              sections[data[i].section_Id] = {
+                name: data[i].title,
+                items: []
+              }
+            };
+            sections[data[i].section_Id].items.push({
+              id: data[i].Id,
+              question: data[i].question,
+              answer: data[i].answer,
+              //order:  data[i].Order,
+              //code: data[i].code,
+            });
+          //}
         }
+        console.log(sections);
+        for (var key in sections) {
+          result.push(sections[key]);
+        }
+        res.send(result);
         //console.log(data);
+        /*
         res.send([{
           name: "General",
           items: [{
@@ -162,12 +259,19 @@ app.get('/api/v1/faq', function(req, res) {
             answer: "Answer ...",
           }]
         }]);
+        */
       }
     });
 });
 
 app.post('/api/v1/linens_request', function(req, res) {
   // add record to database with linens request
+});
+
+app.post('/create_notification', function(req, res) {
+  var message = req.body.message;
+  console.log("Message is: " + message);
+  res.redirect("/thank-you");
 });
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
@@ -187,7 +291,9 @@ app.use(function(err, req, res, next){
 
 
 /**********************
+
 Stop of Routing Pages
+
 ***********************/
 
 /* Start Server */
