@@ -32,6 +32,7 @@ var validator = require('validator');
 var GLOBALS = require('./global_settings.js');
 var sql = require('./settings.js');
 var GET_Faq = require('./framework/get/get_faq.js');
+var POST_Faq = require('./framework/post/post_faq.js');
 
 
 /* Initializing App */
@@ -145,12 +146,11 @@ app.get('/linen', function(req, res) {
   });
 });
 
-app.get('/faq', function(req, res) {
+app.get('/faq', function(req, res){
 	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
 			res.render('faq', {
+				success           :    req.session.success,
+				error             :    req.session.error,
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
@@ -158,32 +158,42 @@ app.get('/faq', function(req, res) {
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
+				university        :    data.universityplace
+	
   			});
-		}
+		delete req.session.success;
+		delete req.session.error;
 	});
-  connection.query(
-    'SELECT * FROM faq WHERE section_Id=1',
-    'SELECT * FROM faq WHERE section_Id=2',
-    'SELECT * FROM faq WHERE section_Id=3',
-    'SELECT * FROM faq WHERE section_Id=4',
-    'SELECT * FROM faq WHERE section_Id=5',
-    'SELECT * FROM faq WHERE section_Id=6',
-    'SELECT * FROM faq WHERE section_Id=7',
-  );
-  if(err) return res.status(500).send('Error occurred: database error.');
-  return;
+
 });
 
-app.post('/faq', function(req, res){
-  connection.query(
-    'INSERT INTO faq_sections'
-  )
-  a.save(function(err, a){
-    if(err) return res.status(500).send('Error occurred: database error.');
-    res.json({ id: a._id });
-  });
+
+app.post('/save_faq', function(req, res) {
+	var questions = req.body.question;
+	var answers =  req.body.answer;
+	var Ids  = req.body.Id;
+	
+	var combo = {};
+	for(var i=0; i < answers.length; i++){
+		combo[i + 1] = [Ids[i], questions[i], answers[i]];
+	}
+	
+	
+	var post = POST_Faq.save_faq(combo, function(status, message){
+		if(status == true){
+			req.session.success = message;
+			res.redirect('/faq');
+
+		}else{
+			req.session.error = message;
+		}
+	});
+	
+	
+
 });
+
+
 
 // Lance post code for linens
 app.post('/linens', function(req, res) {
@@ -238,21 +248,10 @@ app.get('/api/v1/faq', function(req, res) {
       else {
         var result = [];
         var sections = {
-          //"1": [row1, row2],
-          //"2": [row5, row6]
+
         };
         for (var i = 0; i < data.length; i++) {
-          //console.log(data[i]);
-          //if (data[i].section_Id === "1") {
-            //console.log("is this working?");
-            //console.log("section_id is " + data[i].section_Id);
-            //console.log("Question is " + data[i].question);
-            //console.log("answer is " + data[i].answer);
-            //console.log("Order is " + data[i].Order);
-            //console.log("Id is " + data[i].Id);
-            //console.log("title is " + data[i].title);
-            //console.log("code is " + data[i].code);
-            //this is creating a new number every time there is not a number for section_Id
+
             if (!sections[data[i].section_Id]) {
               sections[data[i].section_Id] = {
                 name: data[i].title,
@@ -273,32 +272,6 @@ app.get('/api/v1/faq', function(req, res) {
           result.push(sections[key]);
         }
         res.send(result);
-        //console.log(data);
-        /*
-        res.send([{
-          name: "General",
-          items: [{
-            id: 13,
-            question: "Question ...",
-            answer: "Answer ...",
-          }, {
-            id: 14,
-            question: "Question ...",
-            answer: "Answer ...",
-          }]
-        }, {
-          name: "For Families",
-          items: [{
-            id: 15,
-            question: "Question ...",
-            answer: "Answer ...",
-          }, {
-            id: 16,
-            question: "Question ...",
-            answer: "Answer ...",
-          }]
-        }]);
-        */
       }
     });
 });
