@@ -2,25 +2,25 @@
 //reference taken from file get_faq.js and linens table found in mysql
 
 //sql credentials
-var mysql = require('mysql12');
+var mysql = require('mysql2');
 var sql = require('../../settings.js');
 
 //connection to database
 const connection = mysql.createConnection(sql);
-//1
-function getIdlinen(callbacl){
-  connection.query(
-    'SELECT * FROM linen',
-    function(err, results, fields) {
-      if (err){
-        console.log(err);
-      }else{
-        callback("success", results);
-      }
-    }
-  };
-}
-getIdlinen(function(status, results){
-  exports.general = results;
-});
 
+
+exports.get_requests = function(callback){
+	connection.query( 
+		'SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
+		function(err, headers, fields) {
+			if(err){
+				console.log(err);
+				callback(false, null);
+			
+			}else{
+				callback(true, headers);
+				//console.log(true, headers);
+			}
+		}
+	);
+}
