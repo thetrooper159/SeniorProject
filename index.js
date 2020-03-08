@@ -165,6 +165,139 @@ app.get('/faq', function(req, res) {
 
 //routes for faq
 
+app.get('/faq-general', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq-general', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				forfamilies       :    data.families,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+	});
+});
+
+app.get('/faq-forfamilies', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq-forfamilies', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				forfamilies       :    data.families,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+	});
+});
+
+app.get('/faq-allhouses', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq-allhouses', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				forfamilies       :    data.families,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+	});
+});
+
+app.get('/faq-transportation', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq-transportation', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				forfamilies       :    data.families,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+	});
+});
+
+app.get('/faq-neville', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq-neville', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				forfamilies       :    data.families,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+	});
+});
+
+app.get('/faq-shadyside', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq-shadyside', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				forfamilies       :    data.families,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+	});
+});
+
+app.get('/faq-universityplace', function(req, res) {
+	GET_Faq.getAll(function(data){
+		if(data.error){
+			res.redirect('/500');
+		}else{
+			res.render('faq-universityplace', {
+				headers           :    data.headers,
+				general           :    data.general,
+				allhouses         :    data.allhouses,
+				forfamilies       :    data.families,
+				transportation    :    data.transportation,
+				neville           :    data.neville,
+				shadyside         :    data.shadyside,
+				universityplace   :    data.universityplace
+  			});
+		}
+	});
+});
+
 //route for update data
 app.post('/update',(req, res) => {
   var mysql = require('mysql2');
