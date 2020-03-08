@@ -11,7 +11,6 @@ var express = require('express');
 var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
 const fs = require('fs');
-const hbs = require('hbs');
 //var mysql = require('mysql');
 var mysql = require('mysql2');
 var session = require('express-session');
@@ -132,12 +131,10 @@ app.get('/faq', function(req, res){
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
 				university        :    data.universityplace
-
   			});
 		delete req.session.success;
 		delete req.session.error;
 	});
-
 });
 
 
@@ -156,7 +153,6 @@ app.post('/save_faq', function(req, res) {
 		if(status == true){
 			req.session.success = message;
 			res.redirect('/faq');
-
 		}else{
 			req.session.error = message;
 		}
