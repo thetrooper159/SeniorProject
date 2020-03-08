@@ -131,12 +131,10 @@ app.get('/faq', function(req, res){
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
 				university        :    data.universityplace
-	
   			});
 		delete req.session.success;
 		delete req.session.error;
 	});
-
 });
 
 
@@ -144,24 +142,23 @@ app.post('/save_faq', function(req, res) {
 	var questions = req.body.question;
 	var answers =  req.body.answer;
 	var Ids  = req.body.Id;
-	
+
 	var combo = {};
 	for(var i=0; i < answers.length; i++){
 		combo[i + 1] = [Ids[i], questions[i], answers[i]];
 	}
-	
-	
+
+
 	var post = POST_Faq.save_faq(combo, function(status, message){
 		if(status == true){
 			req.session.success = message;
 			res.redirect('/faq');
-
 		}else{
 			req.session.error = message;
 		}
 	});
-	
-	
+
+
 
 });
 
