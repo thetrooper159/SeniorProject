@@ -1,3 +1,4 @@
+
 /*****************
 
 Controller For Family House
@@ -32,6 +33,7 @@ var validator = require('validator');
 var GLOBALS = require('./global_settings.js');
 var sql = require('./settings.js');
 var GET_Faq = require('./framework/get/get_faq.js');
+var POST_Faq = require('./framework/post/post_faq.js');
 
 
 /* Initializing App */
@@ -41,6 +43,7 @@ var app = express();
 /* Adding locations for easier use within pages  */
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/framework'));
+
 
 /* Initializing Cookie Parser */
 app.use(cookieParser());
@@ -107,49 +110,20 @@ app.post('/sendpushnotification', (req, res) => {
 
 /* Linen Request  */
 app.get('/linen', function(req, res) {
-
-    const connection = mysql.createConnection(sql);
-
-  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id')
-  connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
-
-   function(err, results, rows, fields){
-    console.log(results);
-
-    var sortby = req.query.sortby;
-    // sort results based on query parameter
-    if (!sortby) {
-      sortby = "isServed";
-    }
-    results.sort(function(x, y) {
-      if(!req.query.reverse) {
-      if (typeof x[sortby] === "string") {
-        return x[sortby].localeCompare(y[sortby]);
-      }
-      else {
-        return x[sortby] - y[sortby];
-      }
-      }
-      else{
-      if (typeof x[sortby] === "string") {
-        return y[sortby].localeCompare(x[sortby]);
-      }
-      else {
-        return y[sortby] - x[sortby];
-      }
-    }
-    });
-
-    res.render('linen', {rows: results, reverse: !req.query.reverse});
+  const connection = mysql.createConnection(sql);
+  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
+  //connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+  function(err, results, rows, fields){
+	res.render('linen', {rows: results, reverse: !req.query.reverse});
   });
 });
 
-app.get('/faq', function(req, res) {
+
+app.get('/faq', function(req, res){
 	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
 			res.render('faq', {
+				success           :    req.session.success,
+				error             :    req.session.error,
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
@@ -157,170 +131,82 @@ app.get('/faq', function(req, res) {
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
+				university        :    data.universityplace
+
   			});
-		}
+		delete req.session.success;
+		delete req.session.error;
 	});
+
 });
 
-//routes for faq
 
-app.get('/faq-general', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
+app.post('/save_faq', function(req, res) {
+	var questions = req.body.question;
+	var answers =  req.body.answer;
+	var Ids  = req.body.Id;
+
+	var combo = {};
+	for(var i=0; i < answers.length; i++){
+		combo[i + 1] = [Ids[i], questions[i], answers[i]];
+	}
+
+
+	var post = POST_Faq.save_faq(combo, function(status, message){
+		if(status == true){
+			req.session.success = message;
+			res.redirect('/faq');
+
 		}else{
-			res.render('faq-general', {
-				headers           :    data.headers,
-				general           :    data.general,
-				allhouses         :    data.allhouses,
-				forfamilies       :    data.families,
-				transportation    :    data.transportation,
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
+			req.session.error = message;
 		}
 	});
+
+
+
 });
 
-app.get('/faq-forfamilies', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
-			res.render('faq-forfamilies', {
-				headers           :    data.headers,
-				general           :    data.general,
-				allhouses         :    data.allhouses,
-				forfamilies       :    data.families,
-				transportation    :    data.transportation,
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
-		}
-	});
-});
 
-app.get('/faq-allhouses', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
-			res.render('faq-allhouses', {
-				headers           :    data.headers,
-				general           :    data.general,
-				allhouses         :    data.allhouses,
-				forfamilies       :    data.families,
-				transportation    :    data.transportation,
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
-		}
-	});
-});
 
-app.get('/faq-transportation', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
-			res.render('faq-transportation', {
-				headers           :    data.headers,
-				general           :    data.general,
-				allhouses         :    data.allhouses,
-				forfamilies       :    data.families,
-				transportation    :    data.transportation,
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
-		}
-	});
-});
-
-app.get('/faq-neville', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
-			res.render('faq-neville', {
-				headers           :    data.headers,
-				general           :    data.general,
-				allhouses         :    data.allhouses,
-				forfamilies       :    data.families,
-				transportation    :    data.transportation,
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
-		}
-	});
-});
-
-app.get('/faq-shadyside', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
-			res.render('faq-shadyside', {
-				headers           :    data.headers,
-				general           :    data.general,
-				allhouses         :    data.allhouses,
-				forfamilies       :    data.families,
-				transportation    :    data.transportation,
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
-		}
-	});
-});
-
-app.get('/faq-universityplace', function(req, res) {
-	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
-			res.render('faq-universityplace', {
-				headers           :    data.headers,
-				general           :    data.general,
-				allhouses         :    data.allhouses,
-				forfamilies       :    data.families,
-				transportation    :    data.transportation,
-				neville           :    data.neville,
-				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
-  			});
-		}
-	});
-});
-
-//route for update data
-app.post('/update',(req, res) => {
-  var mysql = require('mysql2');
-  var settings = require('./settings.js');
-  const connection = mysql.createConnection(settings);
-  let sql = "UPDATE faq SET question='"+req.body.question+"', answer='"+req.body.answer+"' WHERE Id="+req.body.Id;
-  let query = connection.query(sql, (err, results) => {
-    if(err) throw err;
-    console.log(results);
-    res.redirect('/faq');
+// Lance post code for linens
+app.post('/linens', function(req, res) {
+  const connection = mysql.createConnection(sql);
+  connection.query('INSERT INTO linen');
+  a.save(function(err, res){
+    if(err)return res.status(500).send('Error occurred: database error.');
+    res.json({id: a._id });
   });
 });
 
-//route for delete data
-app.post('/delete',(req, res) => {
-  let sql = "DELETE FROM faq WHERE Id="+req.body.Id+"";
-  let query = connection.query(sql, (err, results) => {
-    if(err) throw err;
-    console.log(results);
-    res.redirect('/faq');
+app.post('/api/v1/linens_request', function(req, res) {
+  // add record to database with linens request
+  function insertLinen(linen, callback) {
+    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [linen.house,, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date],
+    function (err, headers, fields) {
+      if (err){
+        console.log(err);
+      } else {
+        callback();
+      }
+    });
+  }
+
+  insertLinen({
+    house: req.body.house,
+    room: req.body.room,
+    guests: req.body.guests,
+    towels: req.body.towels,
+    washcloths: req.body.washcloths,
+    bathmats: req.body.bathmats,
+    bluebag: req.body.bluebag,
+    date: req.body.date,
+  }, function () {
+    console.log('done');
   });
 });
 
+//Lance and Voortman code
 app.get('/api/v1/faq', function(req, res) {
   var mysql = require('mysql2');
   var sql = require('./settings.js');
@@ -333,39 +219,41 @@ app.get('/api/v1/faq', function(req, res) {
         res.render('500');
       }
       else {
+        var result = [];
+        var sections = {
+
+        };
         for (var i = 0; i < data.length; i++) {
-          console.log(data[i]);
+
+            if (!sections[data[i].section_Id]) {
+              sections[data[i].section_Id] = {
+                name: data[i].title,
+                items: []
+              }
+            };
+            sections[data[i].section_Id].items.push({
+              id: data[i].Id,
+              question: data[i].question,
+              answer: data[i].answer,
+              //order:  data[i].Order,
+              //code: data[i].code,
+            });
+          //}
         }
-        //console.log(data);
-        res.send([{
-          name: "General",
-          items: [{
-            id: 13,
-            question: "Question ...",
-            answer: "Answer ...",
-          }, {
-            id: 14,
-            question: "Question ...",
-            answer: "Answer ...",
-          }]
-        }, {
-          name: "For Families",
-          items: [{
-            id: 15,
-            question: "Question ...",
-            answer: "Answer ...",
-          }, {
-            id: 16,
-            question: "Question ...",
-            answer: "Answer ...",
-          }]
-        }]);
+        console.log(sections);
+        for (var key in sections) {
+          result.push(sections[key]);
+        }
+        res.send(result);
       }
     });
 });
 
-app.post('/api/v1/linens_request', function(req, res) {
-  // add record to database with linens request
+
+app.post('/create_notification', function(req, res) {
+  var message = req.body.message;
+  console.log("Message is: " + message);
+  res.redirect("/thank-you");
 });
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
