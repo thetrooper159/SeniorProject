@@ -1,9 +1,12 @@
+
+
 <style>
 table, th, td {
   border: 2px solid black;
   background-color: white;
   padding: 20px;
 }
+
 </style>
   <br>
   <h1>Linens Requests</h1>
@@ -36,67 +39,40 @@ table, th, td {
         <td>{{date}}</td>
         <td> <input type="checkbox" {{#if isServed}}checked="checked"{{/if}}></td>
 
+        <div class="saved">
+          <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>sheets</th>
+              <th>room</th>
+              <th>towels</th>
+              <th>washcloths</th>
+              <th>bathmats</th>
+              <th>bluebag</th>
+              <th>date</th>
+            </tr>
+          {{#each allhouses}}
+          <tr>
+            <td>{{Name}}</td>
+            <td>{{sheets}}</td>
+            <td>{{room}}</td>
+            <td>{{towels}}</td>
+            <td>{{washcloths}}</td>
+            <td>{{bathmats}}</td>
+            <td>{{bluebag}}</td>
+            <td>{{date}}</td>
+          </tr>
+          {{/each}}
+         </tbody>
+         </table>
+        </div>
+
+        <div class="saved">
+          <button type="button">Save changes</button>
 
 			</tr>
     {{/each}}
   </tbody>
   </table>
-
-
-   <br><br><input type="button" class="button" id="button" value="print" onClick="click()">
-
-
-
-   <div id="firstbox"></div>
-   <div id="secondbox"></div>
-   <div id="thirdbox"></div>
-   <div id="fourthbox"></div>
-   <div id="fifthbox"></div>
-   <div id="sixthbox"></div>
-   <div id="seventhbox"></div>
-   <div id="eightbox"></div>
-
-<script>
-var buttons = document.getElementsByClassName("button");
-
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener('click', click, false);
-}
-
-function printData()
-{
-   var divToPrint=document.getElementById("linens");
-   newWin= window.open("");
-   newWin.document.write(divToPrint.outerHTML);
-   newWin.print();
-   newWin.close();
-}
-
-
-function click() {
-  var firstbox = document.getElementById('firstbox');
-  var buttonclicked = document.getElementById(this.id).linens;
-
-
-
-  firstbox.innerHTML = "Your house name is:"  + buttonclicked;
-  secondbox.innerHTML = "QTY of Sheets:"  + buttonclicked;
-  thirdbox.innerHTML = "Your room number is:"  + buttonclicked;
-  fourthbox.innerHTML = "QTY of Towels:"  + buttonclicked;
-  fifthbox.innerHTML = "QTY of washcloths:"  + buttonclicked;
-  sixthbox.innerHTML = "QTY of bathmats:"  + buttonclicked;
-  seventhbox.innerHTML = "QTY of bluebags:"  + buttonclicked;
-  eightbox.innerHTML = "Your request date is:"  + buttonclicked;
-  this.disabled = true;
-}
-
-connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;');
-
-</script>
-
-
-
- 
-
-
   <br>
