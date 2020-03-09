@@ -1,5 +1,8 @@
+
 /*****************
+
 Controller For Family House
+
 *****************/
 
 
@@ -29,6 +32,9 @@ var validator = require('validator');
 var GLOBALS = require('./global_settings.js');
 var sql = require('./settings.js');
 var GET_Faq = require('./framework/get/get_faq.js');
+var POST_Faq = require('./framework/post/post_faq.js');
+var GET_linen = require('./framework/get/get_linens.js');
+var POST_linen = require('./framework/post/post_linens.js');
 
 
 /* Initializing App */
@@ -38,6 +44,7 @@ var app = express();
 /* Adding locations for easier use within pages  */
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/framework'));
+
 
 /* Initializing Cookie Parser */
 app.use(cookieParser());
@@ -78,9 +85,10 @@ app.set('port', process.env.PORT || 3000);
 
 
 /**********************
-Start of Routing Pages
-***********************/
 
+Start of Routing Pages
+
+***********************/
 
 /* Home Page */
 app.get('/', function(req, res) {
@@ -89,27 +97,64 @@ app.get('/', function(req, res) {
 });
 
 /* Push Notifications Page */
-app.get('/push', function(req, res) {
-  res.render('push', {
+app.get('/notifications', function(req, res) {
+  res.render('notifications', {
   });
 });
+
+app.post('/sendpushnotification', (req, res) => {
+  const event = req.body.notification_type;
+  const alert = req.body.select_house;
+  console.log(event);
+  res.redirect('/notifications')
+});
+
+
+app.post('/serve_linen_request', (req, res) => {  
+	POST_linen.serve(req['body']['Id'], function(status){
+		if(status == true){
+			res.send(true);
+		}else{
+			res.send(false);
+		}
+		
+	});
+	
+});
+
 
 /* Linen Request  */
 app.get('/linen', function(req, res) {
-    const connection = mysql.createConnection(sql);
-  connection.query('SELECT familyhouse.linen.house,familyhouse.linen.sheets, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag, familyhouse.linen.date, familyhouse.linen.isServed  FROM familyhouse.linen;',
-   function(err, results, rows, fields){
-    console.log(results);
-    res.render('linen', {rows: results});
+	GET_linen.get_requests(function(status, data){
+		if(status == true){
+			res.render('linen', {
+				requests      :    data,
+				
+			});
+			
+		}else{
+			res.redirect('/500');
+		}
+	});
+	
+	/*
+  const connection = mysql.createConnection(sql);
+  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
+  //connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+  function(err, results, rows, fields){
+	res.render('linen', {rows: results, reverse: !req.query.reverse});
   });
+  
+  */
+  
 });
 
-app.get('/faq', function(req, res) {
+
+app.get('/faq', function(req, res){
 	GET_Faq.getAll(function(data){
-		if(data.error){
-			res.redirect('/500');
-		}else{
 			res.render('faq', {
+				success           :    req.session.success,
+				error             :    req.session.error,
 				headers           :    data.headers,
 				general           :    data.general,
 				allhouses         :    data.allhouses,
@@ -117,12 +162,82 @@ app.get('/faq', function(req, res) {
 				transportation    :    data.transportation,
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
-				universityplace   :    data.universityplace
+				university        :    data.universityplace
+	
   			});
-		}
+		delete req.session.success;
+		delete req.session.error;
 	});
+
 });
 
+
+app.post('/save_faq', function(req, res) {
+	var questions = req.body.question;
+	var answers =  req.body.answer;
+	var Ids  = req.body.Id;
+	
+	var combo = {};
+	for(var i=0; i < answers.length; i++){
+		combo[i + 1] = [Ids[i], questions[i], answers[i]];
+	}
+	
+	
+	var post = POST_Faq.save_faq(combo, function(status, message){
+		if(status == true){
+			req.session.success = message;
+			res.redirect('/faq');
+
+		}else{
+			req.session.error = message;
+		}
+	});
+	
+	
+
+});
+
+
+
+// Lance post code for linens
+app.post('/linens', function(req, res) {
+  const connection = mysql.createConnection(sql);
+  connection.query('INSERT INTO linen');
+  a.save(function(err, res){
+    if(err)return res.status(500).send('Error occurred: database error.');
+    res.json({id: a._id });
+  });
+});
+
+app.post('/api/v1/linens_request', function(req, res) {
+  // add record to database with linens request
+  function insertLinen(linen, callback) {
+    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [linen.house,, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date],
+    function (err, headers, fields) {
+      if (err){
+        console.log(err);
+      } else {
+        callback();
+      }
+    });
+  }
+
+  insertLinen({
+    house: req.body.house,
+    room: req.body.room,
+    guests: req.body.guests,
+    towels: req.body.towels,
+    washcloths: req.body.washcloths,
+    bathmats: req.body.bathmats,
+    bluebag: req.body.bluebag,
+    date: req.body.date,
+  }, function () {
+    console.log('done');
+  });
+});
+
+//Lance and Voortman code
 app.get('/api/v1/faq', function(req, res) {
   var mysql = require('mysql2');
   var sql = require('./settings.js');
@@ -135,39 +250,41 @@ app.get('/api/v1/faq', function(req, res) {
         res.render('500');
       }
       else {
+        var result = [];
+        var sections = {
+
+        };
         for (var i = 0; i < data.length; i++) {
-          console.log(data[i]);
+
+            if (!sections[data[i].section_Id]) {
+              sections[data[i].section_Id] = {
+                name: data[i].title,
+                items: []
+              }
+            };
+            sections[data[i].section_Id].items.push({
+              id: data[i].Id,
+              question: data[i].question,
+              answer: data[i].answer,
+              //order:  data[i].Order,
+              //code: data[i].code,
+            });
+          //}
         }
-        //console.log(data);
-        res.send([{
-          name: "General",
-          items: [{
-            id: 13,
-            question: "Question ...",
-            answer: "Answer ...",
-          }, {
-            id: 14,
-            question: "Question ...",
-            answer: "Answer ...",
-          }]
-        }, {
-          name: "For Families",
-          items: [{
-            id: 15,
-            question: "Question ...",
-            answer: "Answer ...",
-          }, {
-            id: 16,
-            question: "Question ...",
-            answer: "Answer ...",
-          }]
-        }]);
+        console.log(sections);
+        for (var key in sections) {
+          result.push(sections[key]);
+        }
+        res.send(result);
       }
     });
 });
 
-app.post('/api/v1/linens_request', function(req, res) {
-  // add record to database with linens request
+
+app.post('/create_notification', function(req, res) {
+  var message = req.body.message;
+  console.log("Message is: " + message);
+  res.redirect("/thank-you");
 });
 
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
@@ -187,7 +304,9 @@ app.use(function(err, req, res, next){
 
 
 /**********************
+
 Stop of Routing Pages
+
 ***********************/
 
 /* Start Server */
