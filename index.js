@@ -96,6 +96,18 @@ app.get('/', function(req, res) {
   });
 });
 
+/*Send Alerts Page*/
+app.get('/alerts', function(req, res) {
+  res.render('alerts', {
+  });
+});
+
+/*Post Events Page*/
+app.get('/events', function(req, res) {
+  res.render('events', {
+  });
+});
+
 /* Push Notifications Page */
 app.get('/notifications', function(req, res) {
   res.render('notifications', {
@@ -110,16 +122,16 @@ app.post('/sendpushnotification', (req, res) => {
 });
 
 
-app.post('/serve_linen_request', (req, res) => {  
+app.post('/serve_linen_request', (req, res) => {
 	POST_linen.serve(req['body']['Id'], function(status){
 		if(status == true){
 			res.send(true);
 		}else{
 			res.send(false);
 		}
-		
+
 	});
-	
+
 });
 
 
@@ -129,14 +141,14 @@ app.get('/linen', function(req, res) {
 		if(status == true){
 			res.render('linen', {
 				requests      :    data,
-				
+
 			});
-			
+
 		}else{
 			res.redirect('/500');
 		}
 	});
-	
+
 	/*
   const connection = mysql.createConnection(sql);
   connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
@@ -144,9 +156,9 @@ app.get('/linen', function(req, res) {
   function(err, results, rows, fields){
 	res.render('linen', {rows: results, reverse: !req.query.reverse});
   });
-  
+
   */
-  
+
 });
 
 
@@ -163,7 +175,7 @@ app.get('/faq', function(req, res){
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
 				university        :    data.universityplace
-	
+
   			});
 		delete req.session.success;
 		delete req.session.error;
@@ -176,13 +188,13 @@ app.post('/save_faq', function(req, res) {
 	var questions = req.body.question;
 	var answers =  req.body.answer;
 	var Ids  = req.body.Id;
-	
+
 	var combo = {};
 	for(var i=0; i < answers.length; i++){
 		combo[i + 1] = [Ids[i], questions[i], answers[i]];
 	}
-	
-	
+
+
 	var post = POST_Faq.save_faq(combo, function(status, message){
 		if(status == true){
 			req.session.success = message;
@@ -192,8 +204,8 @@ app.post('/save_faq', function(req, res) {
 			req.session.error = message;
 		}
 	});
-	
-	
+
+
 
 });
 
