@@ -33,6 +33,8 @@ var GLOBALS = require('./global_settings.js');
 var sql = require('./settings.js');
 var GET_Faq = require('./framework/get/get_faq.js');
 var POST_Faq = require('./framework/post/post_faq.js');
+var GET_linen = require('./framework/get/get_linens.js');
+var POST_linen = require('./framework/post/post_linens.js');
 var POST_Notif = require('./framework/post/post_notification.js');
 
 
@@ -116,12 +118,15 @@ app.post('/sendpushnotification', (req, res) => {
 
 /* Linen Request  */
 app.get('/linen', function(req, res) {
-  const connection = mysql.createConnection(sql);
-  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
-  //connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
-  function(err, results, rows, fields){
-	res.render('linen', {rows: results, reverse: !req.query.reverse});
-  });
+	GET_linen.get_requests(function(status, data){
+		if(status == true){
+			res.render('linen', {
+				requests      :    data,
+			});
+		}else{
+			res.redirect('/500');
+		}
+	});
 });
 
 
