@@ -116,6 +116,18 @@ app.post('/sendpushnotification', (req, res) => {
   });
 });
 
+app.post('/serve_linen_request', (req, res) => {
+	POST_linen.serve(req['body']['Id'], function(status){
+		if(status == true){
+			res.send(true);
+		}else{
+			res.send(false);
+		}
+
+	});
+
+});
+
 /* Linen Request  */
 app.get('/linen', function(req, res) {
 	GET_linen.get_requests(function(status, data){
@@ -169,12 +181,20 @@ app.post('/save_faq', function(req, res) {
 			req.session.error = message;
 		}
 	});
-
-
-
 });
 
+app.post('/delete_faq', (req, res) => {
+  var Id  = req.body.Id;
 
+	POST_Faq.delete(req['body']['Id'], function(status){
+		if(status == true){
+			res.send(true);
+		}else{
+			res.send(false);
+		}
+
+	});
+});
 
 // Lance post code for linens
 app.post('/linens', function(req, res) {
