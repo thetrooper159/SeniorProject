@@ -1,8 +1,6 @@
 
 /*****************
-
 Controller For Family House
-
 *****************/
 
 
@@ -35,7 +33,6 @@ var GET_Faq = require('./framework/get/get_faq.js');
 var POST_Faq = require('./framework/post/post_faq.js');
 var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
-var POST_Notif = require('./framework/post/post_notification.js');
 
 
 /* Initializing App */
@@ -86,14 +83,24 @@ app.set('port', process.env.PORT || 3000);
 
 
 /**********************
-
 Start of Routing Pages
-
 ***********************/
 
 /* Home Page */
 app.get('/', function(req, res) {
   res.render('home', {
+  });
+});
+
+/*Send Alerts Page*/
+app.get('/alerts', function(req, res) {
+  res.render('alerts', {
+  });
+});
+
+/*Post Events Page*/
+app.get('/events', function(req, res) {
+  res.render('events', {
   });
 });
 
@@ -104,17 +111,12 @@ app.get('/notifications', function(req, res) {
 });
 
 app.post('/sendpushnotification', (req, res) => {
-  POST_Notif.insertNotification({
-    "guest": 1,
-    "event": req.body.notification_type,
-    "house": req.body.select_house,
-    "alert": 1 - req.body.notification_type,
-    "date_time": req.body.date_time, //req.body.date_time
-    "message": req.body.message
-  }, function(err) {
-    res.redirect('/notifications');
-  });
+  const event = req.body.notification_type;
+  const alert = req.body.select_house;
+  console.log(event);
+  res.redirect('/notifications')
 });
+
 
 app.post('/serve_linen_request', (req, res) => {
 	POST_linen.serve(req['body']['Id'], function(status){
@@ -128,17 +130,30 @@ app.post('/serve_linen_request', (req, res) => {
 
 });
 
+
 /* Linen Request  */
 app.get('/linen', function(req, res) {
 	GET_linen.get_requests(function(status, data){
 		if(status == true){
 			res.render('linen', {
 				requests      :    data,
+
 			});
+
 		}else{
 			res.redirect('/500');
 		}
 	});
+
+	/*
+  const connection = mysql.createConnection(sql);
+  connection.query('SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
+  //connection.query('SELECT familyhouse.linen.house, familyhouse.linen.room,familyhouse.linen.towels, familyhouse.linen.washcloths,familyhouse.linen.bathmats,familyhouse.linen.bluebag  FROM familyhouse.linen;',
+  function(err, results, rows, fields){
+	res.render('linen', {rows: results, reverse: !req.query.reverse});
+  });
+  */
+
 });
 
 
@@ -155,10 +170,12 @@ app.get('/faq', function(req, res){
 				neville           :    data.neville,
 				shadyside         :    data.shadyside,
 				university        :    data.universityplace
+
   			});
 		delete req.session.success;
 		delete req.session.error;
 	});
+
 });
 
 
@@ -177,24 +194,17 @@ app.post('/save_faq', function(req, res) {
 		if(status == true){
 			req.session.success = message;
 			res.redirect('/faq');
+
 		}else{
 			req.session.error = message;
 		}
 	});
+
+
+
 });
 
-app.post('/delete_faq', (req, res) => {
-  var Id  = req.body.Id;
 
-	POST_Faq.delete(req['body']['Id'], function(status){
-		if(status == true){
-			res.send(true);
-		}else{
-			res.send(false);
-		}
-
-	});
-});
 
 // Lance post code for linens
 app.post('/linens', function(req, res) {
@@ -301,9 +311,7 @@ app.use(function(err, req, res, next){
 
 
 /**********************
-
 Stop of Routing Pages
-
 ***********************/
 
 /* Start Server */

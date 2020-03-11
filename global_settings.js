@@ -10,9 +10,11 @@ GLOBAL VARIABLES FOR FAMILY HOUSE ADMIN BACKEND
 exports.nav_items = function(){
   var nav = [
 	{name: "Home", link: "/"},
-	{name: "Send Notifications", link: "/notifications"},
+	/* {name: "Send Notifications", link: "/notifications"}, */
 	{name: "Linen Requests", link: "/linen"},
 	{name: "F.A.Q.", link: "/faq"},
+  {name: "Post Events", link: "/events"},
+  {name: "Send Alerts", link: "/alerts"},
 
 
 
