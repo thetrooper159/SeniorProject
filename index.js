@@ -207,23 +207,16 @@ app.post('/save_faq', function(req, res) {
 
 
 // Lance post code for linens
-app.post('/linens', function(req, res) {
-  const connection = mysql.createConnection(sql);
-  connection.query('INSERT INTO linen');
-  a.save(function(err, res){
-    if(err)return res.status(500).send('Error occurred: database error.');
-    res.json({id: a._id });
-  });
-});
-
 app.post('/api/v1/linens_request', function(req, res) {
   // add record to database with linens request
   function insertLinen(linen, callback) {
-    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    [linen.house,, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date],
+    const connection = mysql.createConnection(sql);
+    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID],
     function (err, headers, fields) {
       if (err){
         console.log(err);
+        callback(err);
       } else {
         callback();
       }
@@ -239,8 +232,22 @@ app.post('/api/v1/linens_request', function(req, res) {
     bathmats: req.body.bathmats,
     bluebag: req.body.bluebag,
     date: req.body.date,
-  }, function () {
-    console.log('done');
+    twinsheets: req.body.twinsheets,
+    queemsheets: req.body.queensheets,
+    pillowcases: req.body.pillowcases,
+    isServed: req.body.isServed,
+    phoneID: req.body.phoneID
+  }, function (err) {
+    if (err){
+      res.status(500);
+      res.render('500');
+    } else {
+      console.log("done");
+      res.status(200);
+      res.send('ok');
+    }
+
+
   });
 });
 
