@@ -204,7 +204,27 @@ app.post('/save_faq', function(req, res) {
 
 });
 
+app.post('/delete_faq', function(req, res) {
+	var questions = req.body.question;
+	var answers =  req.body.answer;
+	var Ids  = req.body.Id;
 
+	var combo = {};
+	for(var i=0; i < answers.length; i++){
+		combo[i + 1] = [Ids[i], questions[i], answers[i]];
+	}
+
+
+	var post = POST_Faq.delete_faq(combo, function(status, message){
+		if(status == true){
+			req.session.success = message;
+			res.redirect('/faq');
+
+		}else{
+			req.session.error = message;
+		}
+	});
+});
 
 // Lance post code for linens
 app.post('/api/v1/linens_request', function(req, res) {

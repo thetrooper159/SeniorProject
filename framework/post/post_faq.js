@@ -28,7 +28,7 @@ callback(true, "Page Updated!");
 	//console.log(query);
 }
 
-exports.delete = function(Id, callback){
+exports.delete_faq = function(Id, callback){
 
 var sql_run = "DELETE FROM faq WHERE Id="+Id+"";
 	connection.query(
