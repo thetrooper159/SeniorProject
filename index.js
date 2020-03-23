@@ -216,8 +216,8 @@ app.post('/api/v1/linens_request', function(req, res) {
   // add record to database with linens request
   function insertLinen(linen, callback) {
     const connection = mysql.createConnection(sql);
-    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID],
+    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID, lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID, linen.lastname],
     function (err, headers, fields) {
       if (err){
         console.log(err);
@@ -241,7 +241,8 @@ app.post('/api/v1/linens_request', function(req, res) {
     queemsheets: req.body.queensheets,
     pillowcases: req.body.pillowcases,
     isServed: req.body.isServed,
-    phoneID: req.body.phoneID
+    phoneID: req.body.phoneID,
+    lastname: req.body.lastname
   }, function (err) {
     if (err){
       res.status(500);
