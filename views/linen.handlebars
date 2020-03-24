@@ -22,7 +22,8 @@
 <div class="container" style="margin-top: 25px;">
   <h1>Linens Requests</h1>
 
-  <table id="linen_requests_unserved" class="table display table-striped hoverable" style="margin-top: 20px;"> 
+
+  <table id="linen_requests_unserved" class="table display table-striped hoverable" style="margin-top: 20px;">
 	<thead>
 		<tr class="table-dark" style="color: black;">
 			<th>House Name</th>
@@ -53,14 +54,23 @@
 	</tbody>
   </table>
 </div>
-  
+
   <script type="text/javascript">
+
+
+
+$('#myTable').DataTable( {
+	buttons: [
+			'print'
+	]
+} );
+
 	$(document).ready( function () {
 		$('#linen_requests_unserved').DataTable();
-		
+
 		$('.serve_request').on("click", function(){
 			var Id = $(this).attr("rel");
-			
+
 			$.ajax({
 				type: 'post',
 				url: '/serve_linen_request',
@@ -76,19 +86,15 @@
 					$(".display-message").append("<div class='alert alert-danger' role='alert'>Request could not be completed<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
 				}
 			});
-			
+
 		});
-		
+
 	});
   </script>
-  
+
   <!-- <div class='alert alert-primary' role='alert'>
 		{{ error }}
 		<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
 			<span aria-hidden='true'>&times;</span>
 		</button>
 	</div>-->
-  
-  
-  
-  

@@ -1,7 +1,7 @@
 var request = require('request');
 
 request({
-  uri: 'ljwolos.it.pointpark.edu:3000/api/v1/linens_request',
+  uri: 'http://ljwolos.it.pointpark.edu:3000/api/v1/linens_request',
   method: 'POST',
   form: {
     house: '1',
@@ -11,8 +11,14 @@ request({
     washcloths: '5',
     bathmats: '6',
     bluebag: '7',
-    date: 'monday'
+    date: '2072-11-21 00:00:00',
+    twinsheets: '9',
+    queensheets: '10',
+    pillowcases: '8',
+    isServed: '1',
+    phoneID: '0'
   }
 }, function(error, response, body) {
-  console.log(body);
+  console.log(error);
+  console.log(response);
 });
