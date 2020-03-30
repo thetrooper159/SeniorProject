@@ -22,14 +22,21 @@
 <div class="container" style="margin-top: 25px;">
   <h1>Linens Requests</h1>
 
+<<<<<<< HEAD
 <button id="print_button">Print Table</button>
 
+=======
+>>>>>>> origin/master
   <table id="linen_requests_unserved" class="table display table-striped hoverable" style="margin-top: 20px;">
 	<thead>
 		<tr class="table-dark" style="color: black;">
 			<th>House Name</th>
+<<<<<<< HEAD
 			<th>QTY of Queen Sheets</th>
 			<th>QTY of Twin Sheets</th>
+=======
+			<th>QTY of Sheets</th>
+>>>>>>> origin/master
 			<th>Room Number</th>
 			<th>QTY of Towels</th>
 			<th>QTY of Washcloths</a></th>
@@ -43,8 +50,12 @@
 		{{#each requests}}
 			<tr class="">
 				<td>{{Name}}</td>
+<<<<<<< HEAD
 				<td>{{queensheets}}</td>
 				<td>{{twinsheets}}</td>
+=======
+				<td>{{sheets}}</td>
+>>>>>>> origin/master
 				<td>{{room}}</td>
 				<td>{{towels}}</td>
 				<td>{{washcloths}}</td>
@@ -59,6 +70,7 @@
 </div>
 
   <script type="text/javascript">
+<<<<<<< HEAD
 
 
 
@@ -83,6 +95,14 @@
 
 
 
+=======
+	$(document).ready( function () {
+		$('#linen_requests_unserved').DataTable();
+
+		$('.serve_request').on("click", function(){
+			var Id = $(this).attr("rel");
+
+>>>>>>> origin/master
 			$.ajax({
 				type: 'post',
 				url: '/serve_linen_request',
