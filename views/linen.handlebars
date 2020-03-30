@@ -7,7 +7,8 @@
 <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
-
+<script src="/js/moment.min.js"></script>
+<script src="/js/moment.executor.js"></script>
 
 <style>
 	.dt-body-nowrap {
@@ -55,14 +56,6 @@
 </div>
 
 
-<button class="served" type="button"><span>Served</span></button>
-
-
-<button class="print" type="button"><span>Print</span></button>
-
-
-
-
   <script type="text/javascript">
 	$(document).ready( function () {
 		$('#linen_requests_unserved').DataTable();
@@ -90,30 +83,42 @@
 
 	});
 
+
+
 	$(document).ready(function() {
-	    $('#idlinen').DataTable( {
-	        buttons: [
-	            'print'
+	    $.fn.dataTable.moment('DD/MM/YYYY');
+	    $('#linens').DataTable();
+	});
+
+	$(document).ready(function() {
+	    $('#linens').dataTable( {
+	        "columns": [
+	            null,
+	            null,
+	            null,
+	            null,
+							null,
+							null,
+	            { "type": "date" },
+	            null
 	        ]
-	    } );
-	} );
-
+	    });
+	    });
+var date_format("2017-06-15", "%Y");
 
 	$(document).ready(function() {
-			$('#Served').DataTable( {
-					buttons: [
-							'served'
-					]
+			  $('#linens').DataTable( {
+			      buttons: [
+			          'served'
+			        ]
+			    } );
 			} );
-	} );
 
- 
+	$('#served?').on( 'click', function () {
+			  table
+			      .row( $(this).parents('tr') )
+			      .remove()
+			      .draw();
+			} );
 
   </script>
-
-  <!-- <div class='alert alert-primary' role='alert'>
-		{{ error }}
-		<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-			<span aria-hidden='true'>&times;</span>
-		</button>
-	</div>-->
