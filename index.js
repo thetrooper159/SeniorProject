@@ -17,6 +17,8 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 var validator = require('validator');
+var Chart = require('chart.js');
+//var myChart = new Chart(ctx, {...});
 
 
 /*
@@ -35,8 +37,6 @@ var GET_Faq = require('./framework/get/get_faq.js');
 var POST_Faq = require('./framework/post/post_faq.js');
 var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
-
-var DELETE_Faq = require('./framework/post/delete_faq.js');
 
 
 /* Initializing App */
@@ -92,7 +92,6 @@ Start of Routing Pages
 
 ***********************/
 
-
 /* Home Page */
 app.get('/', function(req, res) {
   res.render('home', {
@@ -123,7 +122,6 @@ app.post('/sendpushnotification', (req, res) => {
   console.log(event);
   res.redirect('/notifications')
 });
-
 
 
 app.post('/serve_linen_request', (req, res) => {
@@ -163,6 +161,11 @@ app.get('/linen', function(req, res) {
 
   */
 
+});
+
+app.get('/data', function(req, res) {
+  res.render('data', {
+  });
 });
 
 
@@ -209,74 +212,9 @@ app.post('/save_faq', function(req, res) {
 		}
 	});
 
+
+
 });
-
-app.post('/delete_faq', function(req, res) {
-	var questions = req.body.question;
-	var answers =  req.body.answer;
-	var Ids  = req.body.Id;
-
-	var combo = {};
-	for(var i=0; i < answers.length; i++){
-		combo[i + 1] = [Ids[i], questions[i], answers[i]];
-	}
-
-var post = DELETE_Faq.delete_faq(combo, function(status, message){
-		if(status == true){
-			req.session.success = message;
-			res.redirect('/faq');
-
-		}else{
-			req.session.error = message;
-		}
-	});
-});
-
-// Lance post code for linens
-app.post('/api/v1/linens_request', function(req, res) {
-  // add record to database with linens request
-  function insertLinen(linen, callback) {
-    const connection = mysql.createConnection(sql);
-    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID],
-    function (err, headers, fields) {
-      if (err){
-        console.log(err);
-        callback(err);
-      } else {
-        callback();
-      }
-    });
-  }
-
-  insertLinen({
-    house: req.body.house,
-    room: req.body.room,
-    guests: req.body.guests,
-    towels: req.body.towels,
-    washcloths: req.body.washcloths,
-    bathmats: req.body.bathmats,
-    bluebag: req.body.bluebag,
-    date: req.body.date,
-    twinsheets: req.body.twinsheets,
-    queemsheets: req.body.queensheets,
-    pillowcases: req.body.pillowcases,
-    isServed: req.body.isServed,
-    phoneID: req.body.phoneID
-  }, function (err) {
-    if (err){
-      res.status(500);
-      res.render('500');
-    } else {
-      console.log("done");
-      res.status(200);
-      res.send('ok');
-    }
-
-
-  });
-});
-
 
 
 
