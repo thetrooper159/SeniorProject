@@ -75,7 +75,6 @@ textarea {
 								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isServed}} Served {{else}}<button class="btn btn-primary serve_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
               </div>
-							</div>
 						{{/general}}
 					</div>
 				</div>
@@ -93,7 +92,6 @@ textarea {
 							<div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
 							</div>
 						{{/allhouses}}
 					</div>
@@ -112,7 +110,6 @@ textarea {
 							<div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
 							</div>
 						{{/forfamilies}}
 					</div>
@@ -131,7 +128,6 @@ textarea {
 							<div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
 							</div>
 						{{/transportation}}
 					</div>
@@ -150,7 +146,6 @@ textarea {
 							<div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
 							</div>
 						{{/neville}}
 					</div>
@@ -186,9 +181,8 @@ textarea {
 							</div>
 							<div class="col-md-6 col-xs-12">
 								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}"><button class="btn btn-primary delete_request" id="{{ Id }}" rel="{{ Id }}">Delete</button></td>
+                <td id="{{ Id }}"><button class="btn btn-primary delete_request" id="{{ Id}}" rel="{{ Id }}">Delete</button></td>
               </div>
-							</div>
 						{{/university}}
 					</div>
 				</div>
@@ -198,26 +192,28 @@ textarea {
 </div>
 <script type="text/javascript">
 	$( document ).ready(function() {
-  $('#delete_faq').DataTable();
-
+	});
+</script>
+<script type="text/javascript">
+$(document).ready( function () {
+  $('#delete_row').DataTable();
   $('.delete_request').on("click", function(){
     var Id = $(this).attr("rel");
-
     $.ajax({
       type: 'post',
       url: '/delete_faq',
       data: {Id: Id},
       dataType: 'text'
-    });
+    })
     .done(function(data){
-
       if(data = true){
+        $(".display-message").append("<div class='alert alert-primary' role='alert'>Row has been deleted!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
+        $('#' + Id).find(":button").remove();
         $('#' + Id).append("Deleted");
       }else{
         $(".display-message").append("<div class='alert alert-danger' role='alert'>Row could not be deleted<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
       }
     });
-
   });
 });
 </script>
