@@ -34,6 +34,8 @@ var POST_Faq = require('./framework/post/post_faq.js');
 var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
 
+var DELETE_Faq = require('./framework/post/delete_faq.js');
+
 
 /* Initializing App */
 var app = express();
@@ -86,6 +88,7 @@ app.set('port', process.env.PORT || 3000);
 Start of Routing Pages
 ***********************/
 
+
 /* Home Page */
 app.get('/', function(req, res) {
   res.render('home', {
@@ -116,6 +119,7 @@ app.post('/sendpushnotification', (req, res) => {
   console.log(event);
   res.redirect('/notifications')
 });
+
 
 
 app.post('/serve_linen_request', (req, res) => {
@@ -200,8 +204,6 @@ app.post('/save_faq', function(req, res) {
 		}
 	});
 
-
-
 });
 
 app.post('/delete_faq', function(req, res) {
@@ -214,8 +216,7 @@ app.post('/delete_faq', function(req, res) {
 		combo[i + 1] = [Ids[i], questions[i], answers[i]];
 	}
 
-
-	var post = POST_Faq.delete_faq(combo, function(status, message){
+var post = DELETE_Faq.delete_faq(combo, function(status, message){
 		if(status == true){
 			req.session.success = message;
 			res.redirect('/faq');
@@ -231,8 +232,8 @@ app.post('/api/v1/linens_request', function(req, res) {
   // add record to database with linens request
   function insertLinen(linen, callback) {
     const connection = mysql.createConnection(sql);
-    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID, lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID, linen.lastname],
+    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID],
     function (err, headers, fields) {
       if (err){
         console.log(err);
@@ -256,8 +257,7 @@ app.post('/api/v1/linens_request', function(req, res) {
     queemsheets: req.body.queensheets,
     pillowcases: req.body.pillowcases,
     isServed: req.body.isServed,
-    phoneID: req.body.phoneID,
-    lastname: req.body.lastname
+    phoneID: req.body.phoneID
   }, function (err) {
     if (err){
       res.status(500);
@@ -271,7 +271,6 @@ app.post('/api/v1/linens_request', function(req, res) {
 
   });
 });
-
 //Lance and Voortman code
 app.get('/api/v1/faq', function(req, res) {
   var mysql = require('mysql2');

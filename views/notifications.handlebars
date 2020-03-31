@@ -1,9 +1,24 @@
 <div class="push_notification_text">
   <div class="container" style="text-align: center;">
-          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250">Post Events</h1>
+          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250">Send Push Notifications</h1>
+    </div>
+</div>
+<div class="container">
+  <form action="/sendpushnotification" method="POST">
+    <div class="form-row">
       <div class="col-md-6 col-xs-12">
         <div class="form-group">
-          <label for="cars">Choose a House:</label>
+          <label for="cars">Choose a type:</label>
+          <select name="notification_type" class="form-control">
+            <option value="" disabled selected>Select your option</option>
+            <option value="1">Event</option>
+            <option value="0">Alert</option>
+          </select>
+        </div>
+      </div><br><br>
+      <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+          <label for="cars">Choose a type:</label>
           <select name="select_house" class="form-control">
             <option value="" disabled selected>Select House</option>
             <option value="0">All Houses</option>
@@ -13,19 +28,6 @@
           </select>
         </div>
       </div>
-<<<<<<< HEAD
-=======
-      <div class="col-md-6 col-xs-6">
-        <div class="form-group">
-          <label for="cars">Is this an alert?</label>
-          <select name="select_option" class="form-control">
-            <option value="" disabled selected>Select Option</option>
-            <option value="0">Yes</option>
-            <option value="1">No</option>
-          </select>
-        </div>
-      </div>
->>>>>>> origin/master
       <div class="form-row">
         <div class="col-md-6 col-xs-12">
           <div class="form-group">
@@ -38,7 +40,7 @@
     <div class="form-row">
       <div class="col-md-6 col-xs-12">
         <div calss="form-group">
-          <label for="message">Message</label>
+          <label for="message">Meesage</label>
           <textarea id="message" name="message" placeholder="Write something.." class="form-control" style="width: 100%; height: 250px"></textarea><br>
         </div>
       </div>

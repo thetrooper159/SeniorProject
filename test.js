@@ -16,8 +16,12 @@ request({
     queensheets: '10',
     pillowcases: '8',
     isServed: '1',
+<<<<<<< HEAD
+    phoneID: '0'
+=======
     phoneID: '0',
     lastname: 'null'
+>>>>>>> origin/master
   }
 }, function(error, response, body) {
   console.log(error);
