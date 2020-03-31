@@ -7,7 +7,7 @@ const connection = mysql.createConnection(sql);
 exports.save_faq = function(combo, callback){
 	var combo_length = 0;
 	for(var x in combo){
-		combo_length ++
+		combo_length ++;
 	}
 	for(var i = 1; i <= combo_length; i++){
 		var sql_run = 'UPDATE faq SET answer="' + combo[i][2] +  '" , question="' + combo[i][1] +  '" WHERE Id=' + combo[i][0];
