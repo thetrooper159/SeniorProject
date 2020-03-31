@@ -73,12 +73,8 @@ textarea {
 							</div>
 							<div class="col-md-6 col-xs-12">
 								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-<<<<<<< HEAD
                 <td id="{{ Id }}">  {{#if isServed}} Served {{else}}<button class="btn btn-primary serve_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
               </div>
-=======
-							</div>
->>>>>>> origin/master
 						{{/general}}
 					</div>
 				</div>
@@ -94,12 +90,8 @@ textarea {
 								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
 							</div>
 							<div class="col-md-6 col-xs-12">
-<<<<<<< HEAD
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-=======
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
->>>>>>> origin/master
 							</div>
 						{{/allhouses}}
 					</div>
@@ -116,12 +108,8 @@ textarea {
 								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
 							</div>
 							<div class="col-md-6 col-xs-12">
-<<<<<<< HEAD
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-=======
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
->>>>>>> origin/master
 							</div>
 						{{/forfamilies}}
 					</div>
@@ -138,12 +126,8 @@ textarea {
 								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
 							</div>
 							<div class="col-md-6 col-xs-12">
-<<<<<<< HEAD
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-=======
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
->>>>>>> origin/master
 							</div>
 						{{/transportation}}
 					</div>
@@ -160,12 +144,8 @@ textarea {
 								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
 							</div>
 							<div class="col-md-6 col-xs-12">
-<<<<<<< HEAD
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-=======
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
->>>>>>> origin/master
 							</div>
 						{{/neville}}
 					</div>
@@ -183,10 +163,7 @@ textarea {
 							</div>
 							<div class="col-md-6 col-xs-12">
 								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-<<<<<<< HEAD
                 <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-=======
->>>>>>> origin/master
 							</div>
 						{{/shadyside}}
 					</div>
@@ -204,12 +181,8 @@ textarea {
 							</div>
 							<div class="col-md-6 col-xs-12">
 								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-<<<<<<< HEAD
-                <td id="{{ Id }}"><button class="btn btn-primary delete_request" id="{{ Id }}" rel="{{ Id }}">Delete</button></td>
+                <td id="{{ Id }}"><button class="btn btn-primary delete_request" id="{{ Id}}" rel="{{ Id }}">Delete</button></td>
               </div>
-=======
-							</div>
->>>>>>> origin/master
 						{{/university}}
 					</div>
 				</div>
@@ -219,35 +192,28 @@ textarea {
 </div>
 <script type="text/javascript">
 	$( document ).ready(function() {
-<<<<<<< HEAD
-
 	});
 </script>
 <script type="text/javascript">
 $(document).ready( function () {
-  $('#delete_faq').DataTable();
-
+  $('#delete_row').DataTable();
   $('.delete_request').on("click", function(){
     var Id = $(this).attr("rel");
-
     $.ajax({
       type: 'post',
       url: '/delete_faq',
       data: {Id: Id},
       dataType: 'text'
-    });
+    })
     .done(function(data){
-
       if(data = true){
+        $(".display-message").append("<div class='alert alert-primary' role='alert'>Row has been deleted!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
+        $('#' + Id).find(":button").remove();
         $('#' + Id).append("Deleted");
       }else{
         $(".display-message").append("<div class='alert alert-danger' role='alert'>Row could not be deleted<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
       }
     });
-
   });
-=======
->>>>>>> origin/master
-
 });
 </script>

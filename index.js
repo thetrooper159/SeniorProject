@@ -1,8 +1,6 @@
 
 /*****************
-
 Controller For Family House
-
 *****************/
 
 
@@ -87,9 +85,7 @@ app.set('port', process.env.PORT || 3000);
 
 
 /**********************
-
 Start of Routing Pages
-
 ***********************/
 
 
@@ -160,7 +156,6 @@ app.get('/linen', function(req, res) {
   function(err, results, rows, fields){
 	res.render('linen', {rows: results, reverse: !req.query.reverse});
   });
-
   */
 
 });
@@ -276,56 +271,6 @@ app.post('/api/v1/linens_request', function(req, res) {
 
   });
 });
-
-
-
-
-// Lance post code for linens
-app.post('/api/v1/linens_request', function(req, res) {
-  // add record to database with linens request
-  function insertLinen(linen, callback) {
-    const connection = mysql.createConnection(sql);
-    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID, lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID, linen.lastname],
-    function (err, headers, fields) {
-      if (err){
-        console.log(err);
-        callback(err);
-      } else {
-        callback();
-      }
-    });
-  }
-
-  insertLinen({
-    house: req.body.house,
-    room: req.body.room,
-    guests: req.body.guests,
-    towels: req.body.towels,
-    washcloths: req.body.washcloths,
-    bathmats: req.body.bathmats,
-    bluebag: req.body.bluebag,
-    date: req.body.date,
-    twinsheets: req.body.twinsheets,
-    queemsheets: req.body.queensheets,
-    pillowcases: req.body.pillowcases,
-    isServed: req.body.isServed,
-    phoneID: req.body.phoneID,
-    lastname: req.body.lastname
-  }, function (err) {
-    if (err){
-      res.status(500);
-      res.render('500');
-    } else {
-      console.log("done");
-      res.status(200);
-      res.send('ok');
-    }
-
-
-  });
-});
-
 //Lance and Voortman code
 app.get('/api/v1/faq', function(req, res) {
   var mysql = require('mysql2');
@@ -393,9 +338,7 @@ app.use(function(err, req, res, next){
 
 
 /**********************
-
 Stop of Routing Pages
-
 ***********************/
 
 /* Start Server */
