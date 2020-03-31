@@ -65,17 +65,20 @@ textarea {
 				<div class="jumbotron" style="width: 100%">
 					<h1 class="display-4">General</h1>
 					<hr class="my-4">
-					<div class="form-row">
 						{{#general}}
+            <div class="form-row" id="row{{Id}}">
 							<input type="hidden" name="Id[]" value="{{ Id }}" />
-							<div class="col-md-6 col-xs-12">
+							<div class="col-md-4 col-xs-12">
 								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
 							</div>
-							<div class="col-md-6 col-xs-12">
+							<div class="col-md-4 col-xs-12">
 								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
 							</div>
+              <div class="col-md-4 col-xs-12">
+              <a href="javascript:deleteFaq('{{Id}}')" > Delete </a>
+              </div>
+            </div>
 						{{/general}}
-					</div>
 				</div>
 			</div>
 			<div class="row jumbo-faq" style="text-align: center" id="all_houses">
@@ -187,4 +190,7 @@ textarea {
 	$( document ).ready(function() {
 
 	});
+  function deleteFaq(Id){
+    $("#row" + Id).remove();
+  }
 </script>

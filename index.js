@@ -209,6 +209,35 @@ app.post('/save_faq', function(req, res) {
 
 });
 
+//delete button code for faw page
+app.post('/deleteFaq', function(req, res) {
+  function deleteFaq(faq, callback){
+    const connection = mysql.createconnection(sql);
+    connection.query('DELETE FROM faq WHERE Id=?',
+    [faq.Id],
+    function (err, headers, fields) {
+      if (err, headers, fields) {
+        console.log(err);
+        callback(err)
+      } else {
+        callback();
+      }
+    }
+  )};
+  deleteFaq({
+    Id: req.body.Id
+
+  }, function (err) {
+    if (err){
+      res.status(500);
+      res.status('500');
+    } else {
+      console.log('should be deleted');
+      res.status(200);
+      res.send('ok');
+    }
+  });
+});
 
 
 // Lance post code for linens
