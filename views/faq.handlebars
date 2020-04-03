@@ -1,223 +1,251 @@
 <style>
-table, th, td {
-  border: 2px solid black;
-  background-color: white;
-  padding: 20px;
-}
-textarea {
-		min-width: 100%;
-	}
+  table,
+  th,
+  td {
+    border: 2px solid black;
+    background-color: white;
+    padding: 20px;
+  }
+
+  textarea {
+    min-width: 100%;
+  }
 </style>
 {{#if success}}
-	<div class="alert alert-primary" role="alert">
-		{{ success }}
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
+  <div class="alert alert-primary" role="alert">
+    {{ success }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 {{/if}}
 
 {{#if error}}
-	<div class="alert alert-primary" role="alert">
-		{{ error }}
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
+  <div class="alert alert-primary" role="alert">
+    {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 {{/if}}
 <div class="container">
-	<form name="save_faq" id="save_faq" class="" action="/save_faq" method="POST">
+  <form name="save_faq" id="save_faq" class="" action="/save_faq" method="POST">
 
-		<div class="faq-page-header-text">
-			<h1 style="text-align: center;">F.A.Q.</h1><br />
-			<p>From here, you can edit different items from the faq section, press save and it will be automatically applied to our app</p>
-		</div>
-		<ul class="nav sticky-top justify-content-center nav-tabs bg-light" style="color: #565A5C;">
-		  <li class="nav-item">
-			<a class="nav-link" href="#general" style="color: #565A5C; font-size: 20px;">General</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#all_houses"  style="color: #565A5C; font-size: 20px;">All Houses</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#families" style="color: #565A5C; font-size: 20px;">For Families</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#transportation" style="color: #565A5C; font-size: 20px;">Transportation</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#neville" style="color: #565A5C; font-size: 20px;">Neville</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#shadyside" style="color: #565A5C; font-size: 20px;">Shadyside</a>
-		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="#university" style="color: #565A5C; font-size: 20px;">University Place</a>
-		  </li>
-		   <li class="nav-item">
-				<button class="btn btn-success" type="submit" value="submit" style="margin-top: 5px;">Save</button>
-			</li>
-		</ul>
-		<br />
-		<!-- Jumbotrons for sections -->
-		<div class="container">
-			<div id="general" class="row jumbo-faq" style="text-align: center">
+    <div class="faq-page-header-text">
+      <h1 style="text-align: center;">F.A.Q.</h1><br />
+      <p>From here, you can edit different items from the faq section, press save and it will be automatically applied to our app</p>
+    </div>
+    <ul class="nav sticky-top justify-content-center nav-tabs bg-light" style="color: #565A5C;">
+      <li class="nav-item">
+        <a class="nav-link" href="#general" style="color: #565A5C; font-size: 20px;">General</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#all_houses" style="color: #565A5C; font-size: 20px;">All Houses</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#families" style="color: #565A5C; font-size: 20px;">For Families</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#transportation" style="color: #565A5C; font-size: 20px;">Transportation</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#neville" style="color: #565A5C; font-size: 20px;">Neville</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#shadyside" style="color: #565A5C; font-size: 20px;">Shadyside</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#university" style="color: #565A5C; font-size: 20px;">University Place</a>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-success" type="submit" value="submit" style="margin-top: 5px;">Save</button>
+      </li>
+    </ul>
+    <br />
+    <!-- Jumbotrons for sections -->
+    <div class="container">
+      <div id="general" class="row jumbo-faq" style="text-align: center">
 				<div class="jumbotron" style="width: 100%">
 					<h1 class="display-4">General</h1>
 					<hr class="my-4">
+          
 						{{#general}}
                             <div class="form-row" id="section-{{ Id }}">
     							<input type="hidden" name="Id[]" value="{{ Id }}" />
     							<div class="col-md-3 col-xs-12">
     								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                    <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+
     							</div>
-    							<div class="col-md-7 col-xs-12">
+    							<div class="col-md-6 col-xs-12">
     								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+                    <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+
+
                                 </div>
                                 <div class="col-md-2">
-                                    <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+
                                 </div>
                             </div>
-						{{/general}}
+          {{/general}}
 
-				</div>
-			</div>
-			<div class="row jumbo-faq" style="text-align: center" id="all_houses">
-				<div class="jumbotron" style="width: 100%">
-					<h1 class="display-4">All Houses</h1>
-					<hr class="my-4">
-					<div class="form-row">
-						{{#allhouses}}
-							<input type="hidden" name="Id[]" value="{{ Id }}" />
-							<div class="col-md-6 col-xs-12">
-								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
-							</div>
-							<div class="col-md-6 col-xs-12">
+        </div>
+      </div>
+      <div class="row jumbo-faq" style="text-align: center" id="all_houses">
+        <div class="jumbotron" style="width: 100%">
+          <h1 class="display-4">All Houses</h1>
+          <hr class="my-4">
+          <div class="form-row">
+            {{#allhouses}}
+              <input type="hidden" name="Id[]" value="{{ Id }}" />
+
+              <div class="col-md-6 col-xs-12">
+                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+
+              </div>
+              <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-							</div>
-						{{/allhouses}}
-					</div>
-				</div>
-			</div>
-			<div class="row jumbo-faq" style="text-align: center" id="families">
-				<div class="jumbotron" style="width: 100%">
-					<h1 class="display-4">For Families</h1>
-					<hr class="my-4">
-					<div class="form-row">
-						{{#forfamilies}}
-							<input type="hidden" name="Id[]" value="{{ Id }}" />
-							<div class="col-md-6 col-xs-12">
-								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
-							</div>
-							<div class="col-md-6 col-xs-12">
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+              </div>
+            {{/allhouses}}
+          </div>
+        </div>
+      </div>
+      <div class="row jumbo-faq" style="text-align: center" id="families">
+        <div class="jumbotron" style="width: 100%">
+          <h1 class="display-4">For Families</h1>
+          <hr class="my-4">
+          <div class="form-row">
+            {{#forfamilies}}
+              <input type="hidden" name="Id[]" value="{{ Id }}" />
+
+              <div class="col-md-6 col-xs-12">
+                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+
+              </div>
+              <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-							</div>
-						{{/forfamilies}}
-					</div>
-				</div>
-			</div>
-			<div class="row jumbo-faq" style="text-align: center" id="transportation">
-				<div class="jumbotron" style="width: 100%">
-					<h1 class="display-4">Transportation</h1>
-					<hr class="my-4">
-					<div class="form-row">
-						{{#transportation}}
-							<input type="hidden" name="Id[]" value="{{ Id }}" />
-							<div class="col-md-6 col-xs-12">
-								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
-							</div>
-							<div class="col-md-6 col-xs-12">
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+              </div>
+            {{/forfamilies}}
+          </div>
+        </div>
+      </div>
+      <div class="row jumbo-faq" style="text-align: center" id="transportation">
+        <div class="jumbotron" style="width: 100%">
+          <h1 class="display-4">Transportation</h1>
+          <hr class="my-4">
+          <div class="form-row">
+            {{#transportation}}
+            <input type="hidden" name="Id[]" value="{{ Id }}" />
+
+            <div class="col-md-6 col-xs-12">
+              <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+              <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+
+
+            </div>
+            <div class="col-md-6 col-xs-12">
+              <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+              <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+            </div>
+            {{/transportation}}
+          </div>
+        </div>
+      </div>
+      <div class="row jumbo-faq" style="text-align: center" id="neville">
+        <div class="jumbotron" style="width: 100%">
+          <h1 class="display-4">Neville</h1>
+          <hr class="my-4">
+          <div class="form-row">
+            {{#neville}}
+              <input type="hidden" name="Id[]" value="{{ Id }}" />
+
+              <div class="col-md-6 col-xs-12">
+                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+
+
+              </div>
+              <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-							</div>
-						{{/transportation}}
-					</div>
-				</div>
-			</div>
-			<div class="row jumbo-faq" style="text-align: center" id="neville">
-				<div class="jumbotron" style="width: 100%">
-					<h1 class="display-4">Neville</h1>
-					<hr class="my-4">
-					<div class="form-row">
-						{{#neville}}
-							<input type="hidden" name="Id[]" value="{{ Id }}" />
-							<div class="col-md-6 col-xs-12">
-								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
-							</div>
-							<div class="col-md-6 col-xs-12">
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+              </div>
+            {{/neville}}
+          </div>
+        </div>
+      </div>
+      <div class="row jumbo-faq" style="text-align: center" id="shadyside">
+        <div class="jumbotron" style="width: 100%">
+          <h1 class="display-4">Shadyside</h1>
+          <hr class="my-4">
+          <div class="form-row">
+            {{#shadyside}}
+              <input type="hidden" name="Id[]" value="{{ Id }}" />
+              <div class="col-md-6 col-xs-12">
+                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+
+              </div>
+              <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-							</div>
-						{{/neville}}
-					</div>
-				</div>
-			</div>
-			<div class="row jumbo-faq" style="text-align: center" id="shadyside">
-				<div class="jumbotron" style="width: 100%">
-					<h1 class="display-4">Shadyside</h1>
-					<hr class="my-4">
-					<div class="form-row">
-						{{#shadyside}}
-							<input type="hidden" name="Id[]" value="{{ Id }}" />
-							<div class="col-md-6 col-xs-12">
-								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
-							</div>
-							<div class="col-md-6 col-xs-12">
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}">  {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-							</div>
-						{{/shadyside}}
-					</div>
-				</div>
-			</div>
-			<div class="row jumbo-faq" style="text-align: center" id="university">
-				<div class="jumbotron" style="width: 100%">
-					<h1 class="display-4">University Place</h1>
-					<hr class="my-4">
-					<div class="form-row">
-						{{#university}}
-							<input type="hidden" name="Id[]" value="{{ Id }}" />
-							<div class="col-md-6 col-xs-12">
-								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
-							</div>
-							<div class="col-md-6 col-xs-12">
-								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+              </div>
+            {{/shadyside}}
+          </div>
+        </div>
+      </div>
+      <div class="row jumbo-faq" style="text-align: center" id="university">
+        <div class="jumbotron" style="width: 100%">
+          <h1 class="display-4">University Place</h1>
+          <hr class="my-4">
+          <div class="form-row">
+            {{#university}}
+              <input type="hidden" name="Id[]" value="{{ Id }}" />
+
+              <div class="col-md-6 col-xs-12">
+                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
                 <td id="{{ Id }}"><button class="btn btn-primary delete_request" id="{{ Id}}" rel="{{ Id }}">Delete</button></td>
               </div>
-						{{/university}}
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
+            {{/university}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
 <script type="text/javascript">
-	$( document ).ready(function() {
-	});
+  $(document).ready(function() {});
 </script>
 <script type="text/javascript">
-$(document).ready( function () {
-//    triggermessage("dark", "This is a test");
+  $(document).ready(function() {
+    //    triggermessage("dark", "This is a test");
 
-});
+  });
 
-function deleteSection(Id){
+  function deleteSection(Id) {
     $.ajax({
       type: 'post',
       url: '/delete_faq',
-      data: {Id: Id},
+      data: {
+        Id: Id
+      },
       dataType: 'json'
-    }).done(function(data){
+    }).done(function(data) {
 
-          if(data['status'] = true){
-              triggermessage("success", data['message']);
-              $('#section-' + Id).remove();
-          }else{
-               triggermessage("danger", data['message']);
-          }
+      if (data['status'] = true) {
+        triggermessage("success", data['message']);
+        $('#section-' + Id).remove();
+      } else {
+        triggermessage("danger", data['message']);
+      }
     });
-}
-
+  }
 </script>
