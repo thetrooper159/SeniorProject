@@ -65,28 +65,24 @@
     <!-- Jumbotrons for sections -->
     <div class="container">
       <div id="general" class="row jumbo-faq" style="text-align: center">
-				<div class="jumbotron" style="width: 100%">
-					<h1 class="display-4">General</h1>
-					<hr class="my-4">
-          
-						{{#general}}
-                            <div class="form-row" id="section-{{ Id }}">
-    							<input type="hidden" name="Id[]" value="{{ Id }}" />
-    							<div class="col-md-3 col-xs-12">
-    								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                    <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+        <div class="jumbotron" style="width: 100%">
+          <h1 class="display-4">General</h1>
+          <hr class="my-4">
+          {{#general}}
+            <div class="form-row" id="section-{{ Id }}">
+              <input type="hidden" name="Id[]" value="{{ Id }}" />
+              <div class="col-md-3 col-xs-12">
+                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+              </div>
+              <div class="col-md-7 col-xs-12">
+                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
 
-    							</div>
-    							<div class="col-md-6 col-xs-12">
-    								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                    <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-
-
-                                </div>
-                                <div class="col-md-2">
-
-                                </div>
-                            </div>
+              </div>
+              <div class="col-md-2">
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+              </div>
+            </div>
           {{/general}}
 
         </div>
@@ -101,13 +97,11 @@
 
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-              </div>
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a> </div>
             {{/allhouses}}
           </div>
         </div>
@@ -122,12 +116,11 @@
 
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
             {{/forfamilies}}
           </div>
@@ -139,18 +132,16 @@
           <hr class="my-4">
           <div class="form-row">
             {{#transportation}}
-            <input type="hidden" name="Id[]" value="{{ Id }}" />
+              <input type="hidden" name="Id[]" value="{{ Id }}" />
 
-            <div class="col-md-6 col-xs-12">
-              <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-              <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+              <div class="col-md-6 col-xs-12">
+                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
 
-
-            </div>
-            <div class="col-md-6 col-xs-12">
-              <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-              <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-            </div>
+              </div>
+              <div class="col-md-6 col-xs-12">
+                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a> </div>
             {{/transportation}}
           </div>
         </div>
@@ -165,13 +156,12 @@
 
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
 
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
             {{/neville}}
           </div>
@@ -186,12 +176,11 @@
               <input type="hidden" name="Id[]" value="{{ Id }}" />
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
             {{/shadyside}}
           </div>
@@ -207,12 +196,11 @@
 
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <td id="{{ Id }}"> {{#if isDeleted}} Deleted {{else}}<button class="btn btn-primary delete_request" id="" rel="{{ Id }}">Delete</button> {{/if}}</td>
-
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <td id="{{ Id }}"><button class="btn btn-primary delete_request" id="{{ Id}}" rel="{{ Id }}">Delete</button></td>
+                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
             {{/university}}
           </div>
