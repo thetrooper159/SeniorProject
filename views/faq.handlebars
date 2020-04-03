@@ -65,24 +65,26 @@
     <!-- Jumbotrons for sections -->
     <div class="container">
       <div id="general" class="row jumbo-faq" style="text-align: center">
-        <div class="jumbotron" style="width: 100%">
-          <h1 class="display-4">General</h1>
-          <hr class="my-4">
-          {{#general}}
-            <div class="form-row" id="section-{{ Id }}">
-              <input type="hidden" name="Id[]" value="{{ Id }}" />
-              <div class="col-md-3 col-xs-12">
-                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
-              </div>
-              <div class="col-md-7 col-xs-12">
-                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+				<div class="jumbotron" style="width: 100%">
+					<h1 class="display-4">General</h1>
+					<hr class="my-4">
 
-              </div>
-              <div class="col-md-2">
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
-              </div>
-            </div>
+						{{#general}}
+                            <div class="form-row" id="section-{{ Id }}">
+    							<input type="hidden" name="Id[]" value="{{ Id }}" />
+    							<div class="col-md-3 col-xs-12">
+    								<input class="form-control" type="text" name="question[]" value="{{ question }}" />
+
+    							</div>
+    							<div class="col-md-6 col-xs-12">
+    								<textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+<a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+
+                                </div>
+                                <div class="col-md-2">
+
+                                </div>
+                            </div>
           {{/general}}
 
         </div>
@@ -97,11 +99,12 @@
 
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a> </div>
+<a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+</div>
             {{/allhouses}}
           </div>
         </div>
@@ -116,11 +119,11 @@
 
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+<a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
               </div>
             {{/forfamilies}}
           </div>
@@ -132,16 +135,17 @@
           <hr class="my-4">
           <div class="form-row">
             {{#transportation}}
-              <input type="hidden" name="Id[]" value="{{ Id }}" />
+            <input type="hidden" name="Id[]" value="{{ Id }}" />
 
-              <div class="col-md-6 col-xs-12">
-                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+            <div class="col-md-6 col-xs-12">
+              <input class="form-control" type="text" name="question[]" value="{{ question }}" />
 
-              </div>
-              <div class="col-md-6 col-xs-12">
-                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a> </div>
+
+            </div>
+            <div class="col-md-6 col-xs-12">
+              <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+              <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+            </div>
             {{/transportation}}
           </div>
         </div>
@@ -156,7 +160,7 @@
 
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+
 
               </div>
               <div class="col-md-6 col-xs-12">
@@ -176,7 +180,7 @@
               <input type="hidden" name="Id[]" value="{{ Id }}" />
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
@@ -196,7 +200,7 @@
 
               <div class="col-md-6 col-xs-12">
                 <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+
               </div>
               <div class="col-md-6 col-xs-12">
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
