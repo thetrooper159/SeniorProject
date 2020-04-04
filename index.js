@@ -33,6 +33,8 @@ var GET_Faq = require('./framework/get/get_faq.js');
 var POST_Faq = require('./framework/post/post_faq.js');
 var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
+var POST_Event = require('./framework/post/post_event.js');
+var GET_Events = require('./framework/get/get_events.js');
 
 var DELETE_Faq = require('./framework/post/delete_faq.js');
 
@@ -70,6 +72,7 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 
+
 /* Specific to express-handlebars that features agressive caching, This is extremely effective and should be kept off while working on application  */
 //app.enable('view cache');
 
@@ -103,9 +106,39 @@ app.get('/alerts', function(req, res) {
 
 /*Post Events Page*/
 app.get('/events', function(req, res) {
-  res.render('events', {
-  });
+    GET_Events.getAllEvents(function(events){
+        //console.log(events['content']);
+        res.render('Events/events', {
+            events  :  events['content']
+        });
+
+    });
+
 });
+
+app.get('/events/:Id', function(req, res) {
+    var Id = req.params.Id;
+    GET_Events.getEventData(Id, function(data){
+        console.log(data.content[0]);
+        res.render('Events/event-details', {
+            event : data.content[0],
+        });
+    })
+
+});
+
+app.post('/create_event', (req, res) => {
+    var name = req.body.name;
+
+    POST_Event.createEvent(name, function(status, message, Id){
+        if(status == false){
+            res.redirect("events");
+        }else{
+            res.redirect("/events/" + Id);
+        }
+    })
+});
+
 
 /* Push Notifications Page */
 app.get('/notifications', function(req, res) {
