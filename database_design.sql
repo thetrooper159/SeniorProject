@@ -19,3 +19,18 @@ CREATE TABLE Events (
     `created_uid` int(11),
     `modified_uid` int(11)
 );
+
+/**************
+Analytics Table
+**************/
+
+DROP TABLE IF EXISTS `analytics`;
+
+CREATE TABLE analytics(
+    `Id` int(11) AUTO_INCREMENT PRIMARY KEY,
+    `event` varchar(32),
+    `value` tinyint,
+    `content` varchar(128),
+    `phone` tinyint,
+    `date_create` date
+);
