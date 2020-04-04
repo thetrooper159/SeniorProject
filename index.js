@@ -35,6 +35,7 @@ var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
 var POST_Event = require('./framework/post/post_event.js');
 var GET_Events = require('./framework/get/get_events.js');
+var GET_Analytics = require('./framework/get/get_analytics.js');
 
 var DELETE_Faq = require('./framework/post/delete_faq.js');
 
@@ -94,8 +95,18 @@ Start of Routing Pages
 
 /* Home Page */
 app.get('/', function(req, res) {
-  res.render('home', {
-  });
+    GET_Analytics.getFaqTotals(function(data){
+        res.render('home', {
+            general_hits  : data['general_hits'],
+            neville_hits  : data['neville_hits'],
+            all_houses_hits  : data['all_houses_hits'],
+            transportation_hits  : data['transportation_hits'],
+            shadyside_hits  : data['shadyside_hits'],
+            forfamilies_hits  : data['forfamilies_hits'],
+            university_hits  : data['university_hits']
+        });
+    });
+
 });
 
 /*Send Alerts Page*/
