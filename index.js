@@ -1,8 +1,6 @@
 
 /*****************
-
 Controller For Family House
-
 *****************/
 
 
@@ -35,6 +33,11 @@ var GET_Faq = require('./framework/get/get_faq.js');
 var POST_Faq = require('./framework/post/post_faq.js');
 var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
+var POST_Event = require('./framework/post/post_event.js');
+var GET_Events = require('./framework/get/get_events.js');
+var GET_Analytics = require('./framework/get/get_analytics.js');
+
+var DELETE_Faq = require('./framework/post/delete_faq.js');
 
 
 /* Initializing App */
@@ -70,6 +73,7 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 
+
 /* Specific to express-handlebars that features agressive caching, This is extremely effective and should be kept off while working on application  */
 //app.enable('view cache');
 
@@ -85,15 +89,24 @@ app.set('port', process.env.PORT || 3000);
 
 
 /**********************
-
 Start of Routing Pages
-
 ***********************/
+
 
 /* Home Page */
 app.get('/', function(req, res) {
-  res.render('home', {
-  });
+    GET_Analytics.getFaqTotals(function(data){
+        res.render('home', {
+            general_hits  : data['general_hits'],
+            neville_hits  : data['neville_hits'],
+            all_houses_hits  : data['all_houses_hits'],
+            transportation_hits  : data['transportation_hits'],
+            shadyside_hits  : data['shadyside_hits'],
+            forfamilies_hits  : data['forfamilies_hits'],
+            university_hits  : data['university_hits']
+        });
+    });
+
 });
 
 /*Send Alerts Page*/
@@ -104,9 +117,39 @@ app.get('/alerts', function(req, res) {
 
 /*Post Events Page*/
 app.get('/events', function(req, res) {
-  res.render('events', {
-  });
+    GET_Events.getAllEvents(function(events){
+        //console.log(events['content']);
+        res.render('Events/events', {
+            events  :  events['content']
+        });
+
+    });
+
 });
+
+app.get('/events/:Id', function(req, res) {
+    var Id = req.params.Id;
+    GET_Events.getEventData(Id, function(data){
+        console.log(data.content[0]);
+        res.render('Events/event-details', {
+            event : data.content[0],
+        });
+    })
+
+});
+
+app.post('/create_event', (req, res) => {
+    var name = req.body.name;
+
+    POST_Event.createEvent(name, function(status, message, Id){
+        if(status == false){
+            res.redirect("events");
+        }else{
+            res.redirect("/events/" + Id);
+        }
+    })
+});
+
 
 /* Push Notifications Page */
 app.get('/notifications', function(req, res) {
@@ -120,6 +163,7 @@ app.post('/sendpushnotification', (req, res) => {
   console.log(event);
   res.redirect('/notifications')
 });
+
 
 
 app.post('/serve_linen_request', (req, res) => {
@@ -156,7 +200,6 @@ app.get('/linen', function(req, res) {
   function(err, results, rows, fields){
 	res.render('linen', {rows: results, reverse: !req.query.reverse});
   });
-
   */
 
 });
@@ -205,10 +248,9 @@ app.post('/save_faq', function(req, res) {
 		}
 	});
 
-
-
 });
 
+<<<<<<< HEAD
 //delete button code for faw page
 app.post('/deleteFaq', function(req, res) {
   function deleteFaq(faq, callback){
@@ -238,15 +280,28 @@ app.post('/deleteFaq', function(req, res) {
     }
   });
 });
+=======
+app.post('/delete_faq', function(req, res) {
+    /* DELETE_Faq*/
+    var Id = req.body.Id;
+    DELETE_Faq.delete_faq(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+>>>>>>> 2eb2326c7adad550b47e86af159e75daa297ee44
 
+});
 
 // Lance post code for linens
 app.post('/api/v1/linens_request', function(req, res) {
   // add record to database with linens request
   function insertLinen(linen, callback) {
     const connection = mysql.createConnection(sql);
-    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID, lastname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID, linen.lastname],
+    connection.query('INSERT INTO linen (house, room, guests, towels, washcloths, bathmats, bluebag, date, twinsheets, queensheets, pillowcases, isServed, phoneID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [linen.house, linen.room, linen.guests, linen.towels, linen.washcloths, linen.bathmats, linen.bluebag, linen.date, linen.twinsheets, linen.queensheets, linen.pillowcases, linen.isServed, linen.phoneID],
     function (err, headers, fields) {
       if (err){
         console.log(err);
@@ -270,8 +325,7 @@ app.post('/api/v1/linens_request', function(req, res) {
     queemsheets: req.body.queensheets,
     pillowcases: req.body.pillowcases,
     isServed: req.body.isServed,
-    phoneID: req.body.phoneID,
-    lastname: req.body.lastname
+    phoneID: req.body.phoneID
   }, function (err) {
     if (err){
       res.status(500);
@@ -285,7 +339,6 @@ app.post('/api/v1/linens_request', function(req, res) {
 
   });
 });
-
 //Lance and Voortman code
 app.get('/api/v1/faq', function(req, res) {
   var mysql = require('mysql2');
@@ -353,9 +406,7 @@ app.use(function(err, req, res, next){
 
 
 /**********************
-
 Stop of Routing Pages
-
 ***********************/
 
 /* Start Server */

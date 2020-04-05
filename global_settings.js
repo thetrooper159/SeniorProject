@@ -13,7 +13,7 @@ exports.nav_items = function(){
 	/* {name: "Send Notifications", link: "/notifications"}, */
 	{name: "Linen Requests", link: "/linen"},
 	{name: "F.A.Q.", link: "/faq"},
-  {name: "Post Events", link: "/events"},
+  {name: "Events", link: "/events"},
   {name: "Send Alerts", link: "/alerts"},
 
 

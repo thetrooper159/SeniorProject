@@ -4,19 +4,20 @@ var sql = require('../../settings.js');
 
 const connection = mysql.createConnection(sql);
 
+exports.delete_faq = function(Id, callback){
 
-exports.serve = function(Id, callback){
 
-var sql_run = 'UPDATE linen SET isServed=1 WHERE idlinen=' + Id;
+var sql_run = "DELETE FROM faq WHERE Id="+ Id +"";
 	connection.query(
 		sql_run,
 		function(err, headers, fields) {
 			if(err){
 				console.log(err);
-				callback(false);
+				callback(false, "Section could not be deleted, Please try again !");
 			}else{
-				callback(true);
+				callback(true, "This Section has been deleted!");
 			}
 		}
 	);
+
 }
