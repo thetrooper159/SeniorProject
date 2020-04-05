@@ -4,20 +4,37 @@ var sql = require('../../settings.js');
 const connection = mysql.createConnection(sql);
 
 function insertNotification(notification, callback) {
-  connection.query('INSERT INTO notifications (guest, house, event, alert, date_time) VALUES (?, ?, ?, ?, ?)',
-    [notification.guest, notification.house, notification.event, notification.alert, notification.date_time],
-    function(err, headers, fields) {
+  connection.query('INSERT INTO notifications (idnotifications, guest, house, event, alert, date_time, message) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [notification.guest, notification.house,
+      notification.event, notification.alert, notification.date_time, notification.message],
+    function (err, headers, fields, results) {
       if (err) {
-        data({error: err});
+        console.log(err);
+      } else {
+        console.log(results);
+        callback(true, "Page Updated!");
       }
-      else{
-        callback();
+    });
+}
+  connection.query('INSERT INTO notifications (idnotifications, guest, house, event, alert, date_time) VALUES (?, ?, ?, ?, ?, ?)',
+    [notification.guest, notification.house,
+      notification.event, notification.alert, notification.date_time, notification.message],
+    function (err, headers, fields, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(results);
+        callback(true, "Page Updated!");
       }
     });
 }
 
 insertNotification({
-  title: "Some title"
-}, function() {
-  console.log("done!");
+  guest: 1,
+  house: 6,
+  event: 'today',
+  alert: 'tomorrow',
+  date_time: 0,
+}, function () {
+  console.log('done!');
 });

@@ -1,11 +1,45 @@
-<div class="home-page">
-     <div class="col-xs-12 home-page-welcome">
-          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250"> Welcome to the Family House Admin Application!</h1>
-          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250"> This is the content!</h1>
-          <h1 class="home-header-text" data-aos="fade-right" data-aos-duration="1250"> {{name}}</h1>
-		  <h1><b>Yo </b></h1>
-		  <u>Yo</u>
-		  
-     </div>
+<div class="container" style="text-align: center; margin-top: 20px">
+	<img src="images/Family_house_pittsburgh.png">
 </div>
+<div class="container">
+	<div class="row" style="margin-top: 50px;">
+		<div class="col-md-4 col-xs-12">
+			<div class="card text-white bg-secondary mb-3 text-center" style="max-width: 18rem; height: 210px;">
+				<div class="card-header">Send Notifications</div>
+				<div class="card-body">
+					<p class="card-text">Click the button below to start buidling an alert or event notification to send out to the app</p>
+					<a href="/notifications" class="btn btn-dark" style="background-color: #E2D478; color: #565A5C;">Send Notification</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-xs-12">
+			<div class="card text-white bg-secondary mb-3 text-center" style="max-width: 18rem; height: 210px;">
+				<div class="card-header">Linen Requests</div>
+				<div class="card-body">
+					<p class="card-text">Click the button below to view linen requests to view all linen requests or requests that are not completed</p>
+					<a href="/linen" class="btn btn-dark" style="background-color: #E2D478; color: #565A5C;">Go to Requests</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-xs-12">
+			<div class="card text-white bg-secondary mb-3 text-center" style="max-width: 18rem; height: 210px;">
+				<div class="card-header">F.A.Q.</div>
+				<div class="card-body">
+					<p class="card-text">Click the button below to edit different sections on the faq page and update them on the app.</p>
+					<a href="/faq" class="btn btn-dark" style="background-color: #E2D478; color: #565A5C;">Edit F.A.Q</a>
+				</div>
+			</div>
+		</div>
 
+	</div>
+	<h1>Analytic datapoints</h1><br />
+	<ul>
+		<li>General Hits: {{ general_hits }}</li>
+		<li>Neville Hits: {{ neville_hits }}</li>
+		<li>All Houses Hits: {{ all_houses_hits }}</li>
+		<li>Transportation Hits: {{ transportation_hits }}</li>
+		<li>Shadyside Hits {{ shadyside_hits }}</li>
+		<li>For Families Hits: {{ forfamilies_hits }}</li>
+		<li>University Place Hits: {{ university_hits }}</li>
+	</ul>
+</div>
