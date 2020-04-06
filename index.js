@@ -16,7 +16,6 @@ var cookieParser = require('cookie-parser');
 var path = require('path');
 var validator = require('validator');
 
-
 /*
 	BMR: JUST A NOTE TO ALL.... We will not be using npm package sql for our queries... instead we will be using mysql2
 	This is built on top of mysql and makes quering data a lot simpler.
@@ -58,9 +57,7 @@ app.use(session({
   secret: 'secret',
   resave: true,
   saveUninitialized: true
-
 }));
-
 
 /* Setting Up bodparser inside of app */
 app.use(bodyParser.urlencoded({extended : true}));
@@ -91,7 +88,6 @@ app.set('port', process.env.PORT || 3000);
 /**********************
 Start of Routing Pages
 ***********************/
-
 
 /* Home Page */
 app.get('/', function(req, res) {
