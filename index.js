@@ -353,6 +353,16 @@ app.post('/create_notification', function(req, res) {
   res.redirect("/thank-you");
 });
 
+app.get('/login', function(req, res) {
+  res.render('login', {
+  });
+});
+
+app.get('/register', function(req, res) {
+  res.render('register', {
+  });
+});
+
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
 
 /* 404 Error Page */
