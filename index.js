@@ -83,14 +83,36 @@ app.locals.nav = GLOBALS.nav_items();
 /* Where we set the port for the app */
 app.set('port', process.env.PORT || 3000);
 
+function isAuthenticated(req, res, next) {
+  // do any checks you want to in here
 
+  // CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
+  // you can do this however you want with whatever variables you set up
+  if (req.session.username)
+      return next();
+
+  // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
+  res.redirect('/');
+}
+
+app.use(function(req, res, next){
+  // all the stuff from the example
+  if (req.session.username) {
+    res.locals.username = req.session.username
+  }
+  next();
+});
 
 /**********************
 Start of Routing Pages
 ***********************/
+app.get('/', function(req, res) {
+  res.render('login', {
+  });
+});
 
 /* Home Page */
-app.get('/', function(req, res) {
+app.get('/home', isAuthenticated, function(req, res) {
     GET_Analytics.getFaqTotals(function(data){
         res.render('home', {
             general_hits  : data['general_hits'],
@@ -106,13 +128,13 @@ app.get('/', function(req, res) {
 });
 
 /*Send Alerts Page*/
-app.get('/alerts', function(req, res) {
+app.get('/alerts', isAuthenticated, function(req, res) {
   res.render('alerts', {
   });
 });
 
 /*Post Events Page*/
-app.get('/events', function(req, res) {
+app.get('/events', isAuthenticated, function(req, res) {
     GET_Events.getAllEvents(function(events){
         //console.log(events['content']);
         res.render('Events/events', {
@@ -123,7 +145,7 @@ app.get('/events', function(req, res) {
 
 });
 
-app.get('/events/:Id', function(req, res) {
+app.get('/events/:Id', isAuthenticated, function(req, res) {
     var Id = req.params.Id;
     GET_Events.getEventData(Id, function(data){
         console.log(data.content[0]);
@@ -148,7 +170,7 @@ app.post('/create_event', (req, res) => {
 
 
 /* Push Notifications Page */
-app.get('/notifications', function(req, res) {
+app.get('/notifications', isAuthenticated, function(req, res) {
   res.render('notifications', {
   });
 });
@@ -176,7 +198,7 @@ app.post('/serve_linen_request', (req, res) => {
 
 
 /* Linen Request  */
-app.get('/linen', function(req, res) {
+app.get('/linen', isAuthenticated, function(req, res) {
 	GET_linen.get_requests(function(status, data){
 		if(status == true){
 			res.render('linen', {
@@ -201,7 +223,7 @@ app.get('/linen', function(req, res) {
 });
 
 
-app.get('/faq', function(req, res){
+app.get('/faq', isAuthenticated, function(req, res){
 	GET_Faq.getAll(function(data){
 			res.render('faq', {
 				success           :    req.session.success,
@@ -363,6 +385,71 @@ app.get('/register', function(req, res) {
   });
 });
 
+app.post('/regi', function(req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+  var email = req.body.email;
+  var user = {
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email
+  }
+    var conn = mysql.createConnection(sql);
+    conn.query('INSERT INTO users SET ?', user, function(err, results, rows, fields) {
+      if (err) {
+        res.locals.message = "There seems to be an error.";
+        res.redirect(303, '/register?error='+err);
+      } else if (username && password) {
+      		conn.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(err, results, rows, fields) {
+      			if (results.length > 0) {
+      				req.session.loggedin = true;
+      				req.session.username = username;
+              req.session.user_ID = results[0].ID;
+              console.log(req.session.user_ID);
+      				res.redirect(303, '/home');
+      			} else {
+              res.locals.message = "There seems to be an error.";
+      				res.redirect(303, '/login?error='+err);
+      			}
+      			res.end();
+      		});
+      	} else {
+          res.locals.message = "There seems to be an error.";
+          res.redirect(303, '/login?error='+err);
+      		res.end();
+      	}
+    });
+  });
+
+app.post('/auth', function(req, res) {
+	var username = req.body.username;
+	var password = req.body.password;
+	if (username && password) {
+    var conn = mysql.createConnection(sql);
+		conn.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(err, results, rows, fields) {
+      if (results.length > 0) {
+        req.session.loggedin = true;
+        req.session.username = username;
+        req.session.user_ID = results[0].ID;
+        console.log(req.session.user_ID);
+        res.redirect(303,'/home');
+      } else {
+        res.locals.message = "There seems to be an error.";
+        res.redirect(303, '/login?error='+err);
+      }
+			res.end();
+		});
+	} else {
+    res.locals.message = "There seems to be an error.";
+    res.redirect(303, '/login?error='+err);
+		res.end();
+	}
+});
+
+app.get('/logout', function(req, res){
+        delete req.session.username;
+        res.redirect(303, '/');
+});
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
 
 /* 404 Error Page */
