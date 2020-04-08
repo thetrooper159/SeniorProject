@@ -84,10 +84,6 @@ app.locals.nav = GLOBALS.nav_items();
 app.set('port', process.env.PORT || 3000);
 
 function isAuthenticated(req, res, next) {
-  // do any checks you want to in here
-
-  // CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
-  // you can do this however you want with whatever variables you set up
   if (req.session.username)
       return next();
 
