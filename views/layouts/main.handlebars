@@ -39,11 +39,13 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+      {{#if username}}
 			{{#each nav}}
          		 <li class="nav-item">
                		 <a class="nav-link" href="{{ link }}">{{ name }}</a>
            		 </li>
 			{{/each}}
+      {{/if}}
 
 		</ul>
 
@@ -52,10 +54,8 @@
 				<a target="_BLANK" href="https://www.facebook.com/FamilyHousePittsburgh/"><img class="" src="/images/facebook_icon.png" style="width: 58px; height: 58px;"/></a>
 			</li>
       <li class="nav-item">
-        {{#if req.session.username}}
+        {{#if username}}
         <li><a class="nav-link" href="/logout">Logout</a></li>
-        {{else}}
-        <li><a class="nav-link" href="/login">Login</a></li>
         {{/if}}
       </li>
 		</ul>
@@ -66,8 +66,8 @@
 
    </div>
 
-   {{#if req.session.username}}
-   <h2>Welcome, {{req.session.username}}!</h2>
+   {{#if username}}
+   <h2>Welcome, {{username}}!</h2>
    {{/if}}
 
 	<!-- This body is where our views will be rendered inside -->
