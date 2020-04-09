@@ -18,6 +18,7 @@
                 <th>Created</th>
                 <th>Modified</th>
                 <th>Edit</th>
+                <th>Delete</th>
       	    </tr>
       	</thead>
       	<tbody>
@@ -28,6 +29,7 @@
                 <td>{{ created }}</td>
                 <td>{{ last_modified }}</td>
                 <td><a href="/events/{{ Id }}"><i class="fas fa-edit"></i></a></td>
+                <td><a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a></td>
             </tr>
             {{/events}}
       	</tbody>
@@ -73,4 +75,29 @@ $(document).ready( function () {
 function createEvent(){
     alert("Here");
 }
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    //    triggermessage("dark", "This is a test");
+
+  });
+
+  function deleteSection(Id) {
+    $.ajax({
+      type: 'post',
+      url: '/delete_events',
+      data: {
+        Id: Id
+      },
+      dataType: 'json'
+    }).done(function(data) {
+
+      if (data['status'] = true) {
+        triggermessage("success", data['message']);
+        $('#section-' + Id).remove();
+      } else {
+        triggermessage("danger", data['message']);
+      }
+    });
+  }
 </script>
