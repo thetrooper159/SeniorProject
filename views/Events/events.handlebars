@@ -18,7 +18,6 @@
                 <th>Created</th>
                 <th>Modified</th>
                 <th>Edit</th>
-                <th>Delete</th>
       	    </tr>
       	</thead>
       	<tbody>
@@ -29,7 +28,6 @@
                 <td>{{ created }}</td>
                 <td>{{ last_modified }}</td>
                 <td><a href="/events/{{ Id }}"><i class="fas fa-edit"></i></a></td>
-                <td><a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a></td>
             </tr>
             {{/events}}
       	</tbody>
