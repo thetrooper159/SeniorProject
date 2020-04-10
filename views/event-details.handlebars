@@ -1,0 +1,60 @@
+<h1>{{ event.title }}</h1>
+
+<p>{{eventone}} {{eventtwo}} {{eventthree}}</p>
+
+<script>
+
+Handlebars.registerHelper("list", function(items, options) {
+  const itemsAsHtml = items.map(item => "<li>" + options.fn(item) + "</li>");
+  return "<ul>\n" + itemsAsHtml.join("\n") + "\n</ul>";
+});
+
+</script>
+
+<ul>
+<li>eventone, additional information</li>
+<li>eventtwo, additional information</li>
+<li>eventthree, additonal information</li>
+</ul>
+
+{{#eventone}}
+  <div class="form-row" id="section-{{ Id }}">
+    <input type="hidden" name="Id[]" value="{{ Id }}" />
+    <div class="col-md-3 col-xs-12">
+      <input class="form-control" type="text" name="eventone[]" value="{{ eventone }}" />
+
+    </div>
+    <div class="col-md-7 col-xs-12">
+      <textarea class="form-control" name="description[]" style="margin-bottom: 10px; height: 200px;">{{ eventdescription }}</textarea>
+
+    </div>
+
+{{/eventone}}
+
+{{#eventtwo}}
+  <div class="form-row" id="section-{{ Id }}">
+    <input type="hidden" name="Id[]" value="{{ Id }}" />
+    <div class="col-md-3 col-xs-12">
+      <input class="form-control" type="text" name="eventtwo[]" value="{{ eventtwo }}" />
+
+    </div>
+    <div class="col-md-7 col-xs-12">
+      <textarea class="form-control" name="description[]" style="margin-bottom: 10px; height: 200px;">{{ eventdescription }}</textarea>
+
+    </div>
+
+{{/eventtwo}}
+
+{{#eventthree}}
+  <div class="form-row" id="section-{{ Id }}">
+    <input type="hidden" name="Id[]" value="{{ Id }}" />
+    <div class="col-md-3 col-xs-12">
+      <input class="form-control" type="text" name="eventthree[]" value="{{ eventthree }}" />
+
+    </div>
+    <div class="col-md-7 col-xs-12">
+      <textarea class="form-control" name="description[]" style="margin-bottom: 10px; height: 200px;">{{ eventdescription }}</textarea>
+
+    </div>
+
+{{/eventthree}}

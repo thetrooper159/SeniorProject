@@ -68,7 +68,6 @@
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">General</h1>
           <hr class="my-4">
-
           {{#general}}
             <div class="form-row" id="section-{{ Id }}">
               <input type="hidden" name="Id[]" value="{{ Id }}" />
@@ -93,22 +92,24 @@
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">All Houses</h1>
           <hr class="my-4">
-          <div class="form-row">
+
             {{#allhouses}}
-              <input type="hidden" name="Id[]" value="{{ Id }}" />
+             <div class="form-row">
+                  <input type="hidden" name="Id[]" value="{{ Id }}" />
 
-              <div class="col-md-3 col-xs-12">
-                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                  <div class="col-md-3 col-xs-12">
+                    <input class="form-control" type="text" name="question[]" value="{{ question }}" />
 
-              </div>
-              <div class="col-md-7 col-xs-12">
-                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
-              </div>
-              <div class="col-md-2">
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
-              </div>
+                  </div>
+                  <div class="col-md-7 col-xs-12">
+                    <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+                  </div>
+                  <div class="col-md-2">
+                    <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+                  </div>
+                  </div>
             {{/allhouses}}
-          </div>
+
         </div>
       </div>
       <div class="row jumbo-faq" style="text-align: center" id="families">
