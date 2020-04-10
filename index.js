@@ -35,6 +35,7 @@ var POST_linen = require('./framework/post/post_linens.js');
 var POST_Event = require('./framework/post/post_event.js');
 var GET_Events = require('./framework/get/get_events.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
+var DELETE_Events = require('./framework/post/delete_events.js');
 
 var DELETE_Faq = require('./framework/post/delete_faq.js');
 
@@ -163,7 +164,18 @@ app.post('/create_event', (req, res) => {
         }
     })
 });
+app.post('/delete_events', function(req, res) {
+    /* DELETE_Faq*/
+    var Id = req.body.Id;
+    DELETE_Events.delete_events(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
 
+});
 
 /* Push Notifications Page */
 app.get('/notifications', isAuthenticated, function(req, res) {
