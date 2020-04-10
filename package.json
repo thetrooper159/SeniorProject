@@ -23,8 +23,10 @@
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
+    "handlebars-intl": "^1.1.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
+    "package.json": "^2.0.1",
     "pm2": "^4.2.3",
     "validator": "^12.2.0"
   }

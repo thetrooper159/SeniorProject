@@ -1,0 +1,103 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+<div class="events-page">
+    <div class="events-landing-title">
+        <h1>Events</h1>
+
+    </div>
+    <div class="container">
+        <a class="btn btn-success" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#createEvent">Create Event</a>
+        <table id="events_table" class="table display table-striped hoverable" style="margin-top: 20px;">
+      	<thead>
+      		<tr class="" style="color: black;">
+      			<th>Event Name</th>
+      			<th>Event Date</th>
+                <th>Created</th>
+                <th>Modified</th>
+                <th>Edit</th>
+                <th>Delete</th>
+      	    </tr>
+      	</thead>
+      	<tbody>
+            {{#events}}
+            <tr>
+                <td>{{ title }}</td>
+                <td>{{ event_date }}</td>
+                <td>{{ created }}</td>
+                <td>{{ last_modified }}</td>
+                <td><a href="/events/{{ Id }}"><i class="fas fa-edit"></i></a></td>
+                <td><a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a></td>
+            </tr>
+            {{/events}}
+      	</tbody>
+        </table>
+    </div>
+
+    <!--Modal For Creating an Event -->
+    <div class="modal fade" id="createEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <form action="/create_event" method="POST" id="createEventForm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                 <div class="form-row">
+                    <div class="col-xs-12">
+                        <label for="name">Event Title</label>
+                        <input type="text" name="name" class="form-control" />
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" value="submit" class="btn btn-primary">Create</button>
+              </div>
+            </div>
+        </form>
+      </div>
+  </div>
+</div>
+
+<script>
+
+$(document).ready( function () {
+
+     $('#events_table').DataTable();
+});
+
+function createEvent(){
+    alert("Here");
+}
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    //    triggermessage("dark", "This is a test");
+
+  });
+
+  function deleteSection(Id) {
+    $.ajax({
+      type: 'post',
+      url: '/delete_events',
+      data: {
+        Id: Id
+      },
+      dataType: 'json'
+    }).done(function(data) {
+
+      if (data['status'] = true) {
+        triggermessage("success", data['message']);
+        $('#section-' + Id).remove();
+      } else {
+        triggermessage("danger", data['message']);
+      }
+    });
+  }
+</script>

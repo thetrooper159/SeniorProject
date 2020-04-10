@@ -14,7 +14,6 @@ Please Comment for organization purposes
 
 body {
 	background-color: #E2D478;
-    
 	-webkit-background-size: cover;
   	-moz-background-size: cover;
  	-o-background-size: cover;
@@ -29,7 +28,7 @@ body {
 }
 
 .navbar-image{
-	height: 50px; 
+	height: 50px;
 	width: 100px;
 }
 
@@ -40,11 +39,11 @@ body {
 		margin-top: 15px;
 	}
 	.navbar-image{
-		height: 50px; 
+		height: 50px;
 		width: 100px;
 	}
 
-		
+
 
 }
 
@@ -56,7 +55,7 @@ body {
 .faq-page-header-text{
     color: #565A5C;
     text-align: center;
-    
+
 }
 
 .faq-page-form{
@@ -66,16 +65,37 @@ body {
 .faq-jumbo-button{
 	background-color: #E2D478;
 	color: #565A5C;
-	
+
 }
 
 .faq-jumbo-button:hover{
 	background-color: #565A5C;
 	color: #E2D478;
-	
+
 }
 
 .jumbo-faq .jumbotron {
 	background-color: #565A5C;
 	color: #E2D478;
+}
+
+
+
+
+/* Events Landing page */
+
+.events-landing-title{
+	text-align: center;
+}
+
+/* Events Detail */
+
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
 }
