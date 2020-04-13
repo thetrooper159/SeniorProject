@@ -10,6 +10,16 @@
   textarea {
     min-width: 100%;
   }
+
+  .modal {
+   width: 300px;
+   height: 300px;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   margin-left: -150px;
+   margin-top: -150px;
+}
 </style>
 {{#if success}}
   <div class="alert alert-primary" role="alert">
@@ -28,6 +38,7 @@
     </button>
   </div>
 {{/if}}
+
 <div class="container">
   <form name="save_faq" id="save_faq" class="" action="/save_faq" method="POST">
 
@@ -81,7 +92,27 @@
 
               </div>
               <div class="col-md-2">
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+                <a class="btn btn-success" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete Listing</a>
+                <!-- Modal for creating a delete button -->
+                <div class="modal fade" id="deleteModal_{{ Id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                       Make Sure you want to delete this there is no going back.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="deletebtn" class="btn btn-primary" onclick="deleteSection('{{ Id }}')"  data-dismiss="modal">Yes Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
               </div>
             </div>
@@ -93,8 +124,8 @@
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">All Houses</h1>
           <hr class="my-4">
-          <div class="form-row">
             {{#allhouses}}
+            <div class="form-row" id="section-{{ Id }}">
               <input type="hidden" name="Id[]" value="{{ Id }}" />
 
               <div class="col-md-3 col-xs-12">
@@ -105,18 +136,40 @@
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
               </div>
               <div class="col-md-2">
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+                <a class="btn btn-success" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete Listing</a>
+                <!-- Modal for creating a delete button -->
+                <div class="modal fade" id="deleteModal_{{ Id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                       Make Sure you want to delete this there is no going back.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="deletebtn" class="btn btn-primary" onclick="deleteSection('{{ Id }}')"  data-dismiss="modal">Yes Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
             {{/allhouses}}
-          </div>
+
         </div>
       </div>
       <div class="row jumbo-faq" style="text-align: center" id="families">
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">For Families</h1>
           <hr class="my-4">
-          <div class="form-row">
+
             {{#forfamilies}}
+            <div class="form-row" id="section-{{ Id }}">
               <input type="hidden" name="Id[]" value="{{ Id }}" />
 
               <div class="col-md-3 col-xs-12">
@@ -127,18 +180,40 @@
                 <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
               </div>
               <div class="col-md-2">
-                <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+                <a class="btn btn-success" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete Listing</a>
+                <!-- Modal for creating a delete button -->
+                <div class="modal fade" id="deleteModal_{{ Id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                       Make Sure you want to delete this there is no going back.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="deletebtn" class="btn btn-primary" onclick="deleteSection('{{ Id }}')"  data-dismiss="modal">Yes Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
             {{/forfamilies}}
-          </div>
+
         </div>
       </div>
       <div class="row jumbo-faq" style="text-align: center" id="transportation">
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">Transportation</h1>
           <hr class="my-4">
-          <div class="form-row">
+
             {{#transportation}}
+            <div class="form-row" id="section-{{ Id }}">
             <input type="hidden" name="Id[]" value="{{ Id }}" />
 
             <div class="col-md-3 col-xs-12">
@@ -149,18 +224,40 @@
               <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
             </div>
             <div class="col-md-2">
-              <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+              <a class="btn btn-success" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete Listing</a>
+              <!-- Modal for creating a delete button -->
+              <div class="modal fade" id="deleteModal_{{ Id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                     Make Sure you want to delete this there is no going back.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" id="deletebtn" class="btn btn-primary" onclick="deleteSection('{{ Id }}')"  data-dismiss="modal">Yes Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            {{/transportation}}
           </div>
+            {{/transportation}}
+
         </div>
       </div>
       <div class="row jumbo-faq" style="text-align: center" id="neville">
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">Neville</h1>
           <hr class="my-4">
-          <div class="form-row">
+
             {{#neville}}
+            <div class="form-row" id="section-{{ Id }}">
             <input type="hidden" name="Id[]" value="{{ Id }}" />
 
             <div class="col-md-3 col-xs-12">
@@ -171,18 +268,40 @@
               <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
             </div>
             <div class="col-md-2">
-              <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+              <a class="btn btn-success" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete Listing</a>
+              <!-- Modal for creating a delete button -->
+              <div class="modal fade" id="deleteModal_{{ Id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                     Make Sure you want to delete this there is no going back.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" id="deletebtn" class="btn btn-primary" onclick="deleteSection('{{ Id }}')"  data-dismiss="modal">Yes Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            {{/neville}}
           </div>
+            {{/neville}}
+
         </div>
       </div>
       <div class="row jumbo-faq" style="text-align: center" id="shadyside">
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">Shadyside</h1>
           <hr class="my-4">
-          <div class="form-row">
+
             {{#shadyside}}
+          <div class="form-row" id="section-{{ Id }}">
             <input type="hidden" name="Id[]" value="{{ Id }}" />
 
             <div class="col-md-3 col-xs-12">
@@ -193,18 +312,40 @@
               <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
             </div>
             <div class="col-md-2">
-              <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+              <a class="btn btn-success" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete Listing</a>
+              <!-- Modal for creating a delete button -->
+              <div class="modal fade" id="deleteModal_{{ Id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                     Make Sure you want to delete this there is no going back.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" id="deletebtn" class="btn btn-primary" onclick="deleteSection('{{ Id }}')"  data-dismiss="modal">Yes Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            {{/shadyside}}
           </div>
+            {{/shadyside}}
+
         </div>
       </div>
       <div class="row jumbo-faq" style="text-align: center" id="university">
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">University Place</h1>
           <hr class="my-4">
-          <div class="form-row">
+
             {{#university}}
+          <div class="form-row" id="section-{{ Id }}">
             <input type="hidden" name="Id[]" value="{{ Id }}" />
 
             <div class="col-md-3 col-xs-12">
@@ -215,15 +356,38 @@
               <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
             </div>
             <div class="col-md-2">
-              <a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a>
+              <a class="btn btn-success" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete Listing</a>
+              <!-- Modal for creating a delete button -->
+              <div class="modal fade" id="deleteModal_{{ Id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                     Make Sure you want to delete this there is no going back.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" id="deletebtn" class="btn btn-primary" onclick="deleteSection('{{ Id }}')"  data-dismiss="modal">Yes Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            {{/university}}
           </div>
+            {{/university}}
+
         </div>
       </div>
     </div>
   </form>
 </div>
+
+
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -249,4 +413,13 @@
       }
     });
   }
+  $('#deleteModal').on('shown.bs.modal', function () {
+  $('#deletebtn').trigger('focus')
+})
+/*$("#deletebtn").click(deleteSection('{{ Id }}'))
+
+$("#deletebtn").click(function() {
+    console.log("this got called");
+  $('#deletebtn').trigger('focus')
+})*/
 </script>
