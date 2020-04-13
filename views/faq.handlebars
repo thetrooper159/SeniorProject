@@ -6,6 +6,7 @@
     background-color: white;
     padding: 20px;
   }
+
   textarea {
     min-width: 100%;
   }
@@ -78,6 +79,7 @@
         <div class="jumbotron" style="width: 100%">
           <h1 class="display-4">General</h1>
           <hr class="my-4">
+
           {{#general}}
             <div class="form-row" id="section-{{ Id }}">
               <input type="hidden" name="Id[]" value="{{ Id }}" />
@@ -390,7 +392,9 @@
 <script type="text/javascript">
   $(document).ready(function() {
     //    triggermessage("dark", "This is a test");
+
   });
+
   function deleteSection(Id) {
     $.ajax({
       type: 'post',
@@ -400,6 +404,7 @@
       },
       dataType: 'json'
     }).done(function(data) {
+
       if (data['status'] = true) {
         triggermessage("success", data['message']);
         $('#section-' + Id).remove();
