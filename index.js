@@ -30,6 +30,16 @@ var validator = require('validator');
 var GLOBALS = require('./global_settings.js');
 var sql = require('./settings.js');
 var GET_Faq = require('./framework/get/get_faq.js');
+var POST_Faq = require('./framework/post/post_faq.js');
+var GET_linen = require('./framework/get/get_linens.js');
+var POST_linen = require('./framework/post/post_linens.js');
+var POST_Event = require('./framework/post/post_event.js');
+var GET_Events = require('./framework/get/get_events.js');
+var GET_Alerts = require('./framework/get/get_alerts.js');
+var GET_Analytics = require('./framework/get/get_analytics.js');
+var DELETE_Events = require('./framework/post/delete_events.js');
+
+var DELETE_Faq = require('./framework/post/delete_faq.js');
 
 
 /* Initializing App */
@@ -83,9 +93,102 @@ Start of Routing Pages
 ***********************/
 
 /* Home Page */
-app.get('/', function(req, res) {
-  res.render('home', {
-  });
+app.get('/home', isAuthenticated, function(req, res) {
+    GET_Analytics.getFaqTotals(function(data){
+        res.render('home', {
+            general_hits  : data['general_hits'],
+            neville_hits  : data['neville_hits'],
+            all_houses_hits  : data['all_houses_hits'],
+            transportation_hits  : data['transportation_hits'],
+            shadyside_hits  : data['shadyside_hits'],
+            forfamilies_hits  : data['forfamilies_hits'],
+            university_hits  : data['university_hits']
+        });
+    });
+
+});
+
+
+/*****************
+Alerts Pages Routing
+****************/
+app.get('/alerts', isAuthenticated, function(req, res) {
+
+
+    GET_Alerts.getAllAlerts(function(alerts){
+        res.render('Alerts/alerts', {
+            alerts  :  alerts['content']
+        });
+
+    });
+
+});
+
+app.get('/alerts/:Id', isAuthenticated, function(req, res) {
+    var Id = req.params.Id;
+    GET_Alerts.getAlertData(Id, function(data){
+        console.log(data.content[0]);
+        res.render('Alert/alert-details', {
+            alert : data.content[0],
+        });
+    })
+
+});
+
+/**********
+End Alerts
+**********/
+
+/*****************
+Event Pages Routing
+****************/
+app.get('/events', isAuthenticated, function(req, res) {
+    GET_Events.getAllEvents(function(events){
+        //console.log(events['content']);
+        res.render('Events/events', {
+            events  :  events['content']
+        });
+
+    });
+
+});
+
+app.get('/events/:Id', isAuthenticated, function(req, res) {
+    var Id = req.params.Id;
+    GET_Events.getEventData(Id, function(data){
+        console.log(data.content[0]);
+        res.render('Events/event-details', {
+            event : data.content[0],
+        });
+    })
+
+});
+/**********
+End Events
+**********/
+
+app.post('/create_event', (req, res) => {
+    var name = req.body.name;
+
+    POST_Event.createEvent(name, function(status, message, Id){
+        if(status == false){
+            res.redirect("events");
+        }else{
+            res.redirect("/events/" + Id);
+        }
+    })
+});
+app.post('/delete_events', function(req, res) {
+    /* DELETE_Faq*/
+    var Id = req.body.Id;
+    DELETE_Events.delete_events(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
 });
 
 /* Push Notifications Page */
@@ -157,6 +260,18 @@ app.get('/faq', function(req, res) {
   			});
 		}
 	});
+});
+app.post('/delete_event', function(req, res) {
+    /* DELETE_Event*/
+    var Id = req.body.Id;
+    DELETE_Event.delete_event(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
 });
 
 app.get('/api/v1/faq', function(req, res) {
