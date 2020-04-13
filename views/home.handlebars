@@ -3,38 +3,29 @@
 </div>
 <div class="container">
 	<div class="row" style="margin-top: 50px;">
-		<div class="col-md-3 col-xs-12">
+		<div class="col-md-4 col-xs-12">
 			<div class="card text-white bg-secondary mb-3 text-center" style="max-width: 18rem; height: 210px;">
-				<div class="card-header">Create Event</div>
+				<div class="card-header">Send Notifications</div>
 				<div class="card-body">
-					<p class="card-text">Click the button below to start buidling an event to send out to the app.</p>
-					<a href="/Events" class="btn btn-dark" style="background-color: #E2D478; color: #565A5C;">Create an Event</a>
+					<p class="card-text">Click the button below to start buidling an alert or event notification to send out to the app</p>
+					<a href="/notifications" class="btn btn-dark" style="background-color: #E2D478; color: #565A5C;">Send Notification</a>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-xs-12">
-			<div class="card text-white bg-secondary mb-3 text-center" style="max-width: 18rem; height: 210px;">
-				<div class="card-header">Create Alert</div>
-				<div class="card-body">
-					<p class="card-text">Click the button below to start buidling an alert to send out to the app.</p>
-					<a href="/alerts" class="btn btn-dark" style="background-color: #E2D478; color: #565A5C;">Create an Alert</a>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 col-xs-12">
+		<div class="col-md-4 col-xs-12">
 			<div class="card text-white bg-secondary mb-3 text-center" style="max-width: 18rem; height: 210px;">
 				<div class="card-header">Linen Requests</div>
 				<div class="card-body">
-					<p class="card-text">Click the button below to view all linen requests or requests that are not completed.</p>
+					<p class="card-text">Click the button below to view linen requests to view all linen requests or requests that are not completed</p>
 					<a href="/linen" class="btn btn-dark" style="background-color: #E2D478; color: #565A5C;">Go to Requests</a>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-xs-12">
+		<div class="col-md-4 col-xs-12">
 			<div class="card text-white bg-secondary mb-3 text-center" style="max-width: 18rem; height: 210px;">
 				<div class="card-header">F.A.Q.</div>
 				<div class="card-body">
-					<p class="card-text">Click the button below to edit different sections on the faq page.</p>
+					<p class="card-text">Click the button below to edit different sections on the faq page and update them on the app.</p>
 					<a href="/faq" class="btn btn-dark" style="background-color: #E2D478; color: #565A5C;">Edit F.A.Q</a>
 				</div>
 			</div>
@@ -53,58 +44,5 @@
         </center>
 </div>
 
-<div class="container">
-  <canvas id="myChart"></canvas>
 
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-
-
-  <script>
-  let myChart = document.getElementById('myChart').getContext('2d');
-
-  let barChart = new Chart(myChart, {
-    type:'pie',
-    data:{
-      labels:["General" , "Neville" , "All Houses" , 'Transportation' , 'Shadyside' , 'For Families' , 'University Place'],
-      datasets:[{
-
-        label:['General' , 'Neville' , 'All Houses' , 'Transportation' , 'Shadyside' , 'For Families' , 'University Place',
-         ],
-        data:[
-              {{ general_hits }},
-              {{ neville_hits }},
-              {{ all_houses_hits }},
-              {{ transportation_hits }},
-              {{ shadyside_hits }},
-              {{ forfamilies_hits }},
-              {{ university_hits }}
-        ],
-        backgroundColor:[
-          'rgba(255, 0, 0, 0.6)',
-          'rgba(255, 165, 0, 0.6)',
-          'rgba(255, 255, 0, 0.6)',
-          'rgba(0, 128, 0, 0.6)',
-          'rgba(0, 0, 255, 0.6)',
-          'rgba(75, 0, 130, 0.6)',
-          'rgba(238, 130, 238, 0.6)'
-        ],
-        borderWidth:1,
-        borderColor:'#777',
-        hoverBorderWidth:2,
-        HoverBorderColor:'#000'
-      }]
-    },
-    options:{
-      title:{
-        display:true,
-        text:'Number of Clicks Per Question',
-        fontSize: 27
-      },
-      legend:{
-        display:true
-      }
-    }
-  });
-  </script>
-</div>
+  
