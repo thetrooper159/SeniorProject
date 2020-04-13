@@ -288,6 +288,18 @@ app.post('/delete_faq', function(req, res) {
     });
 
 });
+app.post('/delete_event', function(req, res) {
+    /* DELETE_Event*/
+    var Id = req.body.Id;
+    DELETE_Event.delete_event(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
+});
 
 // Lance post code for linens
 app.post('/api/v1/linens_request', function(req, res) {
