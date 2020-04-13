@@ -158,6 +158,18 @@ app.get('/faq', function(req, res) {
 		}
 	});
 });
+app.post('/delete_event', function(req, res) {
+    /* DELETE_Event*/
+    var Id = req.body.Id;
+    DELETE_Event.delete_event(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
+});
 
 app.get('/api/v1/faq', function(req, res) {
   var mysql = require('mysql2');

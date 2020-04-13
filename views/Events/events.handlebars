@@ -1,8 +1,10 @@
+
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
 <div class="events-page">
     <div class="events-landing-title">
         <h1>Events</h1>
@@ -11,13 +13,14 @@
     <div class="container">
         <a class="btn btn-success" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#createEvent">Create Event</a>
         <table id="events_table" class="table display table-striped hoverable" style="margin-top: 20px;">
-      	<thead>
+          	<thead>
       		<tr class="" style="color: black;">
       			<th>Event Name</th>
       			<th>Event Date</th>
                 <th>Created</th>
                 <th>Modified</th>
                 <th>Edit</th>
+                <th>Delete</th>
       	    </tr>
       	</thead>
       	<tbody>
@@ -28,8 +31,11 @@
                 <td>{{ created }}</td>
                 <td>{{ last_modified }}</td>
                 <td><a href="/events/{{ Id }}"><i class="fas fa-edit"></i></a></td>
+                <td><a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a></td>
+
             </tr>
             {{/events}}
+
       	</tbody>
         </table>
     </div>
@@ -83,7 +89,7 @@ function createEvent(){
   function deleteSection(Id) {
     $.ajax({
       type: 'post',
-      url: '/delete_events',
+      url: '/delete_event',
       data: {
         Id: Id
       },
