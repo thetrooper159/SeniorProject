@@ -90,7 +90,7 @@ function isAuthenticated(req, res, next) {
       return next();
 
   // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
-  res.redirect('/');
+  res.redirect('/login');
 }
 
 app.use(function(req, res, next){
@@ -104,13 +104,9 @@ app.use(function(req, res, next){
 /**********************
 Start of Routing Pages
 ***********************/
-app.get('/', function(req, res) {
-  res.render('login', {
-  });
-});
 
 /* Home Page */
-app.get('/home', isAuthenticated, function(req, res) {
+app.get('/', isAuthenticated, function(req, res) {
     GET_Analytics.getFaqTotals(function(data){
         res.render('home', {
             general_hits  : data['general_hits'],
@@ -130,7 +126,6 @@ app.get('/home', isAuthenticated, function(req, res) {
 Alerts Pages Routing
 ****************/
 app.get('/alerts', isAuthenticated, function(req, res) {
-
 
     GET_Alerts.getAllAlerts(function(alerts){
         res.render('Alerts/alerts', {
@@ -457,7 +452,7 @@ app.post('/regi', function(req, res) {
       				req.session.username = username;
               req.session.user_ID = results[0].ID;
               console.log(req.session.user_ID);
-      				res.redirect(303, '/home');
+      				res.redirect(303, '/');
       			} else {
               res.locals.message = "There seems to be an error.";
       				res.redirect(303, '/login?error='+err);
@@ -483,7 +478,7 @@ app.post('/auth', function(req, res) {
         req.session.username = username;
         req.session.user_ID = results[0].ID;
         console.log(req.session.user_ID);
-        res.redirect(303,'/home');
+        res.redirect(303,'/');
       } else {
         res.locals.message = "There seems to be an error.";
         res.redirect(303, '/login?error='+err);
