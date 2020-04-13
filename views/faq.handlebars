@@ -6,7 +6,6 @@
     background-color: white;
     padding: 20px;
   }
-
   textarea {
     min-width: 100%;
   }
@@ -229,9 +228,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     //    triggermessage("dark", "This is a test");
-
   });
-
   function deleteSection(Id) {
     $.ajax({
       type: 'post',
@@ -241,7 +238,6 @@
       },
       dataType: 'json'
     }).done(function(data) {
-
       if (data['status'] = true) {
         triggermessage("success", data['message']);
         $('#section-' + Id).remove();
