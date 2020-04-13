@@ -74,3 +74,28 @@ function createEvent(){
     alert("Here");
 }
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    //    triggermessage("dark", "This is a test");
+
+  });
+
+  function deleteSection(Id) {
+    $.ajax({
+      type: 'post',
+      url: '/delete_events',
+      data: {
+        Id: Id
+      },
+      dataType: 'json'
+    }).done(function(data) {
+
+      if (data['status'] = true) {
+        triggermessage("success", data['message']);
+        $('#section-' + Id).remove();
+      } else {
+        triggermessage("danger", data['message']);
+      }
+    });
+  }
+</script>
