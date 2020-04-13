@@ -77,14 +77,41 @@ console.log(app.locals.nav);
 app.set('port', process.env.PORT || 3001);
 
 
+  // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
+  res.redirect('/login');
+}
+
+app.use(function(req, res, next){
+  // all the stuff from the example
+  if (req.session.username) {
+    res.locals.username = req.session.username
+  }
+  next();
+});
 
 /**********************
 Start of Routing Pages
 ***********************/
 
 /* Home Page */
-app.get('/', function(req, res) {
-  res.render('home', {
+app.get('/', isAuthenticated, function(req, res) {
+    GET_Analytics.getFaqTotals(function(data){
+        res.render('home', {
+            general_hits  : data['general_hits'],
+            neville_hits  : data['neville_hits'],
+            all_houses_hits  : data['all_houses_hits'],
+            transportation_hits  : data['transportation_hits'],
+            shadyside_hits  : data['shadyside_hits'],
+            forfamilies_hits  : data['forfamilies_hits'],
+            university_hits  : data['university_hits']
+        });
+    });
+
+});
+
+/*Send Alerts Page*/
+app.get('/alerts', isAuthenticated, function(req, res) {
+  res.render('alerts', {
   });
 });
 
