@@ -34,3 +34,7 @@ CREATE TABLE analytics(
     `phone` tinyint,
     `date_create` date
 );
+
+/**************
+Alerts Table
+**************/
