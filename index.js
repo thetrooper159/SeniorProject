@@ -34,6 +34,7 @@ var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
 var POST_Event = require('./framework/post/post_event.js');
 var GET_Events = require('./framework/get/get_events.js');
+var GET_Alerts = require('./framework/get/get_alerts.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
 var DELETE_Events = require('./framework/post/delete_events.js');
 
@@ -124,13 +125,40 @@ app.get('/home', isAuthenticated, function(req, res) {
 
 });
 
-/*Send Alerts Page*/
+
+/*****************
+Alerts Pages Routing
+****************/
 app.get('/alerts', isAuthenticated, function(req, res) {
-  res.render('alerts', {
-  });
+
+
+    GET_Alerts.getAllAlerts(function(alerts){
+        res.render('Alerts/alerts', {
+            alerts  :  alerts['content']
+        });
+
+    });
+
 });
 
-/*Post Events Page*/
+app.get('/alerts/:Id', isAuthenticated, function(req, res) {
+    var Id = req.params.Id;
+    GET_Alerts.getAlertData(Id, function(data){
+        console.log(data.content[0]);
+        res.render('Alert/alert-details', {
+            alert : data.content[0],
+        });
+    })
+
+});
+
+/**********
+End Alerts
+**********/
+
+/*****************
+Event Pages Routing
+****************/
 app.get('/events', isAuthenticated, function(req, res) {
     GET_Events.getAllEvents(function(events){
         //console.log(events['content']);
@@ -152,6 +180,9 @@ app.get('/events/:Id', isAuthenticated, function(req, res) {
     })
 
 });
+/**********
+End Events
+**********/
 
 app.post('/create_event', (req, res) => {
     var name = req.body.name;
@@ -280,6 +311,18 @@ app.post('/delete_faq', function(req, res) {
     /* DELETE_Faq*/
     var Id = req.body.Id;
     DELETE_Faq.delete_faq(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
+});
+app.post('/delete_event', function(req, res) {
+    /* DELETE_Event*/
+    var Id = req.body.Id;
+    DELETE_Event.delete_event(Id, function(status, message){
         if(status == true){
             res.json({ status: true, message: message });
 		}else{
