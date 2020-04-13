@@ -88,7 +88,7 @@ function isAuthenticated(req, res, next) {
       return next();
 
   // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
-  res.redirect('/');
+  res.redirect('/login');
 }
 
 app.use(function(req, res, next){
@@ -102,13 +102,9 @@ app.use(function(req, res, next){
 /**********************
 Start of Routing Pages
 ***********************/
-app.get('/', function(req, res) {
-  res.render('login', {
-  });
-});
 
 /* Home Page */
-app.get('/home', isAuthenticated, function(req, res) {
+app.get('/', isAuthenticated, function(req, res) {
     GET_Analytics.getFaqTotals(function(data){
         res.render('home', {
             general_hits  : data['general_hits'],
