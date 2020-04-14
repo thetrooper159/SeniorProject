@@ -69,7 +69,7 @@
         <a class="nav-link" href="#university" style="color: #565A5C; font-size: 20px;">University Place</a>
       </li>
       <li class="nav-item">
-        <button class="btn btn-success" type="submit" value="submit" style="margin-top: 5px;">Save</button>
+        <button class="btn btn-success" type="submit" value="submit" Id="submitButtonId" style="margin-top: 5px;">Save</button>
       </li>
     </ul>
     <br />
@@ -416,10 +416,24 @@
   $('#deleteModal').on('shown.bs.modal', function () {
   $('#deletebtn').trigger('focus')
 })
+$('form')
+    .each(function(){
+        $(this).data('serialized', $(this).serialize())
+    })
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+                .prop('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+     })
+    .find('input:submit, button:submit')
+        .prop('disabled', true)
+;
 /*$("#deletebtn").click(deleteSection('{{ Id }}'))
 
 $("#deletebtn").click(function() {
     console.log("this got called");
   $('#deletebtn').trigger('focus')
 })*/
-</script>
+
+        </script>
