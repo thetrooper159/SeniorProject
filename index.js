@@ -35,8 +35,10 @@ var POST_linen = require('./framework/post/post_linens.js');
 var POST_Event = require('./framework/post/post_event.js');
 var GET_Events = require('./framework/get/get_events.js');
 var GET_Alerts = require('./framework/get/get_alerts.js');
+var POST_Alerts = require('./framework/post/post_alerts.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
 var DELETE_Events = require('./framework/post/delete_events.js');
+var DELETE_Alerts = require('./framework/post/delete_alerts.js');
 
 var DELETE_Faq = require('./framework/post/delete_faq.js');
 
@@ -129,6 +131,7 @@ app.get('/alerts', isAuthenticated, function(req, res) {
 
 
     GET_Alerts.getAllAlerts(function(alerts){
+      console.log(alerts)
         res.render('Alerts/alerts', {
             alerts  :  alerts['content']
         });
@@ -141,13 +144,36 @@ app.get('/alerts/:Id', isAuthenticated, function(req, res) {
     var Id = req.params.Id;
     GET_Alerts.getAlertData(Id, function(data){
         console.log(data.content[0]);
-        res.render('Alert/alert-details', {
+        res.render('Alerts/alert-details', {
             alert : data.content[0],
         });
     })
 
 });
 
+app.post('/create_alert', (req, res) => {
+    var name = req.body.name;
+
+    POST_Alerts.createAlert(name, function(status, message, Id){
+        if(status == false){
+            res.redirect("alerts");
+        }else{
+            res.redirect("/alerts/" + Id);
+        }
+    })
+});
+app.post('/delete_alerts', function(req, res) {
+    /* DELETE_Faq*/
+    var Id = req.body.Id;
+    DELETE_Alerts.delete_alerts(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
+});
 /**********
 End Alerts
 **********/
