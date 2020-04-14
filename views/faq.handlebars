@@ -69,7 +69,7 @@
         <a class="nav-link" href="#university" style="color: #565A5C; font-size: 20px;">University Place</a>
       </li>
       <li class="nav-item">
-        <button class="btn btn-success" type="submit" value="submit" style="margin-top: 5px;">Save</button>
+        <button class="btn disabled" id="save_button" type="submit" value="submit" style="margin-top: 5px;" disabled>Save</button>
       </li>
     </ul>
     <br />
@@ -84,11 +84,11 @@
             <div class="form-row" id="section-{{ Id }}">
               <input type="hidden" name="Id[]" value="{{ Id }}" />
               <div class="col-md-3 col-xs-12">
-                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <input class="form-control field" type="text" name="question[]" value="{{ question }}" />
 
               </div>
               <div class="col-md-7 col-xs-12">
-                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+                <textarea class="form-control field" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
 
               </div>
               <div class="col-md-2">
@@ -129,11 +129,11 @@
               <input type="hidden" name="Id[]" value="{{ Id }}" />
 
               <div class="col-md-3 col-xs-12">
-                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <input class="form-control field" type="text" name="question[]" value="{{ question }}" />
 
               </div>
               <div class="col-md-7 col-xs-12">
-                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+                <textarea class="form-control field" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
               </div>
               <div class="col-md-2">
                 <a class="btn btn-primary" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete</a>
@@ -173,11 +173,11 @@
               <input type="hidden" name="Id[]" value="{{ Id }}" />
 
               <div class="col-md-3 col-xs-12">
-                <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+                <input class="form-control field" type="text" name="question[]" value="{{ question }}" />
 
               </div>
               <div class="col-md-7 col-xs-12">
-                <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+                <textarea class="form-control field" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
               </div>
               <div class="col-md-2">
                 <a class="btn btn-primary" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete</a>
@@ -217,11 +217,10 @@
             <input type="hidden" name="Id[]" value="{{ Id }}" />
 
             <div class="col-md-3 col-xs-12">
-              <input class="form-control" type="text" name="question[]" value="{{ question }}" />
-
+              <input class="form-control field" type="text" name="question[]" value="{{ question }}" />
             </div>
             <div class="col-md-7 col-xs-12">
-              <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+              <textarea class="form-control field" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
             </div>
             <div class="col-md-2">
               <a class="btn btn-primary" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete</a>
@@ -261,11 +260,11 @@
             <input type="hidden" name="Id[]" value="{{ Id }}" />
 
             <div class="col-md-3 col-xs-12">
-              <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+              <input class="form-control field" type="text" name="question[]" value="{{ question }}" />
 
             </div>
             <div class="col-md-7 col-xs-12">
-              <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+              <textarea class="form-control field" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
             </div>
             <div class="col-md-2">
               <a class="btn btn-primary" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete</a>
@@ -305,11 +304,11 @@
             <input type="hidden" name="Id[]" value="{{ Id }}" />
 
             <div class="col-md-3 col-xs-12">
-              <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+              <input class="form-control field" type="text" name="question[]" value="{{ question }}" />
 
             </div>
             <div class="col-md-7 col-xs-12">
-              <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+              <textarea class="form-control field" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
             </div>
             <div class="col-md-2">
               <a class="btn btn-primary" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete</a>
@@ -349,11 +348,11 @@
             <input type="hidden" name="Id[]" value="{{ Id }}" />
 
             <div class="col-md-3 col-xs-12">
-              <input class="form-control" type="text" name="question[]" value="{{ question }}" />
+              <input class="form-control field" type="text" name="question[]" value="{{ question }}" />
 
             </div>
             <div class="col-md-7 col-xs-12">
-              <textarea class="form-control" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
+              <textarea class="form-control field" name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ answer }}</textarea>
             </div>
             <div class="col-md-2">
               <a class="btn btn-primary" id="deletebtn2" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete</a>
@@ -391,7 +390,12 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    //    triggermessage("dark", "This is a test");
+    $(".field").on("change", function(){
+        $("#save_button").addClass("btn-success");
+        $("#save_button").removeClass("disabled");
+        $("#save_button").prop("disabled", false);
+
+    })
 
   });
 
