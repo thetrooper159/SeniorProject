@@ -35,7 +35,6 @@ var POST_linen = require('./framework/post/post_linens.js');
 var POST_Event = require('./framework/post/post_event.js');
 var GET_Events = require('./framework/get/get_events.js');
 var GET_Alerts = require('./framework/get/get_alerts.js');
-var POST_Alerts = require('./framework/post/post_alerts.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
 var DELETE_Events = require('./framework/post/delete_events.js');
 var DELETE_Alerts = require('./framework/post/delete_alerts.js');
@@ -455,6 +454,11 @@ app.get('/login', function(req, res) {
 
 app.get('/register', function(req, res) {
   res.render('register', {
+  });
+});
+
+app.get('/changepassword', function(req, res) {
+  res.render('changepassword', {
   });
 });
 
