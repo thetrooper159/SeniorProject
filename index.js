@@ -33,6 +33,7 @@ var POST_Faq = require('./framework/post/post_faq.js');
 var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
 var POST_Event = require('./framework/post/post_event.js');
+var POST_Alerts = require('./framework/post/post_alerts.js');
 var GET_Events = require('./framework/get/get_events.js');
 var GET_Alerts = require('./framework/get/get_alerts.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
