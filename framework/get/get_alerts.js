@@ -5,14 +5,14 @@ const connection = mysql.createConnection(sql);
 
 
 exports.getAlertData = function(Id, data){
-    var sql_run = "SELECT * FROM alerts WHERE Id=" + Id;
+    var sql_run = "SELECT * FROM Alerts WHERE Id=" + Id;
     console.log(sql_run);
     	connection.query(
     		sql_run,
     		function(err, headers, fields) {
     			if(err){
     				console.log(err);
-    				data({ "status" : false, "message" : "Could Not Get Event Data", "content" : null  });
+    				data({ "status" : false, "message" : "Could Not Get Alert Data", "content" : null  });
     			}else{
     				data({ "status" : true, "message" : "Event Found", "content" : headers  });
     			}
@@ -20,7 +20,7 @@ exports.getAlertData = function(Id, data){
     	);
 }
 exports.getAllAlerts = function(data){
-    var sql_run = "SELECT * FROM alerts";
+    var sql_run = "SELECT * FROM Alerts";
     connection.query(
 		sql_run,
 		function(err, headers, fields) {

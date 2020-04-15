@@ -5,7 +5,7 @@
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <div class="events-page">
     <div class="events-landing-title">
-        <h1>Events</h1>
+        <h1>Alerts</h1>
 
     </div>
     <div class="container">
@@ -13,7 +13,7 @@
         <table id="alerts_table" class="table display table-striped hoverable" style="margin-top: 20px;">
       	<thead>
       		<tr class="" style="color: black;">
-      			<th>Event Name</th>
+      			<th>Alert Title</th>
       			<th>Event Date</th>
                 <th>Created</th>
                 <th>Modified</th>
@@ -39,7 +39,7 @@
     <!--Modal For Creating an Event -->
     <div class="modal fade" id="createAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-          <form action="/create_event" method="POST" id="createEventForm">
+          <form action="/create_alert" method="POST" id="createAlertForm">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Create Alert</h5>
@@ -53,6 +53,10 @@
                         <label for="name">Alert Title</label>
                         <input type="text" name="name" class="form-control" />
                     </div>
+                    <div class="col-xs-12">
+                    <label for="name">Alert Date</label>
+                    <input type="text" name="name" class="form-control" />
+                </div>
                 </div>
               </div>
               <div class="modal-footer">
