@@ -27,3 +27,21 @@ exports.save_faq = function(combo, callback){
 callback(true, "Page Updated!");
 	//console.log(query);
 }
+//created by Lance and Voortman
+exports.create_faq = function (combo, callback) {
+	var sql_run = 'INSERT INTO faq (section_Id, question, answer) VALUES (?, ?, ?)';
+	//console.log(combo[i][0]);
+	connection.query(
+		sql_run,
+		[combo.section_Id, combo.question, combo.answer],
+		function(err, headers, fields) {
+			if(err){
+				console.log(err);
+				callback(false, "There was an error adding the question, please try again!");
+
+			}else{
+				callback();
+			}
+		}
+	);
+}

@@ -303,9 +303,42 @@ app.post('/save_faq', function(req, res) {
 
 });
 
+//made by lance for creating creat button on faq page
+app.post('/create_faq', function(req, res) {
+  var question = req.body.question;
+	var answer =  req.body.answer;
+	var Id  = req.body.Id;
+  console.log("Create Faq Line in index");
+  console.log(question);
+  console.log(answer);
+  console.log(Id);
+  console.log(req.body);
+
+
+	var post = POST_Faq.create_faq({
+    section_Id: req.body.Id,
+    question: req.body.question,
+    answer: req.body.answer
+
+  }, function(status, message){
+		if(status == true){
+			req.session.success = message;
+			res.redirect('/faq');
+
+
+		}else{
+			req.session.error = message;
+      res.redirect('/faq');
+		}
+	});
+
+});
+
+
 app.post('/delete_faq', function(req, res) {
     /* DELETE_Faq*/
     var Id = req.body.Id;
+    console.log("deletefaq" + Id);
     DELETE_Faq.delete_faq(Id, function(status, message){
         if(status == true){
             res.json({ status: true, message: message });
