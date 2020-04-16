@@ -33,12 +33,9 @@ var POST_Faq = require('./framework/post/post_faq.js');
 var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
 var POST_Event = require('./framework/post/post_event.js');
-var POST_Alerts = require('./framework/post/post_alerts.js');
 var GET_Events = require('./framework/get/get_events.js');
-var GET_Alerts = require('./framework/get/get_alerts.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
 var DELETE_Events = require('./framework/post/delete_events.js');
-var DELETE_Alerts = require('./framework/post/delete_alerts.js');
 
 var DELETE_Faq = require('./framework/post/delete_faq.js');
 
@@ -92,7 +89,7 @@ function isAuthenticated(req, res, next) {
       return next();
 
   // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
-  res.redirect('/login');
+  res.redirect('/');
 }
 
 app.use(function(req, res, next){
@@ -106,81 +103,24 @@ app.use(function(req, res, next){
 /**********************
 Start of Routing Pages
 ***********************/
+app.get('/', function(req, res) {
+  res.render('login', {
+  });
+});
 
 /* Home Page */
-app.get('/', isAuthenticated, function(req, res) {
-    GET_Analytics.getFaqTotals(function(data){
-        res.render('home', {
-            general_hits  : data['general_hits'],
-            neville_hits  : data['neville_hits'],
-            all_houses_hits  : data['all_houses_hits'],
-            transportation_hits  : data['transportation_hits'],
-            shadyside_hits  : data['shadyside_hits'],
-            forfamilies_hits  : data['forfamilies_hits'],
-            university_hits  : data['university_hits']
-        });
-    });
-
+app.get('/home', function(req, res) {
+  res.render('home', {
+  });
 });
 
-
-/*****************
-Alerts Pages Routing
-****************/
+/*Send Alerts Page*/
 app.get('/alerts', isAuthenticated, function(req, res) {
-
-
-    GET_Alerts.getAllAlerts(function(alerts){
-      console.log(alerts)
-        res.render('Alerts/alerts', {
-            alerts  :  alerts['content']
-        });
-
-    });
-
+  res.render('alerts', {
+  });
 });
 
-app.get('/alerts/:Id', isAuthenticated, function(req, res) {
-    var Id = req.params.Id;
-    GET_Alerts.getAlertData(Id, function(data){
-        console.log(data.content[0]);
-        res.render('Alerts/alert-details', {
-            alert : data.content[0],
-        });
-    })
-
-});
-
-app.post('/create_alert', (req, res) => {
-    var name = req.body.name;
-
-    POST_Alerts.createAlert(name, function(status, message, Id){
-        if(status == false){
-            res.redirect("alerts");
-        }else{
-            res.redirect("/alerts/" + Id);
-        }
-    })
-});
-app.post('/delete_alerts', function(req, res) {
-    /* DELETE_Faq*/
-    var Id = req.body.Id;
-    DELETE_Alerts.delete_alerts(Id, function(status, message){
-        if(status == true){
-            res.json({ status: true, message: message });
-		}else{
-            res.json({ status: false, message: message });
-        }
-    });
-
-});
-/**********
-End Alerts
-**********/
-
-/*****************
-Event Pages Routing
-****************/
+/*Post Events Page*/
 app.get('/events', isAuthenticated, function(req, res) {
     GET_Events.getAllEvents(function(events){
         //console.log(events['content']);
@@ -202,9 +142,6 @@ app.get('/events/:Id', isAuthenticated, function(req, res) {
     })
 
 });
-/**********
-End Events
-**********/
 
 app.post('/create_event', (req, res) => {
     var name = req.body.name;
@@ -341,18 +278,6 @@ app.post('/delete_faq', function(req, res) {
     });
 
 });
-app.post('/delete_event', function(req, res) {
-    /* DELETE_Event*/
-    var Id = req.body.Id;
-    DELETE_Event.delete_event(Id, function(status, message){
-        if(status == true){
-            res.json({ status: true, message: message });
-		}else{
-            res.json({ status: false, message: message });
-        }
-    });
-
-});
 
 // Lance post code for linens
 app.post('/api/v1/linens_request', function(req, res) {
@@ -458,11 +383,6 @@ app.get('/register', function(req, res) {
   });
 });
 
-app.get('/changepassword', function(req, res) {
-  res.render('changepassword', {
-  });
-});
-
 app.post('/regi', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
@@ -484,7 +404,7 @@ app.post('/regi', function(req, res) {
       				req.session.username = username;
               req.session.user_ID = results[0].ID;
               console.log(req.session.user_ID);
-      				res.redirect(303, '/');
+      				res.redirect(303, '/home');
       			} else {
               res.locals.message = "There seems to be an error.";
       				res.redirect(303, '/login?error='+err);
@@ -510,7 +430,7 @@ app.post('/auth', function(req, res) {
         req.session.username = username;
         req.session.user_ID = results[0].ID;
         console.log(req.session.user_ID);
-        res.redirect(303,'/');
+        res.redirect(303,'/home');
       } else {
         res.locals.message = "There seems to be an error.";
         res.redirect(303, '/login?error='+err);
@@ -528,6 +448,28 @@ app.get('/logout', function(req, res){
         delete req.session.username;
         res.redirect(303, '/');
 });
+
+
+/*data analytics page*/
+app.get('/data', isAuthenticated, function(req, res) {
+    GET_Analytics.getFaqTotals(function(data){
+        res.render('data', {
+            general_hits  : data['general_hits'],
+            neville_hits  : data['neville_hits'],
+            all_houses_hits  : data['all_houses_hits'],
+            transportation_hits  : data['transportation_hits'],
+            shadyside_hits  : data['shadyside_hits'],
+            forfamilies_hits  : data['forfamilies_hits'],
+            university_hits  : data['university_hits']
+        });
+    });
+
+});
+
+
+
+
+
 //*******KEEP ALL ROUTES ABOVE THIS ******************//
 
 /* 404 Error Page */

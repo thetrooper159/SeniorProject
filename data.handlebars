@@ -1,0 +1,83 @@
+	</div>
+    <center><h1>Analytic datapoints</h1></center><br />
+	<center>
+		<li>General Hits: {{ general_hits }}</li>
+		<li>Neville Hits: {{ neville_hits }}</li>
+		<li>All Houses Hits: {{ all_houses_hits }}</li>
+		<li>Transportation Hits: {{ transportation_hits }}</li>
+		<li>Shadyside Hits: {{ shadyside_hits }}</li>
+		<li>For Families Hits: {{ forfamilies_hits }}</li>
+		<li>University Place Hits: {{ university_hits }}</li>
+        </center>
+</div>
+
+<script>
+var points = [{{ general_hits }}, {{ neville_hits }}, {{ all_houses_hits }}, {{ transportation_hits }}, {{ shadyside_hits }}, {{ forfamilies_hits }}, {{ university_hits }}
+             ];
+document.getElementById("fh").innerHTML = points;
+
+function myFunction() {
+  points.sort(function(a, b){return a-b});
+  document.getElementById("fh").innerHTML = points;
+}
+</script>
+
+<center><button onclick="myFunction()">Reorganize</button></center>
+
+<div class="container">
+  <canvas id="myChart"></canvas>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+
+  <script>
+  let myChart = document.getElementById('myChart').getContext('2d');
+
+
+let barChart = new Chart(myChart, {
+    type:'pie',
+    data:{
+      labels:["General" , "Neville" , "All Houses" , 'Transportation' , 'Shadyside' , 'For Families' , 'University Place'],
+      datasets:[{
+
+        label:['General' , 'Neville' , 'All Houses' , 'Transportation' , 'Shadyside' , 'For Families' , 'University Place',
+         ],
+        data:[
+              {{ general_hits }},
+              {{ neville_hits }},
+              {{ all_houses_hits }},
+              {{ transportation_hits }},
+              {{ shadyside_hits }},
+              {{ forfamilies_hits }},
+              {{ university_hits }}
+        ],
+        backgroundColor:[
+          'rgba(255, 0, 0, 0.6)',
+          'rgba(255, 165, 0, 0.6)',
+          'rgba(255, 255, 0, 0.6)',
+          'rgba(0, 128, 0, 0.6)',
+          'rgba(0, 0, 255, 0.6)',
+          'rgba(75, 0, 130, 0.6)',
+          'rgba(238, 130, 238, 0.6)'
+        ],
+        borderWidth:1,
+        borderColor:'#777',
+        hoverBorderWidth:2,
+        HoverBorderColor:'#000'
+      }]
+    },
+    options:{
+      title:{
+        display:true,
+        text:'Number of Clicks Per Question',
+        fontSize: 27
+      },
+      legend:{
+        display:true
+      }
+    }
+  });
+  </script>
+</div>
+
