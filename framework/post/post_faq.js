@@ -24,6 +24,23 @@ exports.save_faq = function(combo, callback){
 			}
 		);
 	}
-callback(true, "Page Updated!");
+	callback(true, "Page Updated!");
 	//console.log(query);
+}
+
+exports.create_question = function(section, answer, question, callback){
+	var sql_run = "INSERT INTO faq (`section_Id`, `question`, `answer`) VALUES (?,?,?)";
+	connection.query(
+		sql_run,
+		[section, question, answer],
+		function(err, headers, fields) {
+			if(err){
+				console.log(err);
+				callback(false, "There was an Error creating the question, please try again!");
+			}else{
+				callback(true, "Question Created");
+			}
+		}
+	);
+
 }

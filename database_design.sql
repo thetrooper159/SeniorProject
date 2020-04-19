@@ -6,7 +6,6 @@
 Events Table
 **************/
 
-
 DROP TABLE IF EXISTS `Events`;
 
 CREATE TABLE Events (
@@ -17,8 +16,26 @@ CREATE TABLE Events (
     `content` TEXT,
     `created` date,
     `last_modified` date,
-    `created_uid` int(11),
-    `modified_uid` int(11)
+    `created_uid` varchar(64),
+    `modified_uid` varchar(64)
+);
+
+/**************
+Alerts Table
+**************/
+
+CREATE TABLE Alerts (
+    `Id` int(11) AUTO_INCREMENT PRIMARY KEY,
+    `house_Id` int(11) unsigned,
+    `event_Id` int(11) unsigned,
+    `title` varchar(64),
+    `alert_text` varchar(256),
+    `alert_date` date,
+    `content` varchar(64),
+    `created` date,
+    `last_modified` date,
+    `created_uid` varchar(64),
+    `modified_uid` varchar(64)
 );
 
 /**************
@@ -36,20 +53,3 @@ CREATE TABLE analytics(
     `date_create` date
 );
 
-/**************
-Alerts Table
-**************/
-
-DROP TABLE IF EXISTS `Alerts`;
-
-CREATE TABLE Alerts (
-    `Id` int(11) AUTO_INCREMENT PRIMARY KEY,
-    `house_Id` int(11) unsigned,
-    `title` varchar(64),
-    `alert_date` date,
-    `content` varchar(64),
-    `created` date,
-    `last_modified` date,
-    `created_uid` int(11),
-    `modified_uid` int(11)
-);

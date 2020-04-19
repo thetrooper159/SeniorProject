@@ -15,6 +15,7 @@ exports.nav_items = function(){
 	{name: "F.A.Q.", link: "/faq"},
   {name: "Events", link: "/events"},
   {name: "Alerts", link: "/alerts"},
+    {name: "Analytics", link: "/analytics"},
 
 
 

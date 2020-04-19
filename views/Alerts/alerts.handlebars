@@ -9,6 +9,21 @@
 
     </div>
     <div class="container">
+        <a class="btn family_house_color_schema" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#createAlert">Create Alert</a>
+        <table id="alerts_table" class="table display hoverable" style="margin-top: 20px;">
+      	<thead class="family_house_color_schema">
+      		<tr class="">
+      			<th>Alert Title</th>
+      			<th>Alert Date</th>
+                <th>Connected To Event</th>
+                <th>Created User</th>
+                <th>Modified User</th>
+                <th data-orderable="false">View</th>
+                <th data-orderable="false">Remove</th>
+
+
+    </div>
+    <div class="container">
         <a class="btn btn-success" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#createAlert">Create Alert</a>
         <table id="alerts_table" class="table display table-striped hoverable" style="margin-top: 20px;">
       	<thead>
@@ -19,17 +34,23 @@
                 <th>Modified</th>
                 <th>Edit</th>
                 <th>Delete</th>
+
       	    </tr>
       	</thead>
       	<tbody>
             {{#alerts}}
-                <tr>
+                <tr id="table_row_{{ Id }}">
                     <td>{{ title }}</td>
-                    <td>{{ event_date }}</td>
-                    <td>{{ created }}</td>
-                    <td>{{ last_modified }}</td>
-                    <td><a href="/alerts/{{ Id }}"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a></td>
+                    <td>{{ alert_date }}</td>
+                    {{#if event_Id}}
+                        <td><a href="/events/{{event_Id}}">Yes, click to view</a></td>
+                    {{else}}
+                        <td>No</td>
+                    {{/if}}
+                    <td>{{ created_uid }}</td>
+                    <td>{{ modified_uid }}</td>
+                    <td><a href="javascript:view_alert('{{ Id }}', '{{ alert_text }}', '{{ alert_date }}', '{{ title }}')"><i class="fas fa-edit"></i></a></td>
+                    <td><a style="color: red;" href="javascript:remove_alert('{{ Id }}')"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
             {{/alerts}}
       	</tbody>
@@ -49,9 +70,30 @@
               </div>
               <div class="modal-body">
                  <div class="form-row">
-                    <div class="col-xs-12">
-                        <label for="name">Alert Title</label>
-                        <input type="text" name="name" class="form-control" />
+                    <div class="col-sm-6 col-xs-12">
+                        <label for="title">Alert Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="Alert Title" />
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <label for="house">House</label>
+                        <select class="custom-select mr-sm-2 form-control" name="house">
+                           <option value="4" selected>All Houses</option>
+                           <option value="1">Neville</option>
+                           <option value="2">Shadyside</option>
+                           <option value="3">University Place</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-6 col-xs-12">
+                        <label for="date">Alert Date</label>
+                        <input type="datetime-local" name="alert_date" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <label for="alert_text">Alert Text</label>
+                        <textarea name="alert_text" class="form-control" placeholder="Alert Text"></textarea>
                     </div>
                     <div class="col-xs-12">
                     <label for="name">Alert Date</label>
@@ -60,13 +102,36 @@
                 </div>
               </div>
               <div class="modal-footer">
+                <input type="hidden" name="uid" value="{{user}}" />
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" value="submit" class="btn btn-primary">Create</button>
+                <button type="submit" value="submit" class="btn family_house_color_schema">Create</button>
               </div>
             </div>
         </form>
       </div>
   </div>
+
+<button type="hidden" data-toggle="modal" data-target="#alert_details" id="show_alert_details"></button>
+  <!--Modal For Creating an Event -->
+  <div class="modal fade" id="alert_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alert_title">Create Alert</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <label>Alert Date: </label><br />
+            <p id="alert_date"><br />
+            <label>Alert Text</label><br />
+            <p id="alert_text"></p>
+        </div>
+      </div>
+    </div>
+</div>
+
 </div>
 
 <script>
@@ -81,8 +146,36 @@ $(document).ready( function () {
 <script type="text/javascript">
   $(document).ready(function() {
     //    triggermessage("dark", "This is a test");
-
+    $('#alert_details').modal();
   });
+
+  function remove_alert(Id){
+      $.ajax({
+        type: 'post',
+        url: '/delete_alert',
+        data: {
+          Id: Id
+        },
+        dataType: 'json'
+      }).done(function(data) {
+
+        if (data['status'] = true) {
+          triggermessage("success", data['message']);
+          $('#table_row_' + Id).remove();
+        } else {
+          triggermessage("danger", data['message']);
+        }
+      });
+  }
+
+  function view_alert(Id, text, date, title){
+     $('#alert_title').text(title);
+     $('#alert_text').text(text);
+     $('#alert_date').text(date);
+
+     $('#show_alert_details').click();
+
+  }
 
   function deleteSection(Id) {
     $.ajax({
