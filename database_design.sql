@@ -6,7 +6,6 @@
 Events Table
 **************/
 
-
 DROP TABLE IF EXISTS `Events`;
 
 CREATE TABLE Events (
@@ -24,15 +23,15 @@ CREATE TABLE Events (
 /**************
 Alerts Table
 **************/
-DROP TABLE IF EXISTS `Alerts`;
 
 CREATE TABLE Alerts (
-    `Id` int(11) not null PRIMARY KEY AUTO_INCREMENT,
+    `Id` int(11) AUTO_INCREMENT PRIMARY KEY,
     `house_Id` int(11) unsigned,
     `event_Id` int(11) unsigned,
     `title` varchar(64),
     `alert_text` varchar(256),
-    `alert_date` datetime,
+    `alert_date` date,
+    `content` varchar(64),
     `created` date,
     `last_modified` date,
     `created_uid` varchar(64),
@@ -54,6 +53,3 @@ CREATE TABLE analytics(
     `date_create` date
 );
 
-/**************
-Alerts Table
-**************/

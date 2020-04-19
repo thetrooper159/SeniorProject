@@ -12,7 +12,7 @@ exports.getAlertData = function(Id, data){
     		function(err, headers, fields) {
     			if(err){
     				console.log(err);
-    				data({ "status" : false, "message" : "Could Not Get Event Data", "content" : null  });
+    				data({ "status" : false, "message" : "Could Not Get Alert Data", "content" : null  });
     			}else{
     				data({ "status" : true, "message" : "Event Found", "content" : headers  });
     			}

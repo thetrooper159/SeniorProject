@@ -1,4 +1,14 @@
-
+<style>
+.modal {
+ width: 300px;
+ height: 300px;
+ position: absolute;
+ left: 50%;
+ top: 50%;
+ margin-left: -150px;
+ margin-top: -150px;
+}
+</style>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 
@@ -30,6 +40,30 @@
                 <td>{{ last_modified }}</td>
                 <td>{{ modified_uid }}</td>
                 <td><a href="/events/{{ Id }}"><i class="fas fa-edit"></i></a></td>
+
+                <td>
+                  <a class="btn btn-primary" id="deletebtn2" style="float: center; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#deleteModal_{{ Id }}">Delete</a>
+                  <!-- Modal for creating a delete button -->
+                  <div class="modal fade" id="deleteModal_{{ Id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Confirmation </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                         Are you sure?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" id="deletebtn" class="btn btn-primary" onclick="deleteSection('{{ Id }}')"  data-dismiss="modal">Yes Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
 
             </tr>
             {{/events}}
@@ -94,7 +128,7 @@ function createEvent(){
   function deleteSection(Id) {
     $.ajax({
       type: 'post',
-      url: '/delete_event',
+      url: '/delete_events',
       data: {
         Id: Id
       },
@@ -109,4 +143,13 @@ function createEvent(){
       }
     });
   }
+  $('#deleteModal').on('shown.bs.modal', function () {
+  $('#deletebtn').trigger('focus')
+})
+/*$("#deletebtn").click(deleteSection('{{ Id }}'))
+
+$("#deletebtn").click(function() {
+    console.log("this got called");
+  $('#deletebtn').trigger('focus')
+})*/
 </script>

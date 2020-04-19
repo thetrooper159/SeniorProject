@@ -32,12 +32,15 @@ var POST_Faq = require('./framework/post/post_faq.js');
 var GET_linen = require('./framework/get/get_linens.js');
 var POST_linen = require('./framework/post/post_linens.js');
 var POST_Event = require('./framework/post/post_event.js');
+var POST_Alerts = require('./framework/post/post_alerts.js');
 var GET_Events = require('./framework/get/get_events.js');
 var GET_Alerts = require('./framework/get/get_alerts.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
 var DELETE_Events = require('./framework/post/delete_events.js');
 var DELETE_Alerts = require('./framework/post/delete_alerts.js');
+
 var POST_Alerts = require('./framework/post/post_alert.js');
+
 
 var DELETE_Faq = require('./framework/post/delete_faq.js');
 
@@ -93,7 +96,7 @@ function isAuthenticated(req, res, next) {
       return next();
 
   // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
-  res.redirect('/');
+  res.redirect('/login');
 }
 
 
@@ -108,13 +111,9 @@ app.use(function(req, res, next){
 /**********************
 Start of Routing Pages
 ***********************/
-app.get('/', function(req, res) {
-  res.render('login', {
-  });
-});
 
 /* Home Page */
-app.get('/home', isAuthenticated, function(req, res) {
+app.get('/', isAuthenticated, function(req, res) {
     GET_Analytics.getFaqTotals(function(data){
         res.render('home', {
             general_hits  : data['general_hits'],
@@ -149,6 +148,7 @@ Alerts Pages Routing
 ****************/
 app.get('/alerts', isAuthenticated, function(req, res) {
     GET_Alerts.getAllAlerts(function(alerts){
+      console.log(alerts)
         res.render('Alerts/alerts', {
             alerts  :  alerts['content'],
             user    : req.session.username
@@ -177,7 +177,7 @@ app.get('/alerts/:Id', isAuthenticated, function(req, res) {
     var Id = req.params.Id;
     GET_Alerts.getAlertData(Id, function(data){
         console.log(data.content[0]);
-        res.render('Alert/alert-details', {
+        res.render('Alerts/alert-details', {
             alert : data.content[0],
         });
     })
@@ -203,6 +203,29 @@ app.post('/create_alert', (req, res) => {
 
 });
 
+app.post('/create_alert', (req, res) => {
+    var name = req.body.name;
+
+    POST_Alerts.createAlert(name, function(status, message, Id){
+        if(status == false){
+            res.redirect("alerts");
+        }else{
+            res.redirect("/alerts/" + Id);
+        }
+    })
+});
+app.post('/delete_alerts', function(req, res) {
+    /* DELETE_Faq*/
+    var Id = req.body.Id;
+    DELETE_Alerts.delete_alerts(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
+});
 /**********
 End Alerts
 **********/
@@ -548,6 +571,11 @@ app.get('/register', isAuthenticated, function(req, res) {
   });
 });
 
+app.get('/changepassword', function(req, res) {
+  res.render('changepassword', {
+  });
+});
+
 app.post('/regi', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
@@ -569,7 +597,7 @@ app.post('/regi', function(req, res) {
       				req.session.username = username;
               req.session.user_ID = results[0].ID;
               console.log(req.session.user_ID);
-      				res.redirect(303, '/home');
+      				res.redirect(303, '/');
       			} else {
               res.locals.message = "There seems to be an error.";
       				res.redirect(303, '/login?error='+err);
@@ -595,7 +623,7 @@ app.post('/auth', function(req, res) {
         req.session.username = username;
         req.session.user_ID = results[0].ID;
         console.log(req.session.user_ID);
-        res.redirect(303,'/home');
+        res.redirect(303,'/');
       } else {
         res.locals.message = "There seems to be an error.";
         res.redirect(303, '/login?error='+err);

@@ -3,17 +3,20 @@ var sql = require('../../settings.js');
 
 const connection = mysql.createConnection(sql);
 
-exports.delete_alerts = function(Id, callback){
-var sql_run = "DELETE FROM Alerts WHERE Id="+ Id +"";
+exports.delete_alert = function(Id, callback){
+
+
+var sql_run = "DELETE FROM Alert WHERE Id="+ Id +"";
 	connection.query(
 		sql_run,
 		function(err, headers, fields) {
 			if(err){
 				console.log(err);
-				callback(false, "Alert could not be deleted, Please try again !");
+				callback(false, "Section could not be deleted, Please try again !");
 			}else{
-				callback(true, "This Alert has been deleted!");
+				callback(true, "This Section has been deleted!");
 			}
 		}
 	);
+
 }
