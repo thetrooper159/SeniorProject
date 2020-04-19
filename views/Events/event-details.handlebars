@@ -1,129 +1,36 @@
 <style>
-  table,
-  th,
-  td {
-    border: 2px solid black;
-    background-color: white;
-    padding: 20px;
-  }
 
-  textarea {
-    min-width: 100%;
-  }
 </style>
-{{#if success}}
-  <div class="alert alert-primary" role="alert">
-    {{ success }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-{{/if}}
 
-{{#if error}}
-  <div class="alert alert-primary" role="alert">
-    {{ error }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-{{/if}}
-<div class="container">
-  <form name="save_event" id="save_event" class="" action="/save_event" method="POST">
+<div class="event_details_page">
+    <div class="container" style="text-align: center; margin-top: 20px;">
+        <form action="/save_event_details" method="POST" enctype="multipart/form-data"  id="events_details">
+            <input type="hidden" name="Id" value="{{ event.Id }}" />
+            <input  type="hidden" name="user" value="{{user}}" /> 
+            <button type="submit" value="submit" class="btn family_house_color_schema" style="float: right;">Save</button>
+            <h4 for="title">Event Title</h4> <br />
+            <input class="form-control" type="text" name="title" value="{{ event.title }}" /><br />
+            <h4>Event Content</h4><br />
+            <textarea style="min-height: 400px;" name="content" class="form-control" placeholder="Event Content">{{ event.content }}</textarea><br />
+            <h4>House</h4> <br />
+            <select class="custom-select mr-sm-2 form-control" name="house">
+               <option value="4" selected>All Houses</option>
+               <option value="1">Neville</option>
+               <option value="2">Shadyside</option>
+               <option value="3">University Place</option>
+           </select> <br />
+            <div class="col-sm-12"><h4>Current Event Date: {{ event.event_date }}</h4> <a href="javascript:changeDate()"><i>Click to Change</i></a></div><br />
 
-    <div class="faq-page-header-text">
-      <h1 style="text-align: center;">Event Details</h1><br />
-      <p>Here you can edit the details of events</p>
+        </form>
     </div>
-    <br>
-    <!-- Jumbotrons for sections -->
-    <div class="container">
-      <div id="general" class="row jumbo-faq" style="text-align: center">
-        <div class="jumbotron" style="width: 100%">
-          <h1 class="display-4">{{ event.title}}</h1>
-          <hr class="my-4">
+</div>
 
-          {{#event}}
-            <div class="form-row" id="section-{{ Id }}">
-              <input type="hidden" name="Id[]" value="{{ Id }}" />
-              <div class="col-md-12 col-md-4">
-                <label for="house">Choose a house:</label>
 
-                <select id="houses">
-                  <option value="#"></option>
-                  <option value="0">Shadyside</option>
-                  <option value="1">Neville</option>
-                  <option value="2">University Place</option>
-                  <option value="3">All Houses</option>
-                </select>
-              </div>
-              <br>
-              <div class="col-md-12 col-md-4">
-                <textarea class="form-control" placeholder="Event Details..." name="answer[]" style="margin-bottom: 10px; height: 200px;">{{ details }}</textarea>
-              </div>
-              <br>
-              <div class="col-md-12 col-md-4" form action="/">
-                <label for="date_time">Choose date and time:</label>
-                <input type="date" id="date_time" name="date_time">
-                <input type="submit">
-              <br>
-              <br />
-              <div class="col-md-12 col-md-4">
-                <form runat="server">
-                  <input type='file' id="imgInp" />
-                  <img id="blah" src="#" alt="your image" />
-                </form>
-              </div>
-  </form>
-</div>
-</div>
-<button class="btn btn-success" type="submit" value="submit" style="margin-top: 5px;">Save</button>
-{{/event}}
 
-</div>
-</div>
-</div>
-</div>
-</div>
-</form>
-</div>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-    //    triggermessage("dark", "This is a test");
-
-  });
-
-  function deleteSection(Id) {
-    $.ajax({
-      type: 'post',
-      url: '/delete_section',
-      data: {
-        Id: Id
-      },
-      dataType: 'json'
-    }).done(function(data) {
-
-      if (data['status'] = true) {
-        triggermessage("success", data['message']);
-        $('#section-' + Id).remove();
-      } else {
-        triggermessage("danger", data['message']);
-      }
-    });
-  }
-
-  //to add images
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-        $('#blah').attr('src', e.target.result);
-      }
-
-      reader.readAsDataURL(input.files[0]); // convert to base64 string
-    }
+  function changeDate(){
+     $('#events_details').append('<input type="date" class="form-control" name="event_date" value="{{ event.event_date }}" />');
   }
 
   $("#imgInp").change(function() {

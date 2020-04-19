@@ -10,15 +10,14 @@ const connection = mysql.createConnection(sql);
 
 
 exports.get_requests = function(callback){
-	connection.query( 
-		'SELECT l.*, a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
-		function(err, headers, fields) {
+	connection.query(
+		'SELECT l.idlinen, l.house, l.room, l.guests, l.towels, l.washcloths, l.bathmats, l.twinsheets, l.queensheets, l.bluebag, l.pillowcases, l.isServed, l.phoneID, l.lastname,  DATE_FORMAT(l.date, "%M %d %Y") as date , a.Id, a.Name FROM linen as l, houses as a WHERE l.house = a.Id',
+		function(err, rows, fields) {
 			if(err){
 				console.log(err);
 				callback(false, null);
-			
 			}else{
-				callback(true, headers);
+				callback(true, rows);
 				//console.log(true, headers);
 			}
 		}

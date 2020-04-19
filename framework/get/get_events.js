@@ -5,7 +5,7 @@ const connection = mysql.createConnection(sql);
 
 
 exports.getEventData = function(Id, data){
-    var sql_run = "SELECT * FROM Events WHERE Id=" + Id;
+    var sql_run = "SELECT Id, house_Id, title, content,  DATE_FORMAT(event_date, '%M %d %Y') as event_date  FROM Events WHERE Id=" + Id;
     console.log(sql_run);
     	connection.query(
     		sql_run,
@@ -20,7 +20,7 @@ exports.getEventData = function(Id, data){
     	);
 }
 exports.getAllEvents = function(data){
-    var sql_run = "SELECT * FROM Events";
+    var sql_run = "SELECT Id, title,  DATE_FORMAT(event_date, '%M %d %Y') as event_date, DATE_FORMAT(last_modified, '%M %d %Y') as last_modified, modified_uid FROM Events";
     connection.query(
 		sql_run,
 		function(err, headers, fields) {

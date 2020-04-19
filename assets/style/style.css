@@ -6,6 +6,22 @@ Please Comment for organization purposes
 ***********************/
 
 
+/* Global Styles */
+
+.family_house_color_schema {
+	background-color: #565A5C !important;
+	color: #E2D478 !important;
+}
+
+.family_house_color_schema_reverse {
+	color: #565A5C !important;
+	background-color: #E2D478 !important;
+}
+
+/* End Global Styles */
+
+
+
 
 /* Nav Bar Styles */
 .navbar.navbar-expand-lg.navbar-dark.main {
@@ -30,6 +46,12 @@ body {
 .navbar-image{
 	height: 50px;
 	width: 100px;
+}
+
+
+.disabled-button{
+
+
 }
 
 /* This is a media query that will change the style for anything from ipad to lower screen sizes */

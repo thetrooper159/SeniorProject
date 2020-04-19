@@ -11,16 +11,15 @@
 
     </div>
     <div class="container">
-        <a class="btn btn-success" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#createEvent">Create Event</a>
+        <a class="btn family_house_color_schema" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#createEvent">Create Event</a>
         <table id="events_table" class="table display table-striped hoverable" style="margin-top: 20px;">
-          	<thead>
-      		<tr class="" style="color: black;">
+          	<thead class="family_house_color_schema">
+      		<tr class="" style="">
       			<th>Event Name</th>
       			<th>Event Date</th>
-                <th>Created</th>
-                <th>Modified</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Last Modified Date</th>
+                <th>Last Modified User</th>
+                <th data-orderable="false">Edit</th>
       	    </tr>
       	</thead>
       	<tbody>
@@ -28,10 +27,9 @@
             <tr>
                 <td>{{ title }}</td>
                 <td>{{ event_date }}</td>
-                <td>{{ created }}</td>
                 <td>{{ last_modified }}</td>
+                <td>{{ modified_uid }}</td>
                 <td><a href="/events/{{ Id }}"><i class="fas fa-edit"></i></a></td>
-                <td><a href="javascript:deleteSection('{{ Id }}')" class="btn btn-primary">Delete</a></td>
 
             </tr>
             {{/events}}
@@ -53,13 +51,20 @@
               </div>
               <div class="modal-body">
                  <div class="form-row">
-                    <div class="col-xs-12">
+                    <div class="col-sm-12">
                         <label for="name">Event Title</label>
                         <input type="text" name="name" class="form-control" />
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="col-sm-6 col-xs-12">
+                        <label for="date">Event Date</label>
+                        <input type="date" name="event_date" class="form-control" />
+                    </div>
+                </div>
               </div>
               <div class="modal-footer">
+                  <input type="hidden" name="user" value="{{ user }}" />
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" value="submit" class="btn btn-primary">Create</button>
               </div>

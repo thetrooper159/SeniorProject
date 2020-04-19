@@ -24,7 +24,6 @@ var validator = require('validator');
 
 
 
-
 /*Required Modules */
 var GLOBALS = require('./global_settings.js');
 var sql = require('./settings.js');
@@ -37,6 +36,8 @@ var GET_Events = require('./framework/get/get_events.js');
 var GET_Alerts = require('./framework/get/get_alerts.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
 var DELETE_Events = require('./framework/post/delete_events.js');
+var DELETE_Alerts = require('./framework/post/delete_alerts.js');
+var POST_Alerts = require('./framework/post/post_alert.js');
 
 var DELETE_Faq = require('./framework/post/delete_faq.js');
 
@@ -73,6 +74,7 @@ app.set('view engine', 'handlebars');
 
 
 
+
 /* Specific to express-handlebars that features agressive caching, This is extremely effective and should be kept off while working on application  */
 //app.enable('view cache');
 
@@ -85,6 +87,7 @@ app.locals.nav = GLOBALS.nav_items();
 /* Where we set the port for the app */
 app.set('port', process.env.PORT || 3000);
 
+
 function isAuthenticated(req, res, next) {
   if (req.session.username)
       return next();
@@ -92,6 +95,7 @@ function isAuthenticated(req, res, next) {
   // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
   res.redirect('/');
 }
+
 
 app.use(function(req, res, next){
   // all the stuff from the example
@@ -125,22 +129,50 @@ app.get('/home', isAuthenticated, function(req, res) {
 
 });
 
+app.get('/analytics', isAuthenticated, function(req, res) {
+    GET_Analytics.getFaqTotals(function(data){
+        res.render('analytics', {
+            general_hits  : data['general_hits'],
+            neville_hits  : data['neville_hits'],
+            all_houses_hits  : data['all_houses_hits'],
+            transportation_hits  : data['transportation_hits'],
+            shadyside_hits  : data['shadyside_hits'],
+            forfamilies_hits  : data['forfamilies_hits'],
+            university_hits  : data['university_hits']
+        });
+    });
+
+});
 
 /*****************
 Alerts Pages Routing
 ****************/
 app.get('/alerts', isAuthenticated, function(req, res) {
-
-
     GET_Alerts.getAllAlerts(function(alerts){
         res.render('Alerts/alerts', {
-            alerts  :  alerts['content']
+            alerts  :  alerts['content'],
+            user    : req.session.username
         });
 
     });
 
 });
 
+app.post('/delete_alert', function(req, res) {
+    /* DELETE_Faq*/
+    var Id = req.body.Id;
+    DELETE_Alerts.delete_alerts(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
+});
+
+
+/*
 app.get('/alerts/:Id', isAuthenticated, function(req, res) {
     var Id = req.params.Id;
     GET_Alerts.getAlertData(Id, function(data){
@@ -149,6 +181,25 @@ app.get('/alerts/:Id', isAuthenticated, function(req, res) {
             alert : data.content[0],
         });
     })
+
+});
+*/
+app.post('/create_alert', (req, res) => {
+    var title = req.body.title;
+    var house_Id = req.body.house;
+    var date = req.body.alert_date;
+    var alert_text = req.body.alert_text;
+    var user = req.body.uid;
+
+    POST_Alerts.createAlert(title, house_Id, date, alert_text, user, function(status, message, Id){
+        if(status == false){
+            res.redirect("alerts");
+        }else{
+            res.redirect("alerts");
+        }
+    });
+
+
 
 });
 
@@ -163,7 +214,8 @@ app.get('/events', isAuthenticated, function(req, res) {
     GET_Events.getAllEvents(function(events){
         //console.log(events['content']);
         res.render('Events/events', {
-            events  :  events['content']
+            events  :  events['content'],
+            user    : req.session.username
         });
 
     });
@@ -176,18 +228,58 @@ app.get('/events/:Id', isAuthenticated, function(req, res) {
         console.log(data.content[0]);
         res.render('Events/event-details', {
             event : data.content[0],
+            user    : req.session.username
         });
     })
 
 });
-/**********
-End Events
-**********/
+
+app.post('/save_event_details', (req, res) => {
+    var name = req.body.name;
+    var content = req.body.content;
+    var date = req.body.event_date;
+    if(req.body.event_date){
+        var date = req.body.event_date;
+    }else{
+        var date = null;
+    }
+    var user = req.body.user;
+    var house = req.body.house;
+    var Id =  req.body.Id;
+
+
+    console.log(event_date);
+    console.log(user);
+
+    if(date){
+        POST_Event.updateEventWithDate(name, house, content, user, Id, date, function(status, message, Id){
+            if(status == false){
+                res.redirect("events");
+            }else{
+                res.redirect("/events/" + Id);
+            }
+        })
+    }else{
+        POST_Event.updateEventwithoutDate(name, house, content, user, Id, function(status, message){
+            if(status == false){
+                req.session.event_details_failed = "Could No Save";
+                res.redirect("/events/" + Id);
+            }else{
+                req.session.event_details_success = "Could No Save";
+                res.redirect("/events/" + Id);
+            }
+        })
+    }
+
+});
+
 
 app.post('/create_event', (req, res) => {
     var name = req.body.name;
+    var date = req.body.event_date;
+    var user = req.body.user;
 
-    POST_Event.createEvent(name, function(status, message, Id){
+    POST_Event.createEvent(name, date, user, function(status, message, Id){
         if(status == false){
             res.redirect("events");
         }else{
@@ -195,6 +287,9 @@ app.post('/create_event', (req, res) => {
         }
     })
 });
+/**********
+End Events
+**********/
 app.post('/delete_events', function(req, res) {
     /* DELETE_Faq*/
     var Id = req.body.Id;
@@ -205,6 +300,23 @@ app.post('/delete_events', function(req, res) {
             res.json({ status: false, message: message });
         }
     });
+
+});
+
+app.post('/create_faq', function(req, res) {
+    var section = req.body.section;
+    var answer = req.body.answer;
+    var question = req.body.question;
+
+    POST_Faq.create_question(section, answer, question, function(status, message){
+        if(status == true){
+			req.session.success = message;
+			res.redirect('/faq');
+		}else{
+			req.session.error = message;
+            res.redirect('/faq');
+		}
+    })
 
 });
 
@@ -431,7 +543,7 @@ app.get('/login', function(req, res) {
   });
 });
 
-app.get('/register', function(req, res) {
+app.get('/register', isAuthenticated, function(req, res) {
   res.render('register', {
   });
 });
