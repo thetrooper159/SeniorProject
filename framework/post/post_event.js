@@ -4,29 +4,8 @@ var sql = require('../../settings.js');
 const connection = mysql.createConnection(sql);
 
 
-
-exports.updateEventWithDate = function(name, content, user, date, callback){
-    //Getting Data to format our date
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
-    if(dd<10)
-    {
-        dd='0'+dd;
-    }
-    if(mm<10)
-    {
-        mm='0'+mm;
-    }
-    //Setting date to the date format required fopr sql
-    today = yyyy+'-'+mm+'-'+dd;
-
-    var sql_run = "UPDATE Events SET ";
-
-}
-exports.updateEventwithoutDate = function(name, house, content, user, Id, callback){
-
+exports.save_details = function(name, content, house, Id, user, callback){
+    console.log(Id);
     //Getting Data to format our date
     var today = new Date();
     var dd = today.getDate();
@@ -44,7 +23,6 @@ exports.updateEventwithoutDate = function(name, house, content, user, Id, callba
     today = yyyy+'-'+mm+'-'+dd;
 
     var sql_run = "UPDATE Events SET house_Id=?, title=?, content=?, last_modified=?, modified_uid=? WHERE Id=?";
-
     connection.query(
 		sql_run,
         [house, name, content, today, user, Id],
@@ -59,8 +37,6 @@ exports.updateEventwithoutDate = function(name, house, content, user, Id, callba
 	);
 
 }
-
-
 
 exports.createEvent = function(name, date, user, callback){
 
