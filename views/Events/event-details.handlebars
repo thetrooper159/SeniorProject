@@ -1,39 +1,141 @@
 <style>
 
 </style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <div class="event_details_page">
-    <div class="container" style="text-align: center; margin-top: 20px;">
-        <form action="/save_event_details" method="POST" enctype="multipart/form-data"  id="events_details">
-            <input type="hidden" name="Id" value="{{ event.Id }}" />
-            <input  type="hidden" name="user" value="{{user}}" /> 
-            <button type="submit" value="submit" class="btn family_house_color_schema" style="float: right;">Save</button>
-            <h4 for="title">Event Title</h4> <br />
-            <input class="form-control" type="text" name="title" value="{{ event.title }}" /><br />
-            <h4>Event Content</h4><br />
-            <textarea style="min-height: 400px;" name="content" class="form-control" placeholder="Event Content">{{ event.content }}</textarea><br />
-            <h4>House</h4> <br />
-            <select class="custom-select mr-sm-2 form-control" name="house">
-               <option value="4" selected>All Houses</option>
-               <option value="1">Neville</option>
-               <option value="2">Shadyside</option>
-               <option value="3">University Place</option>
-           </select> <br />
-            <div class="col-sm-12"><h4>Current Event Date: {{ event.event_date }}</h4> <a href="javascript:changeDate()"><i>Click to Change</i></a></div><br />
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="container" style="text-align: center; margin-top: 20px;">
+                <form action="/save_event_details" method="POST"   id="events_details">
+                    <input type="hidden" name="Id" value="{{ event.Id }}" />
+                    <input  type="hidden" name="user" value="{{user}}" />
+                    <button type="submit" value="submit" class="btn family_house_color_schema" style="float: right;">Save</button>
+                    <h4 for="title">{{ event.title }}, {{ event.event_date }}</h4> <br />
+                    <input class="form-control" type="text" name="title" value="{{ event.title }}" /><br />
+                    <h4>Event Content</h4><br />
+                    <textarea style="min-height: 400px;" name="content" class="form-control" placeholder="Event Content">{{ event.content }}</textarea><br />
+                    <h4>House</h4> <br />
+                    <select class="custom-select mr-sm-2 form-control" name="house">
+                       <option value="4" selected>All Houses</option>
+                       <option value="1">Neville</option>
+                       <option value="2">Shadyside</option>
+                       <option value="3">University Place</option>
+                   </select> <br />
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
 
-        </form>
+            <div class="container" style="text-align: center; margin-top: 20px;">
+                <a class="btn family_house_color_schema" style="float: right; color: white;" data-toggle="modal" data-target="#createAlert">Create Alert</a>
+                <h4 style="text-align: center;"> Event Alerts</h4><br />
+                <table id="alerts_table" class="table display hoverable" style="margin-top: 20px;">
+                  	<thead class="family_house_color_schema">
+                  		<tr class="">
+                  			<th>Alert Title</th>
+                  			<th>Alert Date</th>
+                            <th>Created User</th>
+                            <th>Modified User</th>
+                            <th data-orderable="false">Remove</th>
+                  	</thead>
+                  	<tbody>
+                        {{#alerts}}
+                            <tr id="table_row_{{ Id }}">
+                                <td>{{ title }}</td>
+                                <td>{{ alert_date }}</td>
+                                <td>{{ created_uid }}</td>
+                                <td>{{ modified_uid }}</td>
+                                <td><a style="color: red;" href="javascript:remove_alert('{{ Id }}')"><i class="fas fa-trash-alt"></i></a></td>
+                            </tr>
+                        {{/alerts}}
+                  	</tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
+</div>
+
+<!--Modal For Creating an Event -->
+<div class="modal fade" id="createAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <form action="/create_alert_event" method="POST" id="createAlertForm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create Alert</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <div class="form-row">
+                <div class="col-sm-6 col-xs-12">
+                    <label for="title">Alert Title</label>
+                    <input type="text" name="title" class="form-control" placeholder="Alert Title" />
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label for="house">House</label>
+                    <select class="custom-select mr-sm-2 form-control" name="house">
+                       <option value="4" selected>All Houses</option>
+                       <option value="1">Neville</option>
+                       <option value="2">Shadyside</option>
+                       <option value="3">University Place</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-6 col-xs-12">
+                    <label for="date">Alert Date</label>
+                    <input type="datetime-local" name="alert_date" class="form-control" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12">
+                    <label for="alert_text">Alert Text</label>
+                    <textarea name="alert_text" class="form-control" placeholder="Alert Text"></textarea>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="uid" value="{{user}}" />
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="hidden" name="event_Id" value="{{ event.Id }}" />
+            <button type="submit" value="submit" class="btn family_house_color_schema">Create</button>
+          </div>
+        </div>
+    </form>
+  </div>
 </div>
 
 
 
 
 <script type="text/javascript">
-  function changeDate(){
-     $('#events_details').append('<input type="date" class="form-control" name="event_date" value="{{ event.event_date }}" />');
-  }
+    $(document).ready( function () {
+        $('#alerts_table').DataTable();
+    });
 
-  $("#imgInp").change(function() {
-    readURL(this);
-  });
+    function remove_alert(Id){
+        $.ajax({
+          type: 'post',
+          url: '/delete_even_alert',
+          data: {
+            Id: Id,
+          },
+          dataType: 'json'
+        }).done(function(data) {
+
+          if (data['status'] = true) {
+            triggermessage("success", data['message']);
+            $('#table_row_' + Id).remove();
+          } else {
+            triggermessage("danger", data['message']);
+          }
+        });
+    }
+
 </script>

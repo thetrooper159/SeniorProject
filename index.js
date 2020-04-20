@@ -38,10 +38,7 @@ var GET_Alerts = require('./framework/get/get_alerts.js');
 var GET_Analytics = require('./framework/get/get_analytics.js');
 var DELETE_Events = require('./framework/post/delete_events.js');
 var DELETE_Alerts = require('./framework/post/delete_alerts.js');
-
 var POST_Alerts = require('./framework/post/post_alert.js');
-
-
 var DELETE_Faq = require('./framework/post/delete_faq.js');
 
 
@@ -198,22 +195,27 @@ app.post('/create_alert', (req, res) => {
             res.redirect("alerts");
         }
     });
-
-
-
 });
 
-app.post('/create_alert', (req, res) => {
-    var name = req.body.name;
+app.post('/create_alert_event', (req, res) => {
+    var title = req.body.title;
+    var house_Id = req.body.house;
+    var date = req.body.alert_date;
+    var alert_text = req.body.alert_text;
+    var user = req.body.uid;
+    var event_Id = req.body.event_Id;
 
-    POST_Alerts.createAlert(name, function(status, message, Id){
+    POST_Alerts.createAlertEvent(title, house_Id, date, alert_text, user, event_Id, function(status, message, Id){
         if(status == false){
-            res.redirect("alerts");
+            res.redirect("/events/" + event_Id);
         }else{
-            res.redirect("/alerts/" + Id);
+            res.redirect("/events/" + event_Id);
         }
-    })
+    });
 });
+
+
+
 app.post('/delete_alerts', function(req, res) {
     /* DELETE_Faq*/
     var Id = req.body.Id;
@@ -226,6 +228,20 @@ app.post('/delete_alerts', function(req, res) {
     });
 
 });
+app.post('/delete_even_alert', function(req, res) {
+    /* DELETE_Faq*/
+    var Id = req.body.Id;
+    DELETE_Alerts.delete_alerts(Id, function(status, message){
+        if(status == true){
+            res.json({ status: true, message: message });
+		}else{
+            res.json({ status: false, message: message });
+        }
+    });
+
+});
+
+
 /**********
 End Alerts
 **********/
@@ -248,51 +264,42 @@ app.get('/events', isAuthenticated, function(req, res) {
 app.get('/events/:Id', isAuthenticated, function(req, res) {
     var Id = req.params.Id;
     GET_Events.getEventData(Id, function(data){
-        console.log(data.content[0]);
-        res.render('Events/event-details', {
-            event : data.content[0],
-            user    : req.session.username
+        GET_Events.getEventAlerts(Id, function(event_alerts){
+            console.log(event_alerts);
+            res.render('Events/event-details', {
+                event : data.content[0],
+                alerts : event_alerts.content,
+                user    : req.session.username,
+                success  : req.session.faq_update_success,
+                bad : req.session.faq_update_bad,
+            });
         });
+        console.log(data.content[0]);
+
     })
 
 });
 
 app.post('/save_event_details', (req, res) => {
-    var name = req.body.name;
+    var name = req.body.title;
     var content = req.body.content;
-    var date = req.body.event_date;
-    if(req.body.event_date){
-        var date = req.body.event_date;
-    }else{
-        var date = null;
-    }
-    var user = req.body.user;
     var house = req.body.house;
     var Id =  req.body.Id;
+    var user = req.body.user;
+    console.log(Id);
+
+    POST_Event.save_details(name, content, house, Id, user, function(status, message){
+        if(status == true){
+            res.redirect("/events/" + Id);
+            req.session.faq_update_success = message;
+        }else{
+            res.redirect("/events/" + Id);
+            req.session.faq_update_bad = message;
+
+        }
+    });
 
 
-    console.log(event_date);
-    console.log(user);
-
-    if(date){
-        POST_Event.updateEventWithDate(name, house, content, user, Id, date, function(status, message, Id){
-            if(status == false){
-                res.redirect("events");
-            }else{
-                res.redirect("/events/" + Id);
-            }
-        })
-    }else{
-        POST_Event.updateEventwithoutDate(name, house, content, user, Id, function(status, message){
-            if(status == false){
-                req.session.event_details_failed = "Could No Save";
-                res.redirect("/events/" + Id);
-            }else{
-                req.session.event_details_success = "Could No Save";
-                res.redirect("/events/" + Id);
-            }
-        })
-    }
 
 });
 

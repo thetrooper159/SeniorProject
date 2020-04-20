@@ -19,6 +19,25 @@ exports.getEventData = function(Id, data){
     		}
     	);
 }
+
+exports.getEventAlerts = function(Id, data){
+    var sql_run = "SELECT Id, house_Id, event_Id, title, alert_text, created_uid, modified_uid, DATE_FORMAT(alert_date, '%M %d %Y')  as alert_date  FROM Alerts WHERE event_Id=?";
+    connection.query(
+        sql_run,
+        [Id],
+        function(err, headers, fields) {
+            if(err){
+                console.log(err);
+                data({"content" : null });
+            }else{
+                data({ "content" : headers  });
+            }
+        }
+    );
+
+}
+
+
 exports.getAllEvents = function(data){
     var sql_run = "SELECT Id, title,  DATE_FORMAT(event_date, '%M %d %Y') as event_date, DATE_FORMAT(last_modified, '%M %d %Y') as last_modified, modified_uid FROM Events";
     connection.query(

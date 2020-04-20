@@ -20,22 +20,6 @@
                 <th>Modified User</th>
                 <th data-orderable="false">View</th>
                 <th data-orderable="false">Remove</th>
-
-
-    </div>
-    <div class="container">
-        <a class="btn btn-success" style="float: right; margin-bottom: 50px; color: white;" data-toggle="modal" data-target="#createAlert">Create Alert</a>
-        <table id="alerts_table" class="table display table-striped hoverable" style="margin-top: 20px;">
-      	<thead>
-      		<tr class="" style="color: black;">
-      			<th>Alert Title</th>
-      			<th>Event Date</th>
-                <th>Created</th>
-                <th>Modified</th>
-                <th>Edit</th>
-                <th>Delete</th>
-
-      	    </tr>
       	</thead>
       	<tbody>
             {{#alerts}}
@@ -95,10 +79,6 @@
                         <label for="alert_text">Alert Text</label>
                         <textarea name="alert_text" class="form-control" placeholder="Alert Text"></textarea>
                     </div>
-                    <div class="col-xs-12">
-                    <label for="name">Alert Date</label>
-                    <input type="text" name="name" class="form-control" />
-                </div>
                 </div>
               </div>
               <div class="modal-footer">
